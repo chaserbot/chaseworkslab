@@ -128,3 +128,4 @@ Placeholder for YAML config snippets once the dashboard tool is chosen. The serv
 - [ ] Decide: Homepage vs Glance vs Homarr — update dashboard config section
 - [ ] Add Nginx Proxy Manager reverse proxy URLs once running (e.g. `jellyfin.chaseworkslab.com`)
 - [ ] Add AdGuard Home IP once deployed
+- [ ] Update network backbone with correct Unifi router and switches
