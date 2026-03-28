@@ -16,7 +16,6 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | **LittlePeggy** — Pegasus 2 R8 | DAS storage (TB2 → MM1) | — | N/A (Thunderbolt) | — |
 | **BigPeggy** — Pegasus 3 R8 | DAS storage (TB3 → MM1) | — | N/A (Thunderbolt) | — |
 
-> ⚠️ CK10 is currently at `.33` but needs to be reassigned — `.33` may conflict with future Proxmox nodes. Update when resolved.
 
 ---
 
@@ -122,9 +121,7 @@ Placeholder for YAML config snippets once the dashboard tool is chosen. The serv
 
 - [ ] Confirm qBittorrent web UI port on MM1
 - [ ] Confirm Paperless-ngx port on MM1
-- [ ] Reassign CK10 IP off `.33` — update this doc when done
 - [ ] Add MM2 and MM3 to UniFi with fixed IPs once cluster is formed
-- [ ] Confirm LittlePeggy / BigPeggy volume names in Disk Utility on MM1
 - [ ] Decide: Homepage vs Glance vs Homarr — update dashboard config section
 - [ ] Add Nginx Proxy Manager reverse proxy URLs once running (e.g. `jellyfin.chaseworkslab.com`)
 - [ ] Add AdGuard Home IP once deployed
