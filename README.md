@@ -65,7 +65,6 @@ NFS exports from MM1:
 - `/Volumes/LittlePeggy` → `10.27.27.0/24`
 - `/Volumes/BigPeggy` → `10.27.27.0/24`
 
-> Volume names may differ — confirm in Disk Utility on MM1 after RAID config via Promise Utility.
 
 ---
 
