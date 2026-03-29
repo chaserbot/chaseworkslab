@@ -12,7 +12,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | **MM2** — Mac Mini #2 (A1347) | Proxmox Node 1 — pve1 | Proxmox VE | `10.27.27.101` | https://10.27.27.101:8006 |
 | **MM3** — Mac Mini #3 (A1347) | Proxmox Node 2 — pve2 | Proxmox VE | `10.27.27.102` | https://10.27.27.102:8006 |
 | **MM4** — Mac Mini #4 (A1347) | Proxmox Node 3 — pve3 | Proxmox VE | `10.27.27.103` | https://10.27.27.103:8006 |
-| **CK10** — Ace Magician CK10 | Jellyfin media server | — | `10.27.27.33` | — |
+| **CK10** — Ace Magician CK10 | Jellyfin media server | Windows | `10.27.27.33` | — |
 | **LittlePeggy** — Pegasus 2 R8 | DAS storage (TB2 → MM1) | — | N/A (Thunderbolt) | — |
 | **BigPeggy** — Pegasus 3 R8 | DAS storage (TB3 → MM1) | — | N/A (Thunderbolt) | — |
 
