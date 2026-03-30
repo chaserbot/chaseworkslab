@@ -15,6 +15,37 @@
 Each subfolder maps to what was previously a standalone GitHub repo.
 See README.md for the full folder-to-repo mapping.
 
+## Docker standards
+
+All services use Docker Compose — no standalone `docker run` commands. Each service stack:
+- Gets its own directory with a `docker-compose.yml` and `.env.example`
+- Secrets via `.env` files (gitignored); `.env.example` committed with placeholder values only
+- App config directories are gitignored — they contain API keys, tokens, and generated databases
+
+Standard `.gitignore` pattern for all Docker service folders:
+
+```gitignore
+# Credentials
+*.env
+.env*
+secrets/
+
+# App config dirs (contain API keys, tokens)
+*/config/
+config/
+
+# Generated databases
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+
+# Logs
+*.log
+logs/
+*/logs/
+```
+
 ## Working with secrets
 
 Use environment variables or `.env` files (gitignored) for all credentials.
