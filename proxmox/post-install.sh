@@ -2,7 +2,7 @@
 # =============================================================================
 # ChaseWorksLab — Proxmox VE Post-Install Script
 #
-# Repo: https://github.com/chaserbot/chaseworkslab-proxmox
+# Repo: https://github.com/chaserbot/chaseworkslab/proxmox
 # Path: post-install.sh (repo root — no subfolders)
 # Run:  bash post-install.sh
 #
