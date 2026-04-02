@@ -15,6 +15,10 @@
 Each subfolder maps to what was previously a standalone GitHub repo.
 See README.md for the full folder-to-repo mapping.
 
+## Agent routing
+
+Keep `AGENTS.md` short. For task-routing and model-selection guidance, see `AGENT_ROUTING.md`.
+
 ## Docker standards
 
 All services use Docker Compose — no standalone `docker run` commands. Each service stack:
