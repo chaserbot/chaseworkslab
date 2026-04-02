@@ -21,7 +21,11 @@ Check off items as they are completed. Move finished items to DECISIONS.md.
    - Register as Proxmox datacenter storage (mark as shared, set content types)
    - Recommended folder structure: `proxmox/` (images, backup, iso), `media/` (movies, tv, music), `containers/` (app data)
 
-## Track T2 — Pi-hole migration to Proxmox LXC (after T1)
+## Track T2 — Private service access via Pi-hole + Tailscale + reverse proxy (after T1)
+
+Goal: use stable names like `jellyfin.chaseworkslab.com` from home or anywhere in the world, but only over Tailscale (tailnet access first, then app login).
+
+### Phase 1 — revive DNS foundation
 
 1. Stand up Pi-hole LXC on Proxmox cluster (pve1 or pve2)
 2. Assign same IP `10.27.27.193` to new LXC (update DHCP reservation on Luxul router)
@@ -29,10 +33,56 @@ Check off items as they are completed. Move finished items to DECISIONS.md.
 4. Import config into new LXC instance
 5. Test DNS resolution from multiple clients before decommissioning UTM VM
 6. Shut down UTM VM on Mac Mini #1
-7. Configure `chaseworkslab.com` local DNS A records for each internal service via Pi-hole
-   - Example: `proxmox.chaseworkslab.com` → `10.27.27.31`
-   - Example: `jellyfin.chaseworkslab.com` → Ace Magician CK10 IP
-8. Deploy Tailscale (standalone or Proxmox LXC) for remote access
+
+### Phase 2 — create a dedicated private front door
+
+7. Create a dedicated reverse-proxy LXC (`edgeproxy` or similar) on the Proxmox cluster
+8. Install:
+   - Tailscale
+   - Caddy (preferred) or Nginx Proxy Manager
+9. Give the proxy LXC a stable LAN IP and join it to the tailnet
+10. Record both its LAN IP and Tailscale IP in repo docs
+
+### Phase 3 — private DNS and split DNS
+
+11. Configure Pi-hole local DNS records so service names point to the reverse proxy, not directly to each backend
+   - Example: `jellyfin.chaseworkslab.com` → proxy IP
+   - Example: `grafana.chaseworkslab.com` → proxy IP
+   - Example: `proxmox.chaseworkslab.com` → proxy IP
+   - Example: `sonarr.chaseworkslab.com` → proxy IP
+   - Example: `radarr.chaseworkslab.com` → proxy IP
+   - Example: `prowlarr.chaseworkslab.com` → proxy IP
+12. In Tailscale admin, configure DNS to use Pi-hole for private resolution
+13. Prefer split-DNS behavior for `chaseworkslab.com` so these names resolve correctly on the tailnet without exposing services publicly
+
+### Phase 4 — reverse proxy routing
+
+14. Configure hostname-based proxy routes:
+   - `jellyfin.chaseworkslab.com` → `http://<jellyfin-ip>:8096`
+   - `grafana.chaseworkslab.com` → `http://<grafana-ip>:3000`
+   - `proxmox.chaseworkslab.com` → `https://<pve-ip>:8006`
+   - `sonarr.chaseworkslab.com` → `http://<sonarr-ip>:8989`
+   - `radarr.chaseworkslab.com` → `http://<radarr-ip>:7878`
+   - `prowlarr.chaseworkslab.com` → `http://<prowlarr-ip>:9696`
+15. Test from:
+   - home LAN
+   - remote device on Tailscale
+   - remote device not on Tailscale (should fail or stay private)
+
+### Phase 5 — HTTPS cleanup
+
+16. Add wildcard or per-host certs for `*.chaseworkslab.com` via DNS challenge if supported by DNS provider
+17. Keep internal services non-public by default; avoid public port forwards unless there is a specific reason
+
+### Notes
+
+- DNS maps names to IPs, not ports; the reverse proxy handles backend port routing
+- Use the reverse proxy as the stable front door so backend services can move later without changing URLs
+- Security model: tailnet access first, then service authentication
+- Start by proving the model with three services:
+  - `jellyfin.chaseworkslab.com`
+  - `grafana.chaseworkslab.com`
+  - `proxmox.chaseworkslab.com`
 
 ## Track T3 — Commit Docker Compose files and migrate services (after T1)
 
