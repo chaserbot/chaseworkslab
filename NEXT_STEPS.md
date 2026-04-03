@@ -21,68 +21,86 @@ Check off items as they are completed. Move finished items to DECISIONS.md.
    - Register as Proxmox datacenter storage (mark as shared, set content types)
    - Recommended folder structure: `proxmox/` (images, backup, iso), `media/` (movies, tv, music), `containers/` (app data)
 
-## Track T2 — Private service access via Pi-hole + Tailscale + reverse proxy (after T1)
+## Track T2 — Core service platform on the Proxmox cluster (after T1)
 
-Goal: use stable names like `jellyfin.chaseworkslab.com` from home or anywhere in the world, but only over Tailscale (tailnet access first, then app login).
+Goal: use the three Proxmox nodes as the main service platform, with clear role separation and private access via Tailscale + DNS + reverse proxy.
 
-### Phase 1 — revive DNS foundation
+### Confirmed node roles
 
-1. Stand up Pi-hole LXC on Proxmox cluster (pve1 or pve2)
-2. Assign same IP `10.27.27.193` to new LXC (update DHCP reservation on Luxul router)
-3. Export Pi-hole config from UTM VM (blocklists, local DNS records, settings)
-4. Import config into new LXC instance
-5. Test DNS resolution from multiple clients before decommissioning UTM VM
-6. Shut down UTM VM on Mac Mini #1
+- **pve1** = front door / network core
+  - AdGuard Home or Pi-hole
+  - Nginx Proxy Manager
+  - dashboard homepage (Homepage/Glance/Homarr — choose one)
+- **pve2** = media-support app node
+  - Sonarr
+  - Radarr
+  - Prowlarr
+  - Overseerr
+  - Audiobookshelf
+  - Calibre-Web
+- **pve3** = ops / automation / document node
+  - Uptime Kuma
+  - Prometheus
+  - Grafana
+  - alerting
+  - n8n
+  - Paperless-ngx
+  - Portainer
 
-### Phase 2 — create a dedicated private front door
+### Phase 1 — establish the front door on pve1
 
-7. Create a dedicated reverse-proxy LXC (`edgeproxy` or similar) on the Proxmox cluster
-8. Install:
-   - Tailscale
-   - Caddy (preferred) or Nginx Proxy Manager
-9. Give the proxy LXC a stable LAN IP and join it to the tailnet
-10. Record both its LAN IP and Tailscale IP in repo docs
+1. Choose DNS stack: AdGuard Home or Pi-hole
+2. Choose dashboard: Homepage, Glance, or Homarr
+3. Deploy DNS LXC on pve1
+4. Deploy Nginx Proxy Manager LXC on pve1
+5. Deploy dashboard LXC on pve1
+6. Configure local DNS entries so service names point to the reverse proxy IP where appropriate
+7. Record service naming convention and proxy host mappings in repo docs
 
-### Phase 3 — private DNS and split DNS
+### Phase 2 — private DNS and Tailscale behavior
 
-11. Configure Pi-hole local DNS records so service names point to the reverse proxy, not directly to each backend
-   - Example: `jellyfin.chaseworkslab.com` → proxy IP
-   - Example: `grafana.chaseworkslab.com` → proxy IP
-   - Example: `proxmox.chaseworkslab.com` → proxy IP
-   - Example: `sonarr.chaseworkslab.com` → proxy IP
-   - Example: `radarr.chaseworkslab.com` → proxy IP
-   - Example: `prowlarr.chaseworkslab.com` → proxy IP
-12. In Tailscale admin, configure DNS to use Pi-hole for private resolution
-13. Prefer split-DNS behavior for `chaseworkslab.com` so these names resolve correctly on the tailnet without exposing services publicly
+8. Keep Tailscale as the private remote-access layer
+9. Configure DNS so service names under `chaseworkslab.com` resolve privately on LAN/tailnet
+10. Prefer split-DNS behavior for `chaseworkslab.com`
+11. Keep services non-public by default
 
-### Phase 4 — reverse proxy routing
+### Phase 3 — monitoring and visibility on pve3
 
-14. Configure hostname-based proxy routes:
-   - `jellyfin.chaseworkslab.com` → `http://<jellyfin-ip>:8096`
-   - `grafana.chaseworkslab.com` → `http://<grafana-ip>:3000`
-   - `proxmox.chaseworkslab.com` → `https://<pve-ip>:8006`
-   - `sonarr.chaseworkslab.com` → `http://<sonarr-ip>:8989`
-   - `radarr.chaseworkslab.com` → `http://<radarr-ip>:7878`
-   - `prowlarr.chaseworkslab.com` → `http://<prowlarr-ip>:9696`
-15. Test from:
-   - home LAN
-   - remote device on Tailscale
-   - remote device not on Tailscale (should fail or stay private)
+12. Deploy Uptime Kuma on pve3
+13. Deploy Prometheus on pve3
+14. Deploy Grafana on pve3
+15. Add basic node/service checks for MM1, pve1, pve2, pve3, and CK10
+16. Add basic alerts for service downtime and node reachability
 
-### Phase 5 — HTTPS cleanup
+### Phase 4 — application stack on pve2
 
-16. Add wildcard or per-host certs for `*.chaseworkslab.com` via DNS challenge if supported by DNS provider
-17. Keep internal services non-public by default; avoid public port forwards unless there is a specific reason
+17. Decide grouped Docker LXC vs separate LXCs for the arr stack
+18. Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2
+19. Deploy Audiobookshelf on pve2
+20. Deploy Calibre-Web on pve2
+21. Validate pathing to MM1 storage and qBittorrent integration
+
+### Phase 5 — automation and document tools on pve3
+
+22. Deploy n8n on pve3
+23. Deploy Paperless-ngx on pve3
+24. Deploy Portainer on pve3
+25. Validate OCR/import flow and backup/export methods for key services
+
+### Phase 6 — migrate nonessential services off MM1
+
+26. Move Pi-hole function to pve1
+27. Move Uptime Kuma to pve3
+28. Migrate arr stack off MM1 only after storage paths and qBittorrent integration are verified
+29. Keep MM1 focused on DAS/NFS/SMB + qBittorrent
 
 ### Notes
 
-- DNS maps names to IPs, not ports; the reverse proxy handles backend port routing
 - Use the reverse proxy as the stable front door so backend services can move later without changing URLs
 - Security model: tailnet access first, then service authentication
-- Start by proving the model with three services:
-  - `jellyfin.chaseworkslab.com`
-  - `grafana.chaseworkslab.com`
-  - `proxmox.chaseworkslab.com`
+- Do not overload pve1 with heavy or noisy workloads
+- Keep local LLM/OCR-heavy ambitions off the Mac mini cluster early; move them to the HP later
+- Do not chase fake HA complexity on this hardware; prioritize backups and clean recovery
 
 ## Track T3 — Commit Docker Compose files and migrate services (after T1)
 
