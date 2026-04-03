@@ -46,7 +46,7 @@ without requiring it to scan the full codebase from scratch:
 | NEXT_STEPS.md | Planned work, in-progress tasks, and ideas backlog |
 | DECISIONS.md | Architectural decision log |
 
-## Migrations
+## Migration
 
 This monorepo was created using `scripts/create-monorepo.sh` from
 [chaseworkslab-dotfiles](https://github.com/chaserbot/chaseworkslab-dotfiles).
