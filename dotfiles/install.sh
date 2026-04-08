@@ -82,10 +82,16 @@ if [[ "$OS" == "macos" ]]; then
   # Install eza
   if ! command -v eza &>/dev/null; then
     info "Installing eza..."
-    brew install eza
+  if brew install eza 2>/dev/null; then
+    success "eza installed."
+  else
+    warn "eza failed to install via Homebrew (likely unsupported Xcode version) — skipping."
+    warn "Install manually later: https://github.com/eza-community/eza/releases"
+  fi
   else
     info "eza already installed — skipping."
   fi
+
 
   # Oh My Zsh
   if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
