@@ -28,14 +28,14 @@ pct create ${CTID} ${TEMPLATE} \
 
 pct start ${CTID}
 echo "==> Waiting for LXC to boot..."
-sleep 5
+until pct exec ${CTID} -- systemctl is-system-running 2>/dev/null | grep -qE "running|degraded"; do sleep 1; done
 
 echo "==> Updating packages"
 pct exec ${CTID} -- bash -c "apt-get update -qq && apt-get upgrade -y -qq && apt-get install -y -qq curl"
 
 echo "==> Freeing port 53 (disabling systemd-resolved stub listener)"
 pct exec ${CTID} -- bash -c "
-  echo 'DNSStubListener=no' >> /etc/systemd/resolved.conf
+  sed -i 's/^#\?DNSStubListener=.*/DNSStubListener=no/' /etc/systemd/resolved.conf
   systemctl restart systemd-resolved
   echo 'nameserver 1.1.1.1' > /etc/resolv.conf
 "

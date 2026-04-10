@@ -30,7 +30,7 @@ pct create ${CTID} ${TEMPLATE} \
 
 pct start ${CTID}
 echo "==> Waiting for LXC to boot..."
-sleep 5
+until pct exec ${CTID} -- systemctl is-system-running 2>/dev/null | grep -qE "running|degraded"; do sleep 1; done
 
 echo "==> Updating packages"
 pct exec ${CTID} -- bash -c "apt-get update -qq && apt-get upgrade -y -qq"
@@ -49,12 +49,12 @@ pct exec ${CTID} -- bash -c "
 "
 
 echo "==> Cloning chaseworkslab repo"
-pct exec ${CTID} -- bash -c "git clone ${REPO} /opt/chaseworkslab"
+pct exec ${CTID} -- bash -c "[ ! -d /opt/chaseworkslab ] && git clone ${REPO} /opt/chaseworkslab || (cd /opt/chaseworkslab && git pull)"
 
 echo "==> Starting Nginx Proxy Manager"
 pct exec ${CTID} -- bash -c "
   cd /opt/chaseworkslab/docker/nginx-proxy-manager
-  cp .env.example .env
+  [ ! -f .env ] && cp .env.example .env
   docker compose up -d
 "
 
