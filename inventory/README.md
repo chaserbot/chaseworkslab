@@ -88,11 +88,12 @@ NFS exports from MM1:
 
 | Device | Role | IP |
 |---|---|---|
-| Luxul ABR-5000 | Router / gateway | — |
-| Ubiquiti USW PoE 8 Lite | Switch | — |
-| Archer AX1800 | Access point | — |
+| UniFi UX7 | Router / gateway | `10.27.27.1` |
+| USW Flex 2.5G 8-port PoE | Core switch (rack) | — |
+| USW Flex 2.5G Mini (4-port) | Desktop switch — MBP M3 Pro + 2017 MBP | — |
+| USW Lite 8-port PoE | Server switch — MM1, pve1–3, CK10 | — |
 | TP-Link EAP225 Outdoor | Outdoor access point | `10.27.27.6` |
-| Pi-hole | DNS (offline / legacy) | `10.27.27.193` |
+| Pi-hole (UTM VM) | DNS interim — to be replaced by AdGuard Home | `10.27.27.193` |
 
 Internal domain: `chaseworkslab.com`
 

@@ -131,7 +131,7 @@ to Proxmox LXC is planned (Track T2).
 ## 2026-03-26: Flat network on 10.27.27.0/24 with DHCP reservations
 
 **Decision:** All homelab devices on a single flat `10.27.27.0/24` subnet with static IPs
-managed via DHCP reservations on the Luxul ABR-5000.
+managed via DHCP reservations on the UniFi UX7.
 
 **Why:** Simple to manage for a home network at current scale. VLANs add complexity without
 clear benefit until the number of devices and security requirements justify it.

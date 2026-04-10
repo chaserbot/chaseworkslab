@@ -49,7 +49,7 @@ bash create-lxc.sh
 ## DNS cutover (after AdGuard Home is running)
 
 1. Complete the AdGuard Home setup wizard at `http://10.27.27.110:3000`
-2. Log into Luxul ABR-5000 → change DHCP DNS from `10.27.27.193` to `10.27.27.110`
+2. Log into UniFi UX7 → change DHCP DNS from `10.27.27.193` to `10.27.27.110`
 3. Verify: `nslookup google.com 10.27.27.110` from any client
 4. Shut down Pi-hole UTM VM on MM1
 
