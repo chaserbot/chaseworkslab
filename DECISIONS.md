@@ -12,6 +12,14 @@ Format:
 
 ---
 
+## 2026-04-10: Prefer local VS Code + GitHub over browser IDE inside the Docker VM
+
+**Decision:** Scrapped the `code-server` direction for the Docker VM and standardized on local VS Code as the primary editing environment, GitHub as the source of truth, and GitHub Codespaces as an optional remote fallback.
+
+**Why:** Running a browser IDE inside Docker inside a VM on Proxmox added unnecessary layers, permission friction, and operational clutter for this workflow. Local authoring plus Git-based deployment is simpler, easier to reason about, and better aligned with maintaining compose files, Ansible playbooks, scripts, and docs as durable infrastructure definitions.
+
+**Rollback:** `code-server` or another remote editor can be reintroduced later if there is a concrete need for browser-based editing from multiple machines, but it should justify the added complexity.
+
 ## 2026-04-03: Role-based split for homelab hardware
 
 **Decision:** Standardized the hardware roles as follows:

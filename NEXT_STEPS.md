@@ -7,6 +7,14 @@ Check off items as they are completed. Move finished items to DECISIONS.md.
 
 <!-- Tasks actively being worked on -->
 
+### Workspace and deployment workflow reset
+
+1. Consolidate active homelab authoring around the repo, not ad hoc editing on hosts
+2. Use local VS Code as the primary editor
+3. Use GitHub as the source of truth for docker compose files, Ansible playbooks, scripts, and docs
+4. Use GitHub Codespaces only as an optional remote fallback, not the default workflow
+5. Pull or deploy files to hosts intentionally as needed rather than building directly inside helper editors on the hosts
+
 ## Track T1 — Proxmox cluster formation (high priority)
 
 1. **Form the cluster**: Create cluster on pve1, join pve2 and pve3
@@ -104,7 +112,18 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 ## Track T3 — Commit Docker Compose files and migrate services (after T1)
 
+### Workflow note
+
+- Prefer authoring compose files and playbooks locally, committing them to this repo, and then deploying to hosts
+- Avoid adding extra browser-IDE layers on top of VM + Docker unless there is a very specific reason
+
 ### Step 1: Get compose files into git (do this first, before Proxmox migration)
+
+1. Establish a clean repo structure for homelab authoring, likely centered around top-level `ansible/`, `docker/`, `scripts/`, and `docs/`
+2. Treat this repo as the canonical home for deployment definitions and operational notes
+3. Keep real secrets out of git; use `.env.example` files for committed examples
+
+### Existing migration tasks
 
 1. SSH into Mac Mini #1, dump existing `docker-compose.yml` for each service
 2. Sanitize (strip secrets), add `.env.example` with placeholder values, commit to repo:

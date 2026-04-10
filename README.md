@@ -2,6 +2,8 @@
 
 Monorepo for all chaserbot homelab infrastructure, configs, and tooling.
 
+Current working direction: author infrastructure locally in VS Code, keep GitHub as the source of truth, and deploy intentionally to hosts rather than building directly on them.
+
 ## Structure
 
 | Folder | Source Repo | Description |
@@ -16,6 +18,13 @@ Monorepo for all chaserbot homelab infrastructure, configs, and tooling.
 | lxc/ | chaseworkslab-lxc | LXC container templates and configs for Proxmox |
 | inventory/ | chaseworkslab-inventory | Homelab network inventory — hosts, IPs, services, ports |
 | homelab-context/ | homelab-context | Homelab context and reference documentation |
+
+## Working style
+
+- Primary authoring happens locally, not in a browser IDE running on a homelab host
+- GitHub is the canonical home for compose files, Ansible playbooks, scripts, and docs
+- Hosts should pull or receive deployment artifacts intentionally, rather than being treated as the main editing environment
+- Git-tracked `.env.example` files are preferred over committing real secrets
 
 ## Git history
 
