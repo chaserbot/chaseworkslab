@@ -37,23 +37,26 @@ Update this file whenever a service is added, removed, or its port changes.
 ## Services and ports
 
 | Service | Folder | Port(s) | Host | Status | Notes |
-|---------|--------|---------|------|--------|-------|
-| Sonarr | arr/ | TBD | Mac Mini #1 (`10.27.27.22`) | Running | TV show automation |
-| Radarr | arr/ | TBD | Mac Mini #1 (`10.27.27.22`) | Running | Movie automation |
-| Prowlarr | arr/ | TBD | Mac Mini #1 (`10.27.27.22`) | Running | Indexer management for Sonarr/Radarr |
-| qBittorrent | arr/ | TBD | Mac Mini #1 (`10.27.27.22`) | Running | Torrent download client |
-| Overseerr | arr/ | TBD | Mac Mini #1 (`10.27.27.22`) | Running | User-facing media request UI |
-| Audiobookshelf | arr/ | TBD | Mac Mini #1 (`10.27.27.22`) | Running | Audiobook / podcast server |
-| Jellyfin | docker/ | TBD | Ace Magician CK10 | Running | Media server; not yet Dockerized; static IP TBD |
-| Uptime Kuma | docker/ | TBD | Mac Mini #1 (`10.27.27.22`) | Running | Uptime / health check monitoring |
-| Paperless-ngx | docker/ | TBD | Mac Mini #1 (`10.27.27.22`) | Running | Document management |
-| Pi-hole | lxc/ | 53 (DNS), 80 (admin UI) | `10.27.27.193` | Running | Ad blocking + local DNS; admin at `http://10.27.27.193/admin` |
+| ------- | ------ | ------- | ---- | ------ | ----- |
+| Sonarr | arr/ | `8989` | Mac Mini #1 (`10.27.27.22`) | Running | TV show automation; compose file not yet in git |
+| Radarr | arr/ | `7878` | Mac Mini #1 (`10.27.27.22`) | Running | Movie automation; compose file not yet in git |
+| Prowlarr | arr/ | `9696` | Mac Mini #1 (`10.27.27.22`) | Running | Indexer management; compose file not yet in git |
+| qBittorrent | arr/ | `8080` ⚠️ | Mac Mini #1 (`10.27.27.22`) | Running | Torrent client; port needs verification |
+| Overseerr | arr/ | `5055` | Mac Mini #1 (`10.27.27.22`) | Running | Media request UI; compose file not yet in git |
+| Audiobookshelf | arr/ | `13378` | Mac Mini #1 (`10.27.27.22`) | Running | Audiobook/podcast server; compose file not yet in git |
+| Jellyfin | docker/ | `8096` | Ace Magician CK10 (`10.27.27.33`) | Running | Media server; not yet Dockerized; HW transcoding unverified |
+| Uptime Kuma | docker/ | `3001` | Mac Mini #1 (`10.27.27.22`) | Running | Uptime monitoring; compose file not yet in git |
+| Paperless-ngx | docker/ | `8000` ⚠️ | Mac Mini #1 (`10.27.27.22`) | Running | Document management; port needs verification |
+| Pi-hole | — | `53`, `80` | `10.27.27.193` (UTM VM on MM1) | Running — being replaced | Interim DNS; replaced by AdGuard Home on pve1 |
+| **AdGuard Home** | lxc/pve1/ | `53`, `80`, `3000` (setup) | pve1 CT110 (`10.27.27.110`) | Ready to deploy | Native install via community script |
+| **Nginx Proxy Manager** | lxc/pve1/ | `80`, `443`, `81` (admin) | pve1 CT101 (`10.27.27.111`) | Ready to deploy | Native install via community script |
+| **Homepage** | lxc/pve1/ | `3000` | pve1 CT102 (`10.27.27.112`) | Ready to deploy | Native Node.js install via community script |
 | Open WebUI | llm/ | TBD | TBD | Not deployed | LLM chat frontend |
 | Ollama | llm/ | TBD | TBD | Not deployed | Local LLM inference backend |
-| n8n | llm/ | TBD | TBD | Not deployed | Automation / agent orchestration |
-| Grafana | monitoring/ | TBD | TBD | Not deployed | Dashboards |
-| Prometheus | monitoring/ | TBD | TBD | Not deployed | Metrics scraping and storage |
-| Node Exporter | monitoring/ | TBD | Each Proxmox node + Mac Mini | Not deployed | Per-host system metrics |
+| n8n | — | `5678` | pve3 (`10.27.27.133`) | Not deployed | Automation / agent orchestration |
+| Grafana | monitoring/ | `3000` | pve3 (`10.27.27.132`) | Not deployed | Dashboards |
+| Prometheus | monitoring/ | `9090` | pve3 (`10.27.27.131`) | Not deployed | Metrics scraping and storage |
+| Node Exporter | monitoring/ | `9100` | Each Proxmox node + MM1 | Not deployed | Per-host system metrics |
 
 ## Tools
 

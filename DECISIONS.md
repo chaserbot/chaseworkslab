@@ -12,6 +12,36 @@ Format:
 
 ---
 
+## 2026-04-10: Use community helper scripts instead of custom create-lxc.sh scripts
+
+**Decision:** Replaced all custom `create-lxc.sh` scripts for pve1 services with per-service READMEs that reference the [Proxmox VE community helper scripts](https://github.com/community-scripts/ProxmoxVE). The READMEs document the values to enter at the interactive prompts (CT ID, IP, gateway) and any post-deploy steps.
+
+**Why:** Custom scripts had to hardcode a Debian template version string that goes stale as upstream moves on. The community scripts always pull a current, valid template, handle the full install interactively, and are maintained by the community — so there is nothing to break on our end. The only advantage of a custom script (pre-set IP) is trivially replaced by a README that says "enter this IP when prompted."
+
+**Rollback:** N/A — READMEs are just documentation. If a custom script is ever needed for automation, it can be reintroduced.
+
+---
+
+## 2026-04-10: Separate LXCs for NPM and Homepage instead of shared Docker host
+
+**Decision:** Nginx Proxy Manager and Homepage each get their own dedicated LXC (CT101 at `10.27.27.111` and CT102 at `10.27.27.112` respectively), both native installs via community scripts. Dropped the earlier plan to run both inside a shared Docker host LXC.
+
+**Why:** The community scripts for both services are native (not Docker-based), so the Docker host LXC was unnecessary overhead. Separate LXCs are simpler to reason about, easier to update independently, and avoid the "just add Docker to an LXC" complexity for services that don't need it.
+
+**Rollback:** Either service can be moved to a Docker Compose stack inside a Docker LXC later if needed. No data is at risk.
+
+---
+
+## 2026-04-10: Chose NPM over Traefik as the reverse proxy
+
+**Decision:** Nginx Proxy Manager is the reverse proxy for `*.chaseworkslab.com`. Traefik was evaluated and rejected for this setup.
+
+**Why:** Traefik's primary advantage is Docker label-based auto-discovery — it shines when all your services are containers on the same Docker host. In this setup, services run in separate LXCs with static IPs. That removes Traefik's main benefit entirely, leaving only its higher config complexity. NPM's GUI is the right tradeoff for a homelab where services are addressed by IP and port.
+
+**Rollback:** Traefik can be reconsidered if the architecture shifts toward a single Docker Compose host running all services together.
+
+---
+
 ## 2026-04-10: Proxmox cluster formed on pve1/pve2/pve3
 
 **Decision:** Formed a 3-node Proxmox cluster (`chaseworkslab`) across pve1, pve2, and pve3. No HA configured. No production workloads running yet — cluster used for testing only at this stage.

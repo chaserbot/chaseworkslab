@@ -6,18 +6,17 @@ Current working direction: author infrastructure locally in VS Code, keep GitHub
 
 ## Structure
 
-| Folder | Source Repo | Description |
-|--------|-------------|-------------|
-| dotfiles/ | chaseworkslab-dotfiles | Terminal config — zsh, Oh My Zsh, Powerlevel10k, bash |
-| llm/ | chaseworkslab-llm | Self-hosted LLM stack (Ollama, Open WebUI, etc.) |
-| docker/ | chaseworkslab-docker | Docker Compose stacks for homelab services |
-| ansible/ | chaseworkslab-ansible | Ansible playbooks for provisioning and config management |
-| proxmox/ | chaseworkslab-proxmox | Proxmox host configuration, docs, and post-install scripts |
-| arr/ | chaseworkslab-arr | Arr stack configs and compose files (Sonarr, Radarr, Prowlarr, etc.) |
-| monitoring/ | chaseworkslab-monitoring | Grafana and Prometheus monitoring stack |
-| lxc/ | chaseworkslab-lxc | LXC container templates and configs for Proxmox |
-| inventory/ | chaseworkslab-inventory | Homelab network inventory — hosts, IPs, services, ports |
-| homelab-context/ | homelab-context | Homelab context and reference documentation |
+| Folder | Description |
+| ------ | ----------- |
+| dotfiles/ | Terminal config — zsh, Oh My Zsh, Powerlevel10k, bash |
+| llm/ | Self-hosted LLM stack (Ollama, Open WebUI, etc.) |
+| docker/ | Docker Compose stacks for homelab services |
+| ansible/ | Ansible playbooks for provisioning and config management |
+| proxmox/ | Proxmox host configuration, docs, and post-install scripts |
+| arr/ | Arr stack configs and compose files (Sonarr, Radarr, Prowlarr, etc.) |
+| monitoring/ | Grafana and Prometheus monitoring stack |
+| lxc/ | LXC provisioning READMEs for each service on the Proxmox cluster |
+| inventory/ | Homelab network inventory — hosts, IPs, services, ports |
 
 ## Working style
 
