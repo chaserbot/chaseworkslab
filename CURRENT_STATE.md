@@ -1,13 +1,13 @@
 # Current state
 
-Last updated: 2026-03-30
+Last updated: 2026-04-10
 
 Quick snapshot of what is running, what is stable, and any known issues.
 Update this after significant changes.
 
 ## Overall status
 
-**Yellow** — Core media services running and active on Mac Mini #1. Proxmox cluster nodes are post-install complete but not yet clustered. Several services running but not yet committed to git. LLM and monitoring stacks not yet deployed.
+**Yellow** — Core media services running and active on Mac Mini #1. Proxmox cluster formed (pve1/pve2/pve3 joined; no HA configured; no production workloads yet). Several services running but not yet committed to git. LLM and monitoring stacks not yet deployed.
 
 ## What is running
 
@@ -23,9 +23,9 @@ Update this after significant changes.
 | Uptime Kuma | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
 | Paperless-ngx | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
 | Pi-hole | Running | Mac Mini #1 UTM VM (`10.27.27.193`) | Handles DNS for all local devices; fragile — tied to macOS host, no HA |
-| pve1 | Post-install complete | `10.27.27.101` | Not yet joined to cluster |
-| pve2 | Post-install complete | `10.27.27.102` | Not yet joined to cluster |
-| pve3 | Post-install complete | `10.27.27.103` | Not yet joined to cluster |
+| pve1 | Clustered | `10.27.27.101` | Joined to cluster; no HA; no production workloads |
+| pve2 | Clustered | `10.27.27.102` | Joined to cluster; no HA; no production workloads |
+| pve3 | Clustered | `10.27.27.103` | Joined to cluster; no HA; no production workloads |
 | Ollama | Not deployed | — | Planned: Proxmox LXC or VM |
 | Open WebUI | Not deployed | — | Planned: same host as Ollama |
 | n8n | Not deployed | — | Planned: Proxmox LXC |
@@ -34,7 +34,7 @@ Update this after significant changes.
 
 ## Known issues
 
-- **Proxmox cluster not formed**: pve1/pve2/pve3 post-install complete but not yet clustered. No shared storage mounted. No LXCs running.
+- **Proxmox cluster formed but idle**: pve1/pve2/pve3 clustered; no HA configured; no LXCs running. NFS storage mounted from MM1 (`littlepeggy`, `bigpeggy`). Testing only so far.
 - **Pi-hole on UTM VM**: fragile — tied to Mac Mini #1 macOS host, no HA. Migration to Proxmox LXC is planned (Track T2).
 - **Docker Compose files not in git**: arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Overseerr, Audiobookshelf), Jellyfin, Uptime Kuma, Paperless-ngx all running but compose files not yet sanitized and committed.
 - **Jellyfin**: no static IP assigned, not Dockerized, media path to Pegasus DAS not confirmed, Intel Quick Sync hardware transcoding not verified.
@@ -49,5 +49,7 @@ Mac Mini #1 (`10.27.27.22`) running arr stack (Sonarr, Radarr, Prowlarr, qBittor
 
 ## Recent changes
 
+- 2026-04-10: pve1 front-door stack scaffolded — AdGuard Home (CT100), Nginx Proxy Manager (CT101), Homepage (CT102) compose files + create scripts committed; ready to deploy
+- 2026-04-10: Proxmox cluster formed — pve1/pve2/pve3 joined; no HA; NFS storage (LittlePeggy + BigPeggy) mounted on all nodes; no production workloads yet
 - 2026-03-30: Consolidated 10 standalone repos into monorepo; homelab-context merged into root docs (see DECISIONS.md)
 - 2026-03-26: homelab-context per-tool context files written for all services

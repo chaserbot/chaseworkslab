@@ -16,9 +16,10 @@ Personal homelab infrastructure — configs, scripts, and documentation. The goa
 | BigPeggy (Pegasus 3 R8) | DAS storage — Thunderbolt 3 to MM1 (capped at TB2) | — |
 | Ace Magician CK10 | Jellyfin (media server) | — |
 | Intel NUC5i5RYK x2 | Spare / Batocera gaming | — |
-| Luxul ABR-5000 | Router | — |
-| Ubiquiti USW PoE 8 Lite | Switch | — |
-| Archer AX1800 | Access point | — |
+| UniFi UX7 | Router / gateway | — |
+| USW Flex 2.5G 8-port PoE | Core switch (rack) | — |
+| USW Flex 2.5G Mini (4-port) | Desktop switch | — |
+| USW Lite 8-port PoE | Server switch (MM1, pve1–3, CK10) | — |
 | TP-Link EAP225 Outdoor | Outdoor access point | — |
 
 > LittlePeggy and BigPeggy are Thunderbolt daisy-chained to MM1. MM1 shares both over NFS to all Proxmox nodes. See `proxmox/storage-setup.md` for full details.

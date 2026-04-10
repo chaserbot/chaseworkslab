@@ -40,17 +40,33 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 > ⚠️ qBittorrent and Paperless-ngx ports need to be confirmed — common defaults listed, verify against actual config on MM1.
 
-### Planned (Moving to Proxmox)
+### Planned / In Progress (pve1 — front door)
 
-| Service | Target Host | Port | Notes |
+| Service | CT ID | IP | Port(s) | Notes |
+|---|---|---|---|---|
+| **AdGuard Home** | 100 | `10.27.27.110` | `53` (DNS), `80` (web UI), `3000` (setup wizard) | Native systemd install; replaces Pi-hole UTM VM |
+| **Nginx Proxy Manager** | 101 | `10.27.27.111` | `80`, `443`, `81` (admin) | Docker; shares CT101 (pve1-docker) with Homepage |
+| **Homepage** | 101 | `10.27.27.111` | `3000` | Docker; shares CT101 (pve1-docker) with NPM; proxied via NPM |
+
+### Planned (pve2 — media apps)
+
+| Service | Target IP | Port | Notes |
 |---|---|---|---|
-| **AdGuard Home** | Proxmox LXC | `53` / `80` | DNS + web UI |
-| **Nginx Proxy Manager** | Proxmox LXC | `80` / `443` | Reverse proxy for all services |
-| **n8n** | Proxmox LXC | `5678` | Automation |
-| **Grafana** | Proxmox LXC | `3000` | Monitoring dashboards |
-| **Prometheus** | Proxmox LXC | `9090` | Metrics scraper |
-| **Homepage / Glance / Homarr** | Proxmox LXC | `3000` / `5000` | Dashboard — TBD which tool |
-| **All MM1 services above** | Proxmox LXC/VM | — | Migrate off MM1 once cluster is stable |
+| **Sonarr** | `10.27.27.120` | `8989` | Moving from MM1 |
+| **Radarr** | `10.27.27.121` | `7878` | Moving from MM1 |
+| **Prowlarr** | `10.27.27.122` | `9696` | Moving from MM1 |
+| **Overseerr** | `10.27.27.123` | `5055` | Moving from MM1 |
+| **Audiobookshelf** | `10.27.27.124` | `13378` | Moving from MM1 |
+
+### Planned (pve3 — ops)
+
+| Service | Target IP | Port | Notes |
+|---|---|---|---|
+| **Uptime Kuma** | `10.27.27.130` | `3001` | Moving from MM1 |
+| **Prometheus** | `10.27.27.131` | `9090` | New deployment |
+| **Grafana** | `10.27.27.132` | `3000` | New deployment |
+| **n8n** | `10.27.27.133` | `5678` | New deployment |
+| **Paperless-ngx** | `10.27.27.134` | `8000` | Moving from MM1 |
 
 ---
 
@@ -72,11 +88,12 @@ NFS exports from MM1:
 
 | Device | Role | IP |
 |---|---|---|
-| Luxul ABR-5000 | Router / gateway | — |
-| Ubiquiti USW PoE 8 Lite | Switch | — |
-| Archer AX1800 | Access point | — |
+| UniFi UX7 | Router / gateway | `10.27.27.1` |
+| USW Flex 2.5G 8-port PoE | Core switch (rack) | — |
+| USW Flex 2.5G Mini (4-port) | Desktop switch — MBP M3 Pro + 2017 MBP | — |
+| USW Lite 8-port PoE | Server switch — MM1, pve1–3, CK10 | — |
 | TP-Link EAP225 Outdoor | Outdoor access point | `10.27.27.6` |
-| Pi-hole | DNS (offline / legacy) | `10.27.27.193` |
+| Pi-hole (UTM VM) | DNS interim — to be replaced by AdGuard Home | `10.27.27.193` |
 
 Internal domain: `chaseworkslab.com`
 

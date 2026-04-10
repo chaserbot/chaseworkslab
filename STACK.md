@@ -7,30 +7,31 @@ Update this file whenever a service is added, removed, or its port changes.
 
 | Component | Role | IP | Notes |
 |-----------|------|----|-------|
-| Luxul ABR-5000 | Router / gateway | 10.27.27.1 | DHCP server; DNS points all clients to Pi-hole |
-| Luxul switch | Layer 2 switching | 10.27.27.3 | |
-| Archer AX1800 | AP (indoor) | 10.27.27.5 | |
+| UniFi UX7 | Router / gateway | 10.27.27.1 | DHCP server; DNS points all clients to AdGuard Home (planned) |
+| USW Flex 2.5G 8-port PoE | Core switch (rack) | — | Uplinks to UX7; distributes to all other switches |
+| USW Flex 2.5G Mini (4-port) | Desktop switch | — | MacBook Pro M3 Pro + 2017 MacBook Pro |
+| USW Lite 8-port PoE | Server switch | — | MM1, pve1, pve2, pve3, CK10 |
 | TP-Link EAP225 Outdoor | AP (outdoor) | 10.27.27.6 | |
 | Lutron Caseta Hub | Smart home | 10.27.27.7 | |
-| MacBook Pro (M3) | Daily driver — company-issued | 10.27.27.11 | |
+| MacBook Pro (M3 Pro) | Daily driver — company-issued | 10.27.27.11 | |
+| MacBook Pro (2017) | Secondary / admin machine | — | Connected via USW Flex 2.5G Mini |
 | Mac Mini #1 (macOS, A1347) | Main server / NAS brain | 10.27.27.22 | Runs arr stack, Uptime Kuma, Paperless-ngx, Pi-hole UTM VM; Pegasus DAS attached via Thunderbolt |
 | Ace Magician CK10 | Jellyfin media server | 10.27.27.33 | i7-1081U, 16GB RAM |
 | ChaseWorksLab NAS | TrueNAS — future build | 10.27.27.27 | Not yet built |
-| Pi-hole (UTM VM) | DNS / ad blocking | 10.27.27.193 | Runs on Mac Mini #1; migration to Proxmox LXC planned (Track T2) |
-| pve1 (Mac Mini #2, A1347) | Proxmox Node 1 | 10.27.27.101 | Post-install complete; not yet clustered |
-| pve2 (Mac Mini #3, A1347) | Proxmox Node 2 | 10.27.27.102 | Post-install complete; not yet clustered |
-| pve3 (Mac Mini #4, A1347) | Proxmox Node 3 | 10.27.27.103 | Post-install complete; not yet clustered |
-| LittlePeggy (Pegasus 2 R8) | DAS / NFS storage | — | Thunderbolt 2, attached to Mac Mini #1; ~2,500 MB/s theoretical |
-| BigPeggy (Pegasus 3 R8) | DAS / NFS storage | — | Thunderbolt 3, daisy-chained to LittlePeggy |
+| Pi-hole (UTM VM) | DNS / ad blocking | 10.27.27.193 | Runs on Mac Mini #1; to be replaced by AdGuard Home on pve1 |
+| pve1 (Mac Mini #2, A1347) | Proxmox Node 1 | 10.27.27.101 | Clustered |
+| pve2 (Mac Mini #3, A1347) | Proxmox Node 2 | 10.27.27.102 | Clustered |
+| pve3 (Mac Mini #4, A1347) | Proxmox Node 3 | 10.27.27.103 | Clustered |
+| LittlePeggy (Pegasus 2 R8) | DAS / NFS storage | — | Thunderbolt 2, attached to Mac Mini #1; NFS-mounted on all Proxmox nodes |
+| BigPeggy (Pegasus 3 R8) | DAS / NFS storage | — | Thunderbolt 3, daisy-chained to LittlePeggy; NFS-mounted on all Proxmox nodes |
 | Tailscale | VPN / zero-trust networking | — | Not yet deployed; planned for remote access |
 
 ## Network
 
 - **Subnet**: `10.27.27.0/24`
-- **All devices**: static IPs via DHCP reservations on Luxul ABR-5000
-- **DNS**: Pi-hole at `10.27.27.193` (router pushes this to all DHCP clients)
-- **Domain**: `chaseworkslab.com` — owned; DNS not yet configured
-  - Plan: internal `.chaseworkslab.com` resolution via Pi-hole local DNS records (e.g., `proxmox.chaseworkslab.com` → `10.27.27.31`)
+- **All devices**: static IPs via DHCP reservations on UniFi UX7
+- **DNS**: Pi-hole at `10.27.27.193` (interim); migrating to AdGuard Home at `10.27.27.110` on pve1
+- **Domain**: `chaseworkslab.com` — owned; internal resolution planned via AdGuard Home + Nginx Proxy Manager
 - **VLANs**: none yet — flat network; segmentation deferred until Proxmox cluster is stable
 
 ## Services and ports

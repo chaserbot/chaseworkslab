@@ -17,17 +17,8 @@ Check off items as they are completed. Move finished items to DECISIONS.md.
 
 ## Track T1 — Proxmox cluster formation (high priority)
 
-1. **Form the cluster**: Create cluster on pve1, join pve2 and pve3
-   - `pvecm create chaseworkslab` on pve1
-   - `pvecm add 10.27.27.101` on pve2 and pve3
-   - Verify: `pvecm status`, `pvecm nodes`
-   - Re-enable HA services on all three nodes
-2. **Shared storage**: Expose Pegasus DAS from Mac Mini #1 via NFS; mount on all Proxmox nodes
-   - Configure RAID on LittlePeggy and BigPeggy via Promise Utility
-   - Enable NFS on Mac Mini #1 (`/etc/exports` with both volumes)
-   - Mount `/mnt/littlepeggy` and `/mnt/bigpeggy` on each Proxmox node
-   - Register as Proxmox datacenter storage (mark as shared, set content types)
-   - Recommended folder structure: `proxmox/` (images, backup, iso), `media/` (movies, tv, music), `containers/` (app data)
+1. ~~**Form the cluster**: Create cluster on pve1, join pve2 and pve3~~ ✓ Done 2026-04-10 — cluster formed; no HA configured; no production workloads yet
+2. ~~**Shared storage**: Expose Pegasus DAS from Mac Mini #1 via NFS; mount on all Proxmox nodes~~ ✓ Done 2026-04-10 — LittlePeggy and BigPeggy NFS-mounted on all nodes; Proxmox storage IDs `littlepeggy` and `bigpeggy`; see inventory/README.md for paths
 
 ## Track T2 — Core service platform on the Proxmox cluster (after T1)
 
@@ -57,13 +48,14 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 ### Phase 1 — establish the front door on pve1
 
-1. Choose DNS stack: AdGuard Home or Pi-hole
-2. Choose dashboard: Homepage, Glance, or Homarr
-3. Deploy DNS LXC on pve1
-4. Deploy Nginx Proxy Manager LXC on pve1
-5. Deploy dashboard LXC on pve1
-6. Configure local DNS entries so service names point to the reverse proxy IP where appropriate
-7. Record service naming convention and proxy host mappings in repo docs
+1. ~~Choose DNS stack: AdGuard Home or Pi-hole~~ ✓ AdGuard Home
+2. ~~Choose dashboard: Homepage, Glance, or Homarr~~ ✓ Homepage (may revisit Homarr later)
+3. Deploy AdGuard Home LXC on pve1 — `lxc/pve1/adguard-home/create-lxc.sh` (CT100, `10.27.27.110`)
+4. Deploy Nginx Proxy Manager LXC on pve1 — `lxc/pve1/nginx-proxy-manager/create-lxc.sh` (CT101, `10.27.27.111`)
+5. Deploy Homepage LXC on pve1 — `lxc/pve1/homepage/create-lxc.sh` (CT102, `10.27.27.112`)
+6. Configure AdGuard Home DNS rewrites for `*.chaseworkslab.com` → `10.27.27.111` (NPM)
+7. Update router DNS from `10.27.27.193` (Pi-hole UTM) to `10.27.27.110` (AdGuard Home)
+8. Add proxy hosts in NPM for each service; record mappings in inventory/README.md
 
 ### Phase 2 — private DNS and Tailscale behavior
 
