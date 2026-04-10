@@ -4,7 +4,7 @@
 # Run this script on pve1: bash create-lxc.sh
 set -euo pipefail
 
-CTID=100
+CTID=110
 HOSTNAME="adguard-home"
 IP="10.27.27.110"
 GW="10.27.27.1"
