@@ -8,7 +8,7 @@ install the runtime. Docker Compose service definitions live in `docker/`.
 
 ## Structure
 
-```
+```text
 lxc/
   pve1/
     adguard-home/   CT100 — native AdGuard Home install (no Docker)
@@ -20,7 +20,7 @@ lxc/
 ## Container IP scheme
 
 | Range | Node | Purpose |
-|-------|------|---------|
+| --- | --- | --- |
 | `10.27.27.110–119` | pve1 | Front door (DNS, proxy, dashboard) |
 | `10.27.27.120–129` | pve2 | Media apps |
 | `10.27.27.130–139` | pve3 | Ops / monitoring / automation |
