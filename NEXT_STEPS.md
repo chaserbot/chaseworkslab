@@ -50,49 +50,49 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 1. ~~Choose DNS stack: AdGuard Home or Pi-hole~~ ✓ AdGuard Home
 2. ~~Choose dashboard: Homepage, Glance, or Homarr~~ ✓ Homepage (may revisit Homarr later)
-3. Deploy AdGuard Home LXC on pve1 — `lxc/pve1/adguard-home/create-lxc.sh` (CT100, `10.27.27.110`)
-4. Deploy Nginx Proxy Manager LXC on pve1 — `lxc/pve1/nginx-proxy-manager/create-lxc.sh` (CT101, `10.27.27.111`)
-5. Deploy Homepage LXC on pve1 — `lxc/pve1/homepage/create-lxc.sh` (CT102, `10.27.27.112`)
+3. Deploy AdGuard Home LXC on pve1 — `lxc/pve1/adguard-home/create-lxc.sh` (CT110, `10.27.27.110`) — community script
+4. Deploy Nginx Proxy Manager LXC on pve1 — `lxc/pve1/nginx-proxy-manager/create-lxc.sh` (CT101, `10.27.27.111`) — community script
+5. Deploy Homepage LXC on pve1 — `lxc/pve1/homepage/create-lxc.sh` (CT102, `10.27.27.112`) — community script
 6. Configure AdGuard Home DNS rewrites for `*.chaseworkslab.com` → `10.27.27.111` (NPM)
 7. Update router DNS from `10.27.27.193` (Pi-hole UTM) to `10.27.27.110` (AdGuard Home)
 8. Add proxy hosts in NPM for each service; record mappings in inventory/README.md
 
 ### Phase 2 — private DNS and Tailscale behavior
 
-8. Keep Tailscale as the private remote-access layer
-9. Configure DNS so service names under `chaseworkslab.com` resolve privately on LAN/tailnet
-10. Prefer split-DNS behavior for `chaseworkslab.com`
-11. Keep services non-public by default
+1. Keep Tailscale as the private remote-access layer
+2. Configure DNS so service names under `chaseworkslab.com` resolve privately on LAN/tailnet
+3. Prefer split-DNS behavior for `chaseworkslab.com`
+4. Keep services non-public by default
 
 ### Phase 3 — monitoring and visibility on pve3
 
-12. Deploy Uptime Kuma on pve3
-13. Deploy Prometheus on pve3
-14. Deploy Grafana on pve3
-15. Add basic node/service checks for MM1, pve1, pve2, pve3, and CK10
-16. Add basic alerts for service downtime and node reachability
+1. Deploy Uptime Kuma on pve3
+2. Deploy Prometheus on pve3
+3. Deploy Grafana on pve3
+4. Add basic node/service checks for MM1, pve1, pve2, pve3, and CK10
+5. Add basic alerts for service downtime and node reachability
 
 ### Phase 4 — application stack on pve2
 
-17. Decide grouped Docker LXC vs separate LXCs for the arr stack
-18. Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2
-19. Deploy Audiobookshelf on pve2
-20. Deploy Calibre-Web on pve2
-21. Validate pathing to MM1 storage and qBittorrent integration
+1. Decide grouped Docker LXC vs separate LXCs for the arr stack
+2. Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2
+3. Deploy Audiobookshelf on pve2
+4. Deploy Calibre-Web on pve2
+5. Validate pathing to MM1 storage and qBittorrent integration
 
 ### Phase 5 — automation and document tools on pve3
 
-22. Deploy n8n on pve3
-23. Deploy Paperless-ngx on pve3
-24. Deploy Portainer on pve3
-25. Validate OCR/import flow and backup/export methods for key services
+1. Deploy n8n on pve3
+2. Deploy Paperless-ngx on pve3
+3. Deploy Portainer on pve3
+4. Validate OCR/import flow and backup/export methods for key services
 
 ### Phase 6 — migrate nonessential services off MM1
 
-26. Move Pi-hole function to pve1
-27. Move Uptime Kuma to pve3
-28. Migrate arr stack off MM1 only after storage paths and qBittorrent integration are verified
-29. Keep MM1 focused on DAS/NFS/SMB + qBittorrent
+1. Move Pi-hole function to pve1
+2. Move Uptime Kuma to pve3
+3. Migrate arr stack off MM1 only after storage paths and qBittorrent integration are verified
+4. Keep MM1 focused on DAS/NFS/SMB + qBittorrent
 
 ### Notes
 
@@ -174,6 +174,7 @@ may still reference the old file structure or standalone clone paths.
 Known example: the Proxmox post-install script broke previously due to
 assumed file paths that no longer matched reality. Each subfolder needs a
 pass to:
+
 - Update any hardcoded paths (e.g. `~/chaseworkslab-proxmox` → `~/chaseworkslab/proxmox`)
 - Update clone URLs if scripts reference the old per-repo GitHub URLs
 - Fix any relative path assumptions in shell scripts

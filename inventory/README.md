@@ -1,13 +1,13 @@
 # 📡 chaseworkslab — Network Inventory
 
-Private reference for all homelab hosts, services, and ports. Keep this updated as services move from MM1 to Proxmox. Eventually feeds into Homepage/Glance/Homarr dashboard config and Grafana/Prometheus scrape targets.
+Private reference for all homelab hosts, services, and ports. Keep this updated as services move from MM1 to Proxmox. Eventually feeds into Homepage and Grafana/Prometheus scrape targets.
 
 ---
 
 ## 🖥️ Hosts
 
 | Name | Role | OS | IP | Access |
-|---|---|---|---|---|
+| ---- | ---- | -- | -- | ------ |
 | **MM1** — Mac Mini #1 (A1347) | NAS Brain / DAS Host | macOS | `10.27.27.22` | SSH / local |
 | **MM2** — Mac Mini #2 (A1347) | Proxmox Node 1 — pve1 | Proxmox VE | `10.27.27.101` | https://10.27.27.101:8006 |
 | **MM3** — Mac Mini #3 (A1347) | Proxmox Node 2 — pve2 | Proxmox VE | `10.27.27.102` | https://10.27.27.102:8006 |
@@ -16,7 +16,6 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | **LittlePeggy** — Pegasus 2 R8 | DAS storage (TB2 → MM1) | — | N/A (Thunderbolt) | — |
 | **BigPeggy** — Pegasus 3 R8 | DAS storage (TB3 → MM1) | — | N/A (Thunderbolt) | — |
 
-
 ---
 
 ## 🔧 Services & Ports
@@ -24,7 +23,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 ### Currently Running
 
 | Service | Host | IP | Port | URL | Status |
-|---|---|---|---|---|---|
+| ------- | ---- | -- | ---- | --- | ------ |
 | **Proxmox UI** | MM2 (pve1) | `10.27.27.101` | `8006` | https://10.27.27.101:8006 | ✅ Active |
 | **Proxmox UI** | MM3 (pve2) | `10.27.27.102` | `8006` | https://10.27.27.102:8006 | ✅ Active |
 | **Proxmox UI** | MM4 (pve3) | `10.27.27.103` | `8006` | https://10.27.27.103:8006 | ✅ Active |
@@ -43,15 +42,15 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 ### Planned / In Progress (pve1 — front door)
 
 | Service | CT ID | IP | Port(s) | Notes |
-|---|---|---|---|---|
-| **AdGuard Home** | 100 | `10.27.27.110` | `53` (DNS), `80` (web UI), `3000` (setup wizard) | Native systemd install; replaces Pi-hole UTM VM |
-| **Nginx Proxy Manager** | 101 | `10.27.27.111` | `80`, `443`, `81` (admin) | Docker; shares CT101 (pve1-docker) with Homepage |
-| **Homepage** | 101 | `10.27.27.111` | `3000` | Docker; shares CT101 (pve1-docker) with NPM; proxied via NPM |
+| ------- | ----- | -- | ------- | ----- |
+| **AdGuard Home** | 110 | `10.27.27.110` | `53` (DNS), `80` (web UI), `3000` (setup wizard) | Native install via community script; replaces Pi-hole UTM VM |
+| **Nginx Proxy Manager** | 101 | `10.27.27.111` | `80`, `443`, `81` (admin) | Native install via community script |
+| **Homepage** | 102 | `10.27.27.112` | `3000` | Native Node.js install via community script; proxied via NPM |
 
 ### Planned (pve2 — media apps)
 
 | Service | Target IP | Port | Notes |
-|---|---|---|---|
+| ------- | --------- | ---- | ----- |
 | **Sonarr** | `10.27.27.120` | `8989` | Moving from MM1 |
 | **Radarr** | `10.27.27.121` | `7878` | Moving from MM1 |
 | **Prowlarr** | `10.27.27.122` | `9696` | Moving from MM1 |
@@ -61,7 +60,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 ### Planned (pve3 — ops)
 
 | Service | Target IP | Port | Notes |
-|---|---|---|---|
+| ------- | --------- | ---- | ----- |
 | **Uptime Kuma** | `10.27.27.130` | `3001` | Moving from MM1 |
 | **Prometheus** | `10.27.27.131` | `9090` | New deployment |
 | **Grafana** | `10.27.27.132` | `3000` | New deployment |
@@ -73,7 +72,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 ## 💾 Storage
 
 | Name | Type | Host | Mount (Proxmox nodes) | Proxmox Storage ID |
-|---|---|---|---|---|
+| ---- | ---- | ---- | --------------------- | ------------------ |
 | **LittlePeggy** | Promise Pegasus 2 R8 (TB2) | MM1 — `10.27.27.22` | `/mnt/littlepeggy` | `littlepeggy` |
 | **BigPeggy** | Promise Pegasus 3 R8 (TB3, capped at TB2) | MM1 — `10.27.27.22` | `/mnt/bigpeggy` | `bigpeggy` |
 
@@ -81,13 +80,12 @@ NFS exports from MM1:
 - `/Volumes/LittlePeggy` → `10.27.27.0/24`
 - `/Volumes/BigPeggy` → `10.27.27.0/24`
 
-
 ---
 
 ## 🌐 Network
 
 | Device | Role | IP |
-|---|---|---|
+| ------ | ---- | -- |
 | UniFi UX7 | Router / gateway | `10.27.27.1` |
 | USW Flex 2.5G 8-port PoE | Core switch (rack) | — |
 | USW Flex 2.5G Mini (4-port) | Desktop switch — MBP M3 Pro + 2017 MBP | — |
@@ -109,7 +107,7 @@ Node hostnames:
 When Prometheus is running, these are the targets to add. Ports listed are standard defaults — confirm each before deploying.
 
 | Target | Address | Exporter |
-|---|---|---|
+| ------ | ------- | -------- |
 | Proxmox pve1 | `10.27.27.101:9100` | node_exporter |
 | Proxmox pve2 | `10.27.27.102:9100` | node_exporter |
 | Proxmox pve3 | `10.27.27.103:9100` | node_exporter |
@@ -119,9 +117,9 @@ When Prometheus is running, these are the targets to add. Ports listed are stand
 
 ---
 
-## 🏠 Dashboard Config (Homepage / Glance / Homarr — TBD)
+## 🏠 Dashboard Config (Homepage)
 
-Placeholder for YAML config snippets once the dashboard tool is chosen. The service table above maps directly to the `href` and `ping` fields Homepage uses.
+Config files live inside the Homepage LXC at `/opt/homepage/config/`. The service table above maps directly to the `href` and `ping` fields Homepage uses.
 
 ```yaml
 # Example Homepage services.yaml snippet (not yet configured)
@@ -137,8 +135,5 @@ Placeholder for YAML config snippets once the dashboard tool is chosen. The serv
 
 - [ ] Confirm qBittorrent web UI port on MM1
 - [ ] Confirm Paperless-ngx port on MM1
-- [ ] Add MM2 and MM3 to UniFi with fixed IPs once cluster is formed
-- [ ] Decide: Homepage vs Glance vs Homarr — update dashboard config section
 - [ ] Add Nginx Proxy Manager reverse proxy URLs once running (e.g. `jellyfin.chaseworkslab.com`)
-- [ ] Add AdGuard Home IP once deployed
 - [ ] Update network backbone with correct Unifi router and switches
