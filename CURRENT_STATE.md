@@ -34,7 +34,7 @@ Update this after significant changes.
 
 ## Known issues
 
-- **Proxmox cluster formed but idle**: pve1/pve2/pve3 clustered; no HA configured; no shared storage mounted; no LXCs running. Testing only so far.
+- **Proxmox cluster formed but idle**: pve1/pve2/pve3 clustered; no HA configured; no LXCs running. NFS storage mounted from MM1 (`littlepeggy`, `bigpeggy`). Testing only so far.
 - **Pi-hole on UTM VM**: fragile — tied to Mac Mini #1 macOS host, no HA. Migration to Proxmox LXC is planned (Track T2).
 - **Docker Compose files not in git**: arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Overseerr, Audiobookshelf), Jellyfin, Uptime Kuma, Paperless-ngx all running but compose files not yet sanitized and committed.
 - **Jellyfin**: no static IP assigned, not Dockerized, media path to Pegasus DAS not confirmed, Intel Quick Sync hardware transcoding not verified.
@@ -49,6 +49,6 @@ Mac Mini #1 (`10.27.27.22`) running arr stack (Sonarr, Radarr, Prowlarr, qBittor
 
 ## Recent changes
 
-- 2026-04-10: Proxmox cluster formed — pve1/pve2/pve3 joined; no HA; no production workloads yet
+- 2026-04-10: Proxmox cluster formed — pve1/pve2/pve3 joined; no HA; NFS storage (LittlePeggy + BigPeggy) mounted on all nodes; no production workloads yet
 - 2026-03-30: Consolidated 10 standalone repos into monorepo; homelab-context merged into root docs (see DECISIONS.md)
 - 2026-03-26: homelab-context per-tool context files written for all services

@@ -18,12 +18,7 @@ Check off items as they are completed. Move finished items to DECISIONS.md.
 ## Track T1 — Proxmox cluster formation (high priority)
 
 1. ~~**Form the cluster**: Create cluster on pve1, join pve2 and pve3~~ ✓ Done 2026-04-10 — cluster formed; no HA configured; no production workloads yet
-2. **Shared storage**: Expose Pegasus DAS from Mac Mini #1 via NFS; mount on all Proxmox nodes
-   - Configure RAID on LittlePeggy and BigPeggy via Promise Utility
-   - Enable NFS on Mac Mini #1 (`/etc/exports` with both volumes)
-   - Mount `/mnt/littlepeggy` and `/mnt/bigpeggy` on each Proxmox node
-   - Register as Proxmox datacenter storage (mark as shared, set content types)
-   - Recommended folder structure: `proxmox/` (images, backup, iso), `media/` (movies, tv, music), `containers/` (app data)
+2. ~~**Shared storage**: Expose Pegasus DAS from Mac Mini #1 via NFS; mount on all Proxmox nodes~~ ✓ Done 2026-04-10 — LittlePeggy and BigPeggy NFS-mounted on all nodes; Proxmox storage IDs `littlepeggy` and `bigpeggy`; see inventory/README.md for paths
 
 ## Track T2 — Core service platform on the Proxmox cluster (after T1)
 
