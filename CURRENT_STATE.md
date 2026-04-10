@@ -49,6 +49,7 @@ Mac Mini #1 (`10.27.27.22`) running arr stack (Sonarr, Radarr, Prowlarr, qBittor
 
 ## Recent changes
 
+- 2026-04-10: pve1 front-door stack scaffolded — AdGuard Home (CT100), Nginx Proxy Manager (CT101), Homepage (CT102) compose files + create scripts committed; ready to deploy
 - 2026-04-10: Proxmox cluster formed — pve1/pve2/pve3 joined; no HA; NFS storage (LittlePeggy + BigPeggy) mounted on all nodes; no production workloads yet
 - 2026-03-30: Consolidated 10 standalone repos into monorepo; homelab-context merged into root docs (see DECISIONS.md)
 - 2026-03-26: homelab-context per-tool context files written for all services

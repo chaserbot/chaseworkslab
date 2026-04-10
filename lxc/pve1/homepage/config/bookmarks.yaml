@@ -1,0 +1,12 @@
+---
+- Lab:
+    - Router (Luxul ABR-5000):
+        - href: http://10.27.27.1
+    - chaseworkslab repo:
+        - href: https://github.com/chaserbot/chaseworkslab
+
+- External:
+    - Tailscale:
+        - href: https://login.tailscale.com/admin
+    - Cloudflare:
+        - href: https://dash.cloudflare.com

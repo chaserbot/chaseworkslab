@@ -1,0 +1,89 @@
+---
+# Source of truth for IPs and ports: inventory/README.md
+
+- Media:
+    - Jellyfin:
+        href: http://10.27.27.33:8096
+        description: Media server
+        icon: jellyfin.png
+        ping: http://10.27.27.33:8096
+
+    - Radarr:
+        href: http://10.27.27.22:7878
+        description: Movie management
+        icon: radarr.png
+        ping: http://10.27.27.22:7878
+
+    - Sonarr:
+        href: http://10.27.27.22:8989
+        description: TV show management
+        icon: sonarr.png
+        ping: http://10.27.27.22:8989
+
+    - Prowlarr:
+        href: http://10.27.27.22:9696
+        description: Indexer management
+        icon: prowlarr.png
+        ping: http://10.27.27.22:9696
+
+    - Overseerr:
+        href: http://10.27.27.22:5055
+        description: Media requests
+        icon: overseerr.png
+        ping: http://10.27.27.22:5055
+
+    - qBittorrent:
+        href: http://10.27.27.22:8080
+        description: Download client
+        icon: qbittorrent.png
+        ping: http://10.27.27.22:8080
+
+    - Audiobookshelf:
+        href: http://10.27.27.22:13378
+        description: Audiobooks & podcasts
+        icon: audiobookshelf.png
+        ping: http://10.27.27.22:13378
+
+- Infrastructure:
+    - Proxmox pve1:
+        href: https://10.27.27.101:8006
+        description: Proxmox Node 1 (MM2)
+        icon: proxmox.png
+        ping: https://10.27.27.101:8006
+
+    - Proxmox pve2:
+        href: https://10.27.27.102:8006
+        description: Proxmox Node 2 (MM3)
+        icon: proxmox.png
+        ping: https://10.27.27.102:8006
+
+    - Proxmox pve3:
+        href: https://10.27.27.103:8006
+        description: Proxmox Node 3 (MM4)
+        icon: proxmox.png
+        ping: https://10.27.27.103:8006
+
+    - AdGuard Home:
+        href: http://10.27.27.110
+        description: DNS & ad blocking
+        icon: adguard-home.png
+        ping: http://10.27.27.110
+
+    - Nginx Proxy Manager:
+        href: http://10.27.27.111:81
+        description: Reverse proxy
+        icon: nginx-proxy-manager.png
+        ping: http://10.27.27.111:81
+
+- Documents & Tools:
+    - Paperless-ngx:
+        href: http://10.27.27.22:8000
+        description: Document management
+        icon: paperless-ngx.png
+        ping: http://10.27.27.22:8000
+
+    - Uptime Kuma:
+        href: http://10.27.27.22:3001
+        description: Uptime monitoring
+        icon: uptime-kuma.png
+        ping: http://10.27.27.22:3001

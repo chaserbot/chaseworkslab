@@ -1,0 +1,15 @@
+services:
+  adguardhome:
+    image: adguard/adguardhome:latest
+    container_name: adguardhome
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./work:/opt/adguardhome/work
+      - ./conf:/opt/adguardhome/conf
+    cap_add:
+      - NET_ADMIN
+      - NET_BIND_SERVICE
+# network_mode: host is used so AdGuard Home can bind directly to port 53
+# and see real client IPs for per-client filtering and query logging.
+# Ports exposed: 53 (DNS), 80 (web UI after setup), 3000 (initial setup wizard).
