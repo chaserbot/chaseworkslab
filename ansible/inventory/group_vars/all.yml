@@ -1,0 +1,6 @@
+---
+# Variables applied to every host in the inventory.
+
+# Internal lab domain
+lab_domain: chaseworkslab.com
+lab_subnet: "10.27.27.0/24"

@@ -23,9 +23,9 @@ Update this after significant changes.
 | Uptime Kuma | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
 | Paperless-ngx | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
 | Pi-hole | Running | Mac Mini #1 UTM VM (`10.27.27.193`) | Handles DNS for all local devices; fragile — tied to macOS host, no HA |
-| pve1 | Post-install complete | `10.27.27.31` | Not yet joined to cluster |
-| pve2 | Post-install complete | `10.27.27.32` | Not yet joined to cluster |
-| pve3 | Post-install complete | `10.27.27.33` | Not yet joined to cluster |
+| pve1 | Post-install complete | `10.27.27.101` | Not yet joined to cluster |
+| pve2 | Post-install complete | `10.27.27.102` | Not yet joined to cluster |
+| pve3 | Post-install complete | `10.27.27.103` | Not yet joined to cluster |
 | Ollama | Not deployed | — | Planned: Proxmox LXC or VM |
 | Open WebUI | Not deployed | — | Planned: same host as Ollama |
 | n8n | Not deployed | — | Planned: Proxmox LXC |

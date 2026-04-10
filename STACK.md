@@ -14,12 +14,12 @@ Update this file whenever a service is added, removed, or its port changes.
 | Lutron Caseta Hub | Smart home | 10.27.27.7 | |
 | MacBook Pro (M3) | Daily driver — company-issued | 10.27.27.11 | |
 | Mac Mini #1 (macOS, A1347) | Main server / NAS brain | 10.27.27.22 | Runs arr stack, Uptime Kuma, Paperless-ngx, Pi-hole UTM VM; Pegasus DAS attached via Thunderbolt |
-| Ace Magician CK10 | Jellyfin media server | TBD | i7-1081U, 16GB RAM; static IP not yet assigned |
+| Ace Magician CK10 | Jellyfin media server | 10.27.27.33 | i7-1081U, 16GB RAM |
 | ChaseWorksLab NAS | TrueNAS — future build | 10.27.27.27 | Not yet built |
 | Pi-hole (UTM VM) | DNS / ad blocking | 10.27.27.193 | Runs on Mac Mini #1; migration to Proxmox LXC planned (Track T2) |
-| pve1 (Mac Mini #2, A1347) | Proxmox Node 1 | 10.27.27.31 | Post-install complete; not yet clustered |
-| pve2 (Mac Mini #3, A1347) | Proxmox Node 2 | 10.27.27.32 | Post-install complete; not yet clustered |
-| pve3 (Mac Mini #4, A1347) | Proxmox Node 3 | 10.27.27.33 | Post-install complete; not yet clustered |
+| pve1 (Mac Mini #2, A1347) | Proxmox Node 1 | 10.27.27.101 | Post-install complete; not yet clustered |
+| pve2 (Mac Mini #3, A1347) | Proxmox Node 2 | 10.27.27.102 | Post-install complete; not yet clustered |
+| pve3 (Mac Mini #4, A1347) | Proxmox Node 3 | 10.27.27.103 | Post-install complete; not yet clustered |
 | LittlePeggy (Pegasus 2 R8) | DAS / NFS storage | — | Thunderbolt 2, attached to Mac Mini #1; ~2,500 MB/s theoretical |
 | BigPeggy (Pegasus 3 R8) | DAS / NFS storage | — | Thunderbolt 3, daisy-chained to LittlePeggy |
 | Tailscale | VPN / zero-trust networking | — | Not yet deployed; planned for remote access |

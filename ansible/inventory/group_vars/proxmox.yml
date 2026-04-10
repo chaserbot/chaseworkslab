@@ -1,0 +1,16 @@
+---
+# Variables for all Proxmox nodes (pve1, pve2, pve3).
+# These are Debian-based; Proxmox post-install sets up root SSH access.
+
+ansible_user: root
+ansible_python_interpreter: /usr/bin/python3
+
+# NFS storage exported from MM1
+nfs_host: 10.27.27.22
+nfs_mounts:
+  - src: "{{ nfs_host }}:/Volumes/LittlePeggy"
+    path: /mnt/littlepeggy
+    proxmox_storage_id: littlepeggy
+  - src: "{{ nfs_host }}:/Volumes/BigPeggy"
+    path: /mnt/bigpeggy
+    proxmox_storage_id: bigpeggy
