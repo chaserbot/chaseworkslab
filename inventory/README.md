@@ -44,9 +44,9 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 | Service | CT ID | IP | Port(s) | Notes |
 |---|---|---|---|---|
-| **AdGuard Home** | 100 | `10.27.27.110` | `53` (DNS), `80` (web UI), `3000` (setup wizard) | DNS + ad blocking; replaces Pi-hole UTM VM |
-| **Nginx Proxy Manager** | 101 | `10.27.27.111` | `80`, `443`, `81` (admin) | Reverse proxy; admin at `http://10.27.27.111:81` |
-| **Homepage** | 102 | `10.27.27.112` | `3000` | Dashboard; proxied via NPM at `homepage.chaseworkslab.com` |
+| **AdGuard Home** | 100 | `10.27.27.110` | `53` (DNS), `80` (web UI), `3000` (setup wizard) | Native systemd install; replaces Pi-hole UTM VM |
+| **Nginx Proxy Manager** | 101 | `10.27.27.111` | `80`, `443`, `81` (admin) | Docker; shares CT101 (pve1-docker) with Homepage |
+| **Homepage** | 101 | `10.27.27.111` | `3000` | Docker; shares CT101 (pve1-docker) with NPM; proxied via NPM |
 
 ### Planned (pve2 — media apps)
 

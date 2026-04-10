@@ -1,57 +1,61 @@
 # pve1 LXC containers — front door / network core
 
-pve1 (`10.27.27.101`) hosts the services that everything else depends on:
-DNS, reverse proxy, and dashboard. Deploy these first, in order.
+pve1 (`10.27.27.101`) hosts the services that everything else depends on.
 
 ## Container summary
 
-| CT ID | Service | IP | Port(s) | Notes |
-|-------|---------|----|---------|----|
-| 100 | AdGuard Home | `10.27.27.110` | 53 (DNS), 80 (web UI) | DNS + ad blocking; replace Pi-hole UTM VM |
-| 101 | Nginx Proxy Manager | `10.27.27.111` | 80, 443, 81 (admin) | Reverse proxy for all services |
-| 102 | Homepage | `10.27.27.112` | 3000 | Dashboard |
+| CT ID | Name | IP | What runs inside |
+|-------|------|----|-----------------|
+| 100 | adguard-home | `10.27.27.110` | AdGuard Home — native systemd install |
+| 101 | pve1-docker | `10.27.27.111` | Nginx Proxy Manager + Homepage via Docker Compose |
+
+AdGuard Home runs natively (no Docker) — it's a single binary, designed for this.
+NPM and Homepage share one Docker host LXC to avoid installing Docker twice.
+
+Compose files live in `docker/` (the canonical home for all compose stacks):
+- `docker/nginx-proxy-manager/`
+- `docker/homepage/`
 
 ## Deploy order
 
-1. **AdGuard Home first** — once it's up, point your router DNS to `10.27.27.110` and retire the Pi-hole UTM VM
-2. **Nginx Proxy Manager second** — establishes the stable front door URL for all services
-3. **Homepage last** — depends on NPM being up to proxy `homepage.chaseworkslab.com`
+1. **AdGuard Home first** — get DNS stable before anything else
+2. **pve1-docker second** — NPM + Homepage come up together
 
 ## Prerequisites (run once on pve1)
 
-Download the Debian 12 template if you haven't already:
+Download the Debian 12 template if not already present:
 
 ```bash
 pveam update
 pveam download local debian-12-standard_12.7-1_amd64.tar.zst
 ```
 
-Verify it's there:
+Verify: `pveam list local`
 
-```bash
-pveam list local
-```
-
-## Deploying a container
-
-Clone the repo on pve1, then run the create script for each service:
+## Deploying
 
 ```bash
 git clone https://github.com/chaserbot/chaseworkslab.git ~/chaseworkslab
-cd ~/chaseworkslab/lxc/pve1/<service>
+
+# 1. AdGuard Home
+cd ~/chaseworkslab/lxc/pve1/adguard-home
+bash create-lxc.sh
+
+# 2. Docker host (NPM + Homepage)
+cd ~/chaseworkslab/lxc/pve1/docker
 bash create-lxc.sh
 ```
 
 ## DNS cutover (after AdGuard Home is running)
 
-1. Log into your Luxul ABR-5000
-2. Change the DNS server pushed to DHCP clients from `10.27.27.193` → `10.27.27.110`
-3. Verify with `nslookup google.com 10.27.27.110` from any client
-4. Once confirmed stable, you can shut down the Pi-hole UTM VM on MM1
+1. Complete the AdGuard Home setup wizard at `http://10.27.27.110:3000`
+2. Log into Luxul ABR-5000 → change DHCP DNS from `10.27.27.193` to `10.27.27.110`
+3. Verify: `nslookup google.com 10.27.27.110` from any client
+4. Shut down Pi-hole UTM VM on MM1
 
-## Post-NPM: DNS rewrites to configure in AdGuard Home
+## DNS rewrites to add in AdGuard Home
 
-Add these under AdGuard Home → Filters → DNS rewrites:
+Settings → Filters → DNS rewrites:
 
 | Domain | Answer |
 |--------|--------|
@@ -61,5 +65,5 @@ Add these under AdGuard Home → Filters → DNS rewrites:
 | `adguard.chaseworkslab.com` | `10.27.27.110` |
 | `*.chaseworkslab.com` | `10.27.27.111` |
 
-The wildcard `*.chaseworkslab.com → 10.27.27.111` means NPM handles all routing.
+The wildcard `*.chaseworkslab.com → 10.27.27.111` routes everything through NPM.
 Add each service as a proxy host in NPM pointing to its backend IP:port.
