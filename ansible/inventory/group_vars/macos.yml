@@ -2,7 +2,7 @@
 # Variables for macOS hosts (mm1).
 # MM1 is the Ansible control node and Docker/NAS host.
 
-ansible_user: ccook          # update if your macOS username differs
+ansible_user: admin
 ansible_python_interpreter: /usr/bin/python3
 
 # Pegasus DAS volumes (Thunderbolt-attached, exported via NFS to Proxmox nodes)
