@@ -35,7 +35,7 @@ pct exec ${CTID} -- bash -c "apt-get update -qq && apt-get upgrade -y -qq && apt
 
 echo "==> Freeing port 53 (disabling systemd-resolved stub listener)"
 pct exec ${CTID} -- bash -c "
-  sed -i 's/^#\?DNSStubListener=.*/DNSStubListener=no/' /etc/systemd/resolved.conf
+  sed -i '/^#\?DNSStubListener=/d' /etc/systemd/resolved.conf && echo 'DNSStubListener=no' >> /etc/systemd/resolved.conf
   systemctl restart systemd-resolved
   echo 'nameserver 1.1.1.1' > /etc/resolv.conf
 "
