@@ -28,7 +28,7 @@ pct create ${CTID} ${TEMPLATE} \
 
 pct start ${CTID}
 echo "==> Waiting for LXC to boot..."
-for i in {1..60}; do pct exec ${CTID} -- systemctl is-system-running 2>/dev/null | grep -qE "running|degraded" && break || sleep 1; [ $i -eq 60 ] && { echo "==> Timeout waiting for LXC to boot"; exit 1; }; done
+until [ "${RETRIES:-0}" -ge 60 ] || pct exec ${CTID} -- systemctl is-system-running 2>/dev/null | grep -qE "running|degraded"; do sleep 1; RETRIES=$((RETRIES + 1)); done; [ "${RETRIES:-0}" -lt 60 ] || { echo "==> Timeout waiting for LXC to boot"; exit 1; }
 
 echo "==> Updating packages"
 pct exec ${CTID} -- bash -c "apt-get update -qq && apt-get upgrade -y -qq && apt-get install -y -qq curl"
