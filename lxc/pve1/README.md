@@ -20,23 +20,11 @@ All containers are deployed using the [community helper scripts](https://github.
 
 ## Deploying
 
-Run each script on pve1. The community script will prompt for IP, CT ID, and resources.
+Each service has its own README with the exact command to run and the values to enter when prompted. See:
 
-```bash
-git clone https://github.com/chaserbot/chaseworkslab.git ~/chaseworkslab
-
-# 1. AdGuard Home — use IP 10.27.27.110, CT ID 110
-cd ~/chaseworkslab/lxc/pve1/adguard-home
-bash create-lxc.sh
-
-# 2. Nginx Proxy Manager — use IP 10.27.27.111, CT ID 101
-cd ~/chaseworkslab/lxc/pve1/nginx-proxy-manager
-bash create-lxc.sh
-
-# 3. Homepage — use IP 10.27.27.112, CT ID 102
-cd ~/chaseworkslab/lxc/pve1/homepage
-bash create-lxc.sh
-```
+- [adguard-home/README.md](adguard-home/README.md)
+- [nginx-proxy-manager/README.md](nginx-proxy-manager/README.md)
+- [homepage/README.md](homepage/README.md)
 
 ## DNS cutover (after AdGuard Home is running)
 

@@ -50,9 +50,9 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 1. ~~Choose DNS stack: AdGuard Home or Pi-hole~~ ✓ AdGuard Home
 2. ~~Choose dashboard: Homepage, Glance, or Homarr~~ ✓ Homepage (may revisit Homarr later)
-3. Deploy AdGuard Home LXC on pve1 — `lxc/pve1/adguard-home/create-lxc.sh` (CT110, `10.27.27.110`) — community script
-4. Deploy Nginx Proxy Manager LXC on pve1 — `lxc/pve1/nginx-proxy-manager/create-lxc.sh` (CT101, `10.27.27.111`) — community script
-5. Deploy Homepage LXC on pve1 — `lxc/pve1/homepage/create-lxc.sh` (CT102, `10.27.27.112`) — community script
+3. Deploy AdGuard Home LXC on pve1 — see `lxc/pve1/adguard-home/README.md` (CT110, `10.27.27.110`)
+4. Deploy Nginx Proxy Manager LXC on pve1 — see `lxc/pve1/nginx-proxy-manager/README.md` (CT101, `10.27.27.111`)
+5. Deploy Homepage LXC on pve1 — see `lxc/pve1/homepage/README.md` (CT102, `10.27.27.112`)
 6. Configure AdGuard Home DNS rewrites for `*.chaseworkslab.com` → `10.27.27.111` (NPM)
 7. Update router DNS from `10.27.27.193` (Pi-hole UTM) to `10.27.27.110` (AdGuard Home)
 8. Add proxy hosts in NPM for each service; record mappings in inventory/README.md
