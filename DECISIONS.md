@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-04-10: Proxmox cluster formed on pve1/pve2/pve3
+
+**Decision:** Formed a 3-node Proxmox cluster (`chaseworkslab`) across pve1, pve2, and pve3. No HA configured. No production workloads running yet — cluster used for testing only at this stage.
+
+**Why:** Cluster formation is T1 prerequisite for deploying LXCs, shared storage, and all downstream service work (T2–T5). HA deferred intentionally — hardware is modest 2014 Mac minis and the goal is practical resilience via backups, not enterprise HA complexity.
+
+**Rollback:** Each node can be evicted from the cluster (`pvecm delnode <name>`) and operated standalone. No data loss risk at this stage since nothing production is running.
+
+---
+
 ## 2026-04-10: Prefer local VS Code + GitHub over browser IDE inside the Docker VM
 
 **Decision:** Scrapped the `code-server` direction for the Docker VM and standardized on local VS Code as the primary editing environment, GitHub as the source of truth, and GitHub Codespaces as an optional remote fallback.

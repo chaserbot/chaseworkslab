@@ -17,11 +17,7 @@ Check off items as they are completed. Move finished items to DECISIONS.md.
 
 ## Track T1 — Proxmox cluster formation (high priority)
 
-1. **Form the cluster**: Create cluster on pve1, join pve2 and pve3
-   - `pvecm create chaseworkslab` on pve1
-   - `pvecm add 10.27.27.101` on pve2 and pve3
-   - Verify: `pvecm status`, `pvecm nodes`
-   - Re-enable HA services on all three nodes
+1. ~~**Form the cluster**: Create cluster on pve1, join pve2 and pve3~~ ✓ Done 2026-04-10 — cluster formed; no HA configured; no production workloads yet
 2. **Shared storage**: Expose Pegasus DAS from Mac Mini #1 via NFS; mount on all Proxmox nodes
    - Configure RAID on LittlePeggy and BigPeggy via Promise Utility
    - Enable NFS on Mac Mini #1 (`/etc/exports` with both volumes)
