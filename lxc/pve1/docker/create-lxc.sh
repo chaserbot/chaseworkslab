@@ -49,7 +49,7 @@ pct exec ${CTID} -- bash -c "
 "
 
 echo "==> Cloning chaseworkslab repo"
-pct exec ${CTID} -- bash -c "[ ! -d /opt/chaseworkslab ] && git clone ${REPO} /opt/chaseworkslab || (cd /opt/chaseworkslab && git pull)"
+pct exec ${CTID} -- bash -c "if [ ! -d /opt/chaseworkslab ]; then git clone ${REPO} /opt/chaseworkslab; else git -C /opt/chaseworkslab pull; fi"
 
 echo "==> Starting Nginx Proxy Manager"
 pct exec ${CTID} -- bash -c "
