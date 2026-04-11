@@ -39,7 +39,84 @@
         href: http://10.27.27.33:8096
         description: Media server — CK10
         icon: jellyfin.png
-        ping: 10.27.27.33
+    - pve1:
+        href: https://10.27.27.101:8006
+        description: Proxmox Node 1 — MM2
+        icon: proxmox.png
+        ping: https://10.27.27.101:8006
+    - pve2:
+        href: https://10.27.27.102:8006
+        description: Proxmox Node 2 — MM3
+        icon: proxmox.png
+        ping: https://10.27.27.102:8006
+    - pve3:
+        href: https://10.27.27.103:8006
+        description: Proxmox Node 3 — MM4
+        icon: proxmox.png
+        ping: https://10.27.27.103:8006
+    - AdGuard Home:
+        href: http://10.27.27.110
+        description: DNS and ad blocking — pve1 CT110
+        icon: adguard-home.png
+        ping: http://10.27.27.110
+    - Nginx Proxy Manager:
+        href: http://10.27.27.111:81
+        description: Reverse proxy admin — pve1 CT101
+        icon: nginx-proxy-manager.png
+        ping: http://10.27.27.111:81
+
+- Media:
+    - Jellyfin:
+        href: http://10.27.27.33:8096
+        description: Media server — CK10
+        icon: jellyfin.png
+        ping: http://10.27.27.33:8096
+    - Audiobookshelf:
+        href: http://10.27.27.22:13378
+        description: Audiobooks and podcasts — MM1
+        icon: audiobookshelf.png
+        ping: http://10.27.27.22:13378
+
+- Arr Stack:
+    - Overseerr:
+        href: http://10.27.27.22:5055
+        description: Media requests — MM1
+        icon: overseerr.png
+        ping: http://10.27.27.22:5055
+    - Sonarr:
+        href: http://10.27.27.22:8989
+        description: TV show automation — MM1
+        icon: sonarr.png
+        ping: http://10.27.27.22:8989
+    - Radarr:
+        href: http://10.27.27.22:7878
+        description: Movie automation — MM1
+        icon: radarr.png
+        ping: http://10.27.27.22:7878
+    - Prowlarr:
+        href: http://10.27.27.22:9696
+        description: Indexer management — MM1
+        icon: prowlarr.png
+        ping: http://10.27.27.22:9696
+    - qBittorrent:
+        href: http://10.27.27.22:8080
+        description: Torrent client — MM1 (⚠️ verify port)
+        icon: qbittorrent.png
+        ping: http://10.27.27.22:8080
+
+- Documents:
+    - Paperless-ngx:
+        href: http://10.27.27.22:8000
+        description: Document management — MM1 (⚠️ verify port)
+        icon: paperless-ngx.png
+        ping: http://10.27.27.22:8000
+
+- Monitoring:
+    - Uptime Kuma:
+        href: http://10.27.27.22:3001
+        description: Service uptime monitoring — MM1
+        icon: uptime-kuma.png
+        ping: http://10.27.27.22:3001
     - Audiobookshelf:
         href: http://10.27.27.22:13378
         description: Audiobooks and podcasts — MM1
