@@ -1,0 +1,31 @@
+---
+# Homepage settings.yaml
+# Copy to /opt/homepage/config/settings.yaml on the Homepage LXC (CT102, 10.27.27.112)
+
+title: ChaseWorksLab
+language: en
+theme: dark
+color: slate
+headerStyle: clean
+target: _blank
+
+# Show the Homepage version in the footer
+showStats: true
+
+# Layout controls column width and row grouping per service group
+layout:
+  Infrastructure:
+    style: row
+    columns: 3
+  Media:
+    style: row
+    columns: 2
+  Arr Stack:
+    style: row
+    columns: 5
+  Documents:
+    style: row
+    columns: 1
+  Monitoring:
+    style: row
+    columns: 1

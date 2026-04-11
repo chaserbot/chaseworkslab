@@ -1,0 +1,25 @@
+---
+# Homepage bookmarks.yaml
+# Copy to /opt/homepage/config/bookmarks.yaml on the Homepage LXC (CT102, 10.27.27.112)
+
+- Admin:
+    - Proxmox Cluster (pve1):
+        - abbr: PV
+          href: https://10.27.27.101:8006
+    - UniFi Console:
+        - abbr: UF
+          href: https://10.27.27.1
+    - AdGuard Home:
+        - abbr: AG
+          href: http://10.27.27.110
+    - NPM Admin:
+        - abbr: NP
+          href: http://10.27.27.111:81
+
+- Source:
+    - chaseworkslab repo:
+        - abbr: CW
+          href: https://github.com/chaserbot/chaseworkslab
+    - ff-assistant repo:
+        - abbr: FF
+          href: https://github.com/chaserbot/ff-assistant-starter
