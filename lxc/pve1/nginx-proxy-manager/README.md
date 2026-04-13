@@ -27,12 +27,21 @@ Accept defaults for everything else (RAM, disk, OS).
 2. Log in with default credentials: `admin@example.com` / `changeme` — **change these immediately**
 3. Add a proxy host for each service pointing to its backend IP:port
 
-## Proxy hosts to add
+For the full list of proxy hosts to configure, see **`../dns-proxy-entries.md`**.
 
-| Domain | Forward to |
-| ------ | ---------- |
-| `npm.chaseworkslab.com` | `http://10.27.27.111:81` |
-| `adguard.chaseworkslab.com` | `http://10.27.27.110:80` |
-| `homepage.chaseworkslab.com` | `http://10.27.27.112:3000` |
+## Quick reference — proxy hosts
 
-Add more as services are deployed. Record all mappings in `inventory/README.md`.
+| Domain | Forward to | Notes |
+| ------ | ---------- | ----- |
+| `jellyfin.chaseworkslab.com` | `http://10.27.27.33:8096` | Enable Websocket Support |
+| `sonarr.chaseworkslab.com` | `http://10.27.27.22:8989` | Enable Websocket Support |
+| `radarr.chaseworkslab.com` | `http://10.27.27.22:7878` | Enable Websocket Support |
+| `prowlarr.chaseworkslab.com` | `http://10.27.27.22:9696` | Enable Websocket Support |
+| `overseerr.chaseworkslab.com` | `http://10.27.27.22:5055` | Enable Websocket Support |
+| `qbit.chaseworkslab.com` | `http://10.27.27.22:8080` | Verify port first |
+| `abs.chaseworkslab.com` | `http://10.27.27.22:13378` | Enable Websocket Support |
+| `paperless.chaseworkslab.com` | `http://10.27.27.22:8000` | Verify port first |
+| `uptime.chaseworkslab.com` | `http://10.27.27.22:3001` | Enable Websocket Support |
+| `npm.chaseworkslab.com` | `http://10.27.27.111:81` | — |
+| `adguard.chaseworkslab.com` | `http://10.27.27.110:80` | — |
+| `home.chaseworkslab.com` | `http://10.27.27.112:3000` | Deploy Homepage LXC first |

@@ -27,7 +27,9 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | **Proxmox UI** | MM2 (pve1) | `10.27.27.101` | `8006` | https://10.27.27.101:8006 | ✅ Active |
 | **Proxmox UI** | MM3 (pve2) | `10.27.27.102` | `8006` | https://10.27.27.102:8006 | ✅ Active |
 | **Proxmox UI** | MM4 (pve3) | `10.27.27.103` | `8006` | https://10.27.27.103:8006 | ✅ Active |
-| **Jellyfin** | CK10 | `10.27.27.33` | `8096` | http://10.27.27.33:8096 | ✅ Active |
+| **Jellyfin** | CK10 | `10.27.27.33` | `8096` | http://10.27.27.33:8096 · https://jellyfin.chaseworkslab.com | ✅ Active |
+| **AdGuard Home** | pve1 CT110 | `10.27.27.110` | `53`, `80` | http://10.27.27.110 (web UI) | ✅ Active |
+| **Nginx Proxy Manager** | pve1 CT101 | `10.27.27.111` | `80`, `443`, `81` | http://10.27.27.111:81 (admin) | ✅ Active |
 | **Audiobookshelf** | MM1 | `10.27.27.22` | `13378` | http://10.27.27.22:13378 | ✅ Active |
 | **Radarr** | MM1 | `10.27.27.22` | `7878` | http://10.27.27.22:7878 | ✅ Active |
 | **Sonarr** | MM1 | `10.27.27.22` | `8989` | http://10.27.27.22:8989 | ✅ Active |
@@ -43,9 +45,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 | Service | CT ID | IP | Port(s) | Notes |
 | ------- | ----- | -- | ------- | ----- |
-| **AdGuard Home** | 110 | `10.27.27.110` | `53` (DNS), `80` (web UI), `3000` (setup wizard) | Native install via community script; replaces Pi-hole UTM VM |
-| **Nginx Proxy Manager** | 101 | `10.27.27.111` | `80`, `443`, `81` (admin) | Native install via community script |
-| **Homepage** | 102 | `10.27.27.112` | `3000` | Native Node.js install via community script; proxied via NPM |
+| **Homepage** | 102 | `10.27.27.112` | `3000` | Not yet deployed; native Node.js install via community script; proxy via `home.chaseworkslab.com` |
 
 ### Planned (pve2 — media apps)
 
@@ -95,10 +95,16 @@ NFS exports from MM1:
 
 Internal domain: `chaseworkslab.com`
 
-Node hostnames:
+DNS resolver: AdGuard Home at `10.27.27.110` (replaces Pi-hole at `10.27.27.193`)
+Split DNS: pve1 (`10.27.27.101`) is Tailscale subnet router; `chaseworkslab.com` resolves on tailnet
+
+Node hostnames (AdGuard DNS rewrites → direct to host):
 - `pve1.chaseworkslab.com` → `10.27.27.101`
 - `pve2.chaseworkslab.com` → `10.27.27.102`
 - `pve3.chaseworkslab.com` → `10.27.27.103`
+
+Service hostnames (AdGuard DNS rewrites → `10.27.27.111` → NPM → service):
+- See `lxc/pve1/dns-proxy-entries.md` for complete list
 
 ---
 
@@ -135,5 +141,7 @@ Config files live inside the Homepage LXC at `/opt/homepage/config/`. The servic
 
 - [ ] Confirm qBittorrent web UI port on MM1
 - [ ] Confirm Paperless-ngx port on MM1
-- [ ] Add Nginx Proxy Manager reverse proxy URLs once running (e.g. `jellyfin.chaseworkslab.com`)
+- [ ] Build out remaining AdGuard DNS entries and NPM proxy hosts — see `lxc/pve1/dns-proxy-entries.md`
+- [ ] Deploy Homepage LXC (CT102, `10.27.27.112`)
+- [ ] Shut down Pi-hole UTM VM on MM1 (`10.27.27.193`) — router DNS already migrated
 - [ ] Update network backbone with correct Unifi router and switches
