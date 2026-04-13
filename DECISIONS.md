@@ -12,6 +12,26 @@ Format:
 
 ---
 
+## 2026-04-13: pve1 as Tailscale subnet router with split DNS for chaseworkslab.com
+
+**Decision:** pve1 (`10.27.27.101`) is configured as a Tailscale subnet router advertising `10.27.27.0/24`. Split DNS is configured on the tailnet so that `chaseworkslab.com` resolves via AdGuard Home while on the tailnet — making all `*.chaseworkslab.com` service names work seamlessly whether on LAN or remote.
+
+**Why:** The subnet router removes the need to install Tailscale on every host. Split DNS means the same `service.chaseworkslab.com` URLs work at home (via AdGuard Home) and remotely (via tailnet), with no manual switching or VPN reconfiguration.
+
+**Rollback:** Disable the subnet router on pve1 in the Tailscale admin console. Remote access reverts to direct Tailscale IPs only.
+
+---
+
+## 2026-04-13: Individual AdGuard DNS rewrites per service (not wildcard)
+
+**Decision:** Each service gets its own DNS rewrite entry in AdGuard Home (e.g. `jellyfin.chaseworkslab.com → 10.27.27.111`) rather than a single wildcard `*.chaseworkslab.com → 10.27.27.111`. The Proxmox node hostnames (`pve1/2/3.chaseworkslab.com`) continue to resolve directly to their node IPs, bypassing NPM.
+
+**Why:** Individual entries are more intentional — each one is a deliberate decision to expose that service. A wildcard would silently route any unregistered subdomain to NPM (which would 404), making it harder to notice missing entries. It also keeps the Proxmox HTTPS UIs working cleanly without NPM SSL passthrough complexity.
+
+**Rollback:** A wildcard entry can be substituted at any time in AdGuard Home Settings → Filters → DNS rewrites. No other config changes needed.
+
+---
+
 ## 2026-04-10: Use community helper scripts instead of custom create-lxc.sh scripts
 
 **Decision:** Replaced all custom `create-lxc.sh` scripts for pve1 services with per-service READMEs that reference the [Proxmox VE community helper scripts](https://github.com/community-scripts/ProxmoxVE). The READMEs document the values to enter at the interactive prompts (CT ID, IP, gateway) and any post-deploy steps.
