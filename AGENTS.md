@@ -19,6 +19,14 @@ See README.md for the full folder-to-repo mapping.
 
 Keep `AGENTS.md` short. For task-routing and model-selection guidance, see `AGENT_ROUTING.md`.
 
+## External continuity pointer
+
+For broader assistant continuity outside this repo, relevant OpenClaw context lives in:
+- `/home/chaseworkslab/.openclaw/workspace`
+- backup repo: `https://github.com/chaserbot/openclaw-backup`
+
+Use this repo as the source of truth for homelab infrastructure docs and configs. Use the OpenClaw workspace/backup for assistant memory, migration context, and cross-session notes.
+
 ## Docker standards
 
 All services use Docker Compose — no standalone `docker run` commands. Each service stack:

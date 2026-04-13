@@ -29,6 +29,21 @@ After any meaningful change to infrastructure or configs, update:
 - NEXT_STEPS.md (check off completed items, add follow-ups)
 - inventory/README.md (if IPs, ports, hosts, or storage changed)
 
+## Cross-repo continuity pointer
+
+If you need broader assistant continuity beyond this repo:
+- homelab infra source of truth = this repo
+- OpenClaw continuity workspace = `/home/chaseworkslab/.openclaw/workspace`
+- OpenClaw backup repo = `https://github.com/chaserbot/openclaw-backup`
+
+For project status, priorities, and current direction, start with:
+1. `CURRENT_STATE.md`
+2. `NEXT_STEPS.md`
+3. `DECISIONS.md`
+4. `STACK.md`
+
+Use the OpenClaw workspace/backup for assistant memory, migration context, and cross-session notes, not as the primary source of truth for infrastructure definitions.
+
 ## Risk posture
 
 - Before destructive operations, confirm with the user
