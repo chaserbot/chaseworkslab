@@ -15,7 +15,7 @@ Update this file whenever a service is added, removed, or its port changes.
 | Lutron Caseta Hub | Smart home | 10.27.27.7 | |
 | MacBook Pro (M3 Pro) | Daily driver — company-issued | 10.27.27.11 | |
 | MacBook Pro (2017) | Secondary / admin machine | — | Connected via USW Flex 2.5G Mini |
-| Mac Mini #1 (macOS, A1347) | Main server / NAS brain | 10.27.27.22 | Runs arr stack, Uptime Kuma, Paperless-ngx, Pi-hole UTM VM; Pegasus DAS attached via Thunderbolt |
+| Mac Mini #1 (macOS, A1347) | Main server / NAS brain | 10.27.27.22 | Runs Audiobookshelf, Uptime Kuma, Paperless-ngx, Pi-hole UTM VM; Pegasus DAS attached via Thunderbolt; NFS server for BigPeggy/LittlePeggy |
 | Ace Magician CK10 | Jellyfin media server | 10.27.27.33 | i7-1081U, 16GB RAM |
 | ChaseWorksLab NAS | TrueNAS — future build | 10.27.27.27 | Not yet built |
 | Pi-hole (UTM VM) | DNS / ad blocking | 10.27.27.193 | Runs on Mac Mini #1; to be replaced by AdGuard Home on pve1 |
@@ -39,11 +39,13 @@ Update this file whenever a service is added, removed, or its port changes.
 
 | Service | Folder | Port(s) | Host | Status | Notes |
 | ------- | ------ | ------- | ---- | ------ | ----- |
-| Sonarr | arr/ | `8989` | Mac Mini #1 (`10.27.27.22`) | Running | TV show automation; compose file not yet in git |
-| Radarr | arr/ | `7878` | Mac Mini #1 (`10.27.27.22`) | Running | Movie automation; compose file not yet in git |
-| Prowlarr | arr/ | `9696` | Mac Mini #1 (`10.27.27.22`) | Running | Indexer management; compose file not yet in git |
-| qBittorrent | arr/ | `8080` ⚠️ | Mac Mini #1 (`10.27.27.22`) | Running | Torrent client; port needs verification |
-| Overseerr | arr/ | `5055` | Mac Mini #1 (`10.27.27.22`) | Running | Media request UI; compose file not yet in git |
+| Sonarr | arr/ | `8989` | docker-arr VM | Running | TV show automation |
+| Radarr | arr/ | `7878` | docker-arr VM | Running | Movie automation |
+| Prowlarr | arr/ | `9696` | docker-arr VM | Running | Indexer management |
+| qBittorrent | arr/ | `8080` | docker-arr VM | Running | Torrent client; routes through Gluetun VPN kill switch |
+| Gluetun | arr/ | `6881`, `6881/udp` | docker-arr VM | Running | ProtonVPN OpenVPN gateway for qBittorrent |
+| FlareSolverr | arr/ | `8191` | docker-arr VM | Running | Cloudflare bypass for Prowlarr |
+| Seerr | arr/ | `5055` | docker-arr VM | Running | Media request UI; replaces Overseerr |
 | Audiobookshelf | arr/ | `13378` | Mac Mini #1 (`10.27.27.22`) | Running | Audiobook/podcast server; compose file not yet in git |
 | Jellyfin | docker/ | `8096` | Ace Magician CK10 (`10.27.27.33`) | Running | Media server; not yet Dockerized; HW transcoding unverified |
 | Uptime Kuma | docker/ | `3001` | Mac Mini #1 (`10.27.27.22`) | Running | Uptime monitoring; compose file not yet in git |

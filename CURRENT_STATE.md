@@ -1,6 +1,6 @@
 # Current state
 
-Last updated: 2026-04-13
+Last updated: 2026-04-15
 
 Quick snapshot of what is running, what is stable, and any known issues.
 Update this after significant changes.
@@ -13,11 +13,12 @@ Update this after significant changes.
 
 | Service | Status | Host | Notes |
 | ------- | ------ | ---- | ----- |
-| Sonarr | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
-| Radarr | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
-| Prowlarr | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
-| qBittorrent | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
-| Overseerr | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
+| Sonarr | Running | docker-arr VM | Docker Compose; see `arr/docker-compose.yml` |
+| Radarr | Running | docker-arr VM | Docker Compose; see `arr/docker-compose.yml` |
+| Prowlarr | Running | docker-arr VM | Docker Compose; see `arr/docker-compose.yml` |
+| qBittorrent | Running | docker-arr VM | VPN via Gluetun (ProtonVPN kill switch) |
+| Seerr | Running | docker-arr VM | Replaces Overseerr; media request UI |
+| FlareSolverr | Running | docker-arr VM | Cloudflare bypass for Prowlarr |
 | Audiobookshelf | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
 | Jellyfin | Running | Ace Magician CK10 (`10.27.27.33`) | Not yet Dockerized; hardware transcoding unverified |
 | Uptime Kuma | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
@@ -38,7 +39,7 @@ Update this after significant changes.
 ## Known issues
 
 - **Pi-hole on UTM VM**: still running at `10.27.27.193` — router DNS has been updated to AdGuard Home, but UTM VM not yet shut down. Safe to decommission.
-- **Docker Compose files not in git**: arr stack, Uptime Kuma, Paperless-ngx all running but compose files not yet sanitized and committed.
+- **Docker Compose files not in git**: Uptime Kuma and Paperless-ngx still running on MM1 but compose files not yet committed.
 - **Jellyfin**: not Dockerized, media path to Pegasus DAS not confirmed, Intel Quick Sync hardware transcoding not verified.
 - **Flat network**: all devices on `10.27.27.0/24` — no VLANs.
 - **NPM entries incomplete**: only Jellyfin proxied so far; see `lxc/pve1/dns-proxy-entries.md` for full list to build out.
@@ -48,10 +49,11 @@ Update this after significant changes.
 
 ## Last stable configuration
 
-Mac Mini #1 (`10.27.27.22`) running arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Overseerr, Audiobookshelf) + Uptime Kuma + Paperless-ngx via Docker Compose. Media stored on Pegasus DAS (Thunderbolt-attached). Jellyfin running bare on Ace Magician CK10 at `jellyfin.chaseworkslab.com`. AdGuard Home on pve1 CT110 is the active DNS resolver. NPM on pve1 CT101 is the active reverse proxy. pve1 is Tailscale subnet router with split DNS for `chaseworkslab.com`.
+Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running on docker-arr Proxmox VM via Docker Compose with Gluetun VPN. Storage on BigPeggy NFS. MM1 still hosts Audiobookshelf, Uptime Kuma, and Paperless-ngx. Jellyfin running bare on Ace Magician CK10 at `jellyfin.chaseworkslab.com`. AdGuard Home on pve1 CT110 is the active DNS resolver. NPM on pve1 CT101 is the active reverse proxy. pve1 is Tailscale subnet router with split DNS for `chaseworkslab.com`.
 
 ## Recent changes
 
+- 2026-04-15: Arr stack migrated to docker-arr Proxmox VM (Docker Compose + Gluetun VPN). Seerr replaces Overseerr. FlareSolverr added. Compose file committed to `arr/docker-compose.yml`.
 - 2026-04-13: AdGuard Home (CT110) and NPM (CT101) deployed on pve1 and active. Jellyfin proxy entry live at `jellyfin.chaseworkslab.com`. pve1 configured as Tailscale subnet router with split DNS. Router DHCP DNS updated from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`).
 - 2026-04-10: Replaced custom create-lxc.sh scripts with per-service READMEs referencing community helper scripts; removed shared Docker LXC approach; AdGuard Home (CT110), NPM (CT101), Homepage (CT102) each get their own LXC
 - 2026-04-10: pve1 front-door stack fully defined — AdGuard Home, NPM, Homepage ready to deploy via community scripts

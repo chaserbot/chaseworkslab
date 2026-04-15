@@ -74,11 +74,11 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 ### Phase 4 — application stack on pve2
 
-1. Decide grouped Docker LXC vs separate LXCs for the arr stack
-2. Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2
-3. Deploy Audiobookshelf on pve2
+1. ~~Decide grouped Docker LXC vs separate LXCs for the arr stack~~ ✓ Done 2026-04-15 — deployed as Docker Compose on docker-arr VM; Gluetun VPN, Seerr, FlareSolverr included; see `arr/docker-compose.yml`
+2. ~~Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2~~ ✓ Done 2026-04-15 — deployed on docker-arr VM (Overseerr replaced by Seerr)
+3. Deploy Audiobookshelf on pve2 (currently on MM1)
 4. Deploy Calibre-Web on pve2
-5. Validate pathing to MM1 storage and qBittorrent integration
+5. ~~Validate pathing to MM1 storage and qBittorrent integration~~ ✓ Done — storage via BigPeggy NFS at `/mnt/bigpeggy`
 
 ### Phase 5 — automation and document tools on pve3
 
@@ -119,7 +119,7 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 1. SSH into Mac Mini #1, dump existing `docker-compose.yml` for each service
 2. Sanitize (strip secrets), add `.env.example` with placeholder values, commit to repo:
-   - arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Overseerr, Audiobookshelf) → `arr/`
+   - ~~arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) → `arr/`~~ ✓ Done 2026-04-15
    - Uptime Kuma → `docker/`
    - Paperless-ngx → `docker/`
 3. Assign static IP to Ace Magician CK10; document in STACK.md

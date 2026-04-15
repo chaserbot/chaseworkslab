@@ -1,6 +1,7 @@
 # Environment & credentials
 *.env
 .env*
+!.env.example
 secrets/
 
 # Arr app config dirs (contain API keys, auth tokens)

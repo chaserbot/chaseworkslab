@@ -31,15 +31,16 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | **AdGuard Home** | pve1 CT110 | `10.27.27.110` | `53`, `80` | http://10.27.27.110 (web UI) | ✅ Active |
 | **Nginx Proxy Manager** | pve1 CT101 | `10.27.27.111` | `80`, `443`, `81` | http://10.27.27.111:81 (admin) | ✅ Active |
 | **Audiobookshelf** | MM1 | `10.27.27.22` | `13378` | http://10.27.27.22:13378 | ✅ Active |
-| **Radarr** | MM1 | `10.27.27.22` | `7878` | http://10.27.27.22:7878 | ✅ Active |
-| **Sonarr** | MM1 | `10.27.27.22` | `8989` | http://10.27.27.22:8989 | ✅ Active |
-| **Prowlarr** | MM1 | `10.27.27.22` | `9696` | http://10.27.27.22:9696 | ✅ Active |
-| **Overseerr** | MM1 | `10.27.27.22` | `5055` | http://10.27.27.22:5055 | ✅ Active |
-| **qBittorrent** | MM1 | `10.27.27.22` | `8080` | http://10.27.27.22:8080 | ⚠️ Verify port |
+| **Radarr** | docker-arr VM | TBD | `7878` | http://docker-arr:7878 | ✅ Active |
+| **Sonarr** | docker-arr VM | TBD | `8989` | http://docker-arr:8989 | ✅ Active |
+| **Prowlarr** | docker-arr VM | TBD | `9696` | http://docker-arr:9696 | ✅ Active |
+| **Seerr** | docker-arr VM | TBD | `5055` | http://docker-arr:5055 | ✅ Active |
+| **FlareSolverr** | docker-arr VM | TBD | `8191` | http://docker-arr:8191 | ✅ Active |
+| **qBittorrent** | docker-arr VM | TBD | `8080` | http://docker-arr:8080 | ✅ Active (VPN via Gluetun) |
 | **Paperless-ngx** | MM1 | `10.27.27.22` | `8000` | http://10.27.27.22:8000 | ⚠️ Verify port |
 | **Uptime Kuma** | MM1 | `10.27.27.22` | `3001` | http://10.27.27.22:3001 | ✅ Active |
 
-> ⚠️ qBittorrent and Paperless-ngx ports need to be confirmed — common defaults listed, verify against actual config on MM1.
+> ⚠️ docker-arr VM IP is TBD — update this table once a static IP is assigned in Proxmox. Paperless-ngx port on MM1 still needs confirmation.
 
 ### Planned / In Progress (pve1 — front door)
 
@@ -51,10 +52,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 | Service | Target IP | Port | Notes |
 | ------- | --------- | ---- | ----- |
-| **Sonarr** | `10.27.27.120` | `8989` | Moving from MM1 |
-| **Radarr** | `10.27.27.121` | `7878` | Moving from MM1 |
-| **Prowlarr** | `10.27.27.122` | `9696` | Moving from MM1 |
-| **Overseerr** | `10.27.27.123` | `5055` | Moving from MM1 |
+| **docker-arr VM** | TBD | — | Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) — already running; assign static IP |
 | **Audiobookshelf** | `10.27.27.124` | `13378` | Moving from MM1 |
 
 ### Planned (pve3 — ops)
