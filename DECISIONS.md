@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-04-15: Arr stack migrated to docker-arr Proxmox VM with Gluetun VPN
+
+**Decision:** Moved the entire arr stack (Sonarr, Radarr, Prowlarr, qBittorrent) off Mac Mini #1 to a dedicated Proxmox VM (`docker-arr`) running Docker Compose. Added Gluetun (ProtonVPN OpenVPN) as a VPN gateway for qBittorrent using `network_mode: service:gluetun` (kill switch). Replaced Overseerr with Seerr. Added FlareSolverr for Prowlarr Cloudflare bypasses. Storage via BigPeggy NFS at `/mnt/bigpeggy`.
+
+**Why:** Mac Mini #1 should stay focused on NAS/DAS/NFS duties. Running the arr stack on a Proxmox VM gives it a proper Linux environment, isolates it from macOS, and makes the whole stack portable. The Gluetun kill switch ensures qBittorrent traffic never leaks if the VPN drops. Seerr replaces Overseerr as a more actively maintained fork. FlareSolverr was needed for indexers behind Cloudflare.
+
+**Rollback:** The arr stack can be brought back up on MM1 with any Docker-capable host. Copy `arr/docker-compose.yml`, point `APPDATA` and volume mounts at the correct paths, create `.env` from `.env.example`, and run `docker compose up -d`.
+
+---
+
 ## 2026-04-13: pve1 as Tailscale subnet router with split DNS for chaseworkslab.com
 
 **Decision:** pve1 (`10.27.27.101`) is configured as a Tailscale subnet router advertising `10.27.27.0/24`. Split DNS is configured on the tailnet so that `chaseworkslab.com` resolves via AdGuard Home while on the tailnet — making all `*.chaseworkslab.com` service names work seamlessly whether on LAN or remote.
