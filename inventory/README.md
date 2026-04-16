@@ -52,7 +52,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 | Service | Target IP | Port | Notes |
 | ------- | --------- | ---- | ----- |
-| **docker-arr VM** | TBD | — | Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) — already running; assign static IP |
+| **docker-arr VM** | 10.27.27.47 | — | Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) — already running; assign static IP |
 | **Audiobookshelf** | `10.27.27.124` | `13378` | Moving from MM1 |
 
 ### Planned (pve3 — ops)
