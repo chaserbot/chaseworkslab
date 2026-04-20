@@ -45,7 +45,7 @@
         ping: http://10.27.27.111:81
         widget:
           type: npm
-          url: http://10.27.27.111
+          url: http://10.27.27.111:81
           username: chasecook00@gmail.com
           password: Ctc9312Ctc!!!
 
@@ -62,13 +62,13 @@
         ping: http://10.27.27.22:13378
 
 - Arr Stack:
-    - Overseerr:
+    - Seerr:
         href: http://10.27.27.47:5055
         description: Media requests
-        icon: seerr.png
+        icon: overseerr.png
         ping: http://10.27.27.47:5055
         widget:
-          type: Seerr
+          type: overseerr
           url: http://10.27.27.47:5055
           key: MTc3NjIyNDAyODM4NTU3ZmJlZjk5LTRiODctNDlmZC05MGI3LTI2YzI4MzIyYmM1Yw==
     - Sonarr:
