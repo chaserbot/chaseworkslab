@@ -34,7 +34,7 @@
         icon: adguard-home.png
         ping: http://10.27.27.110
         widget:
-          type: adguardhome
+          type: adguard
           url: http://10.27.27.110
           username: admin
           password: Ctc9312Ctc!!!
