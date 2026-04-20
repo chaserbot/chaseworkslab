@@ -9,6 +9,8 @@
 #
 # ping uses full URLs so Homepage checks the port, not just host reachability.
 # Proxmox uses https — self-signed cert may cause a ping warning; that's expected.
+#
+# Service widgets: replace all YOUR_* placeholders before deploying.
 
 - Infrastructure:
     - pve1:
@@ -31,11 +33,21 @@
         description: DNS and ad blocking — pve1 CT110
         icon: adguard-home.png
         ping: http://10.27.27.110
+        widget:
+          type: adguardhome
+          url: http://10.27.27.110
+          username: YOUR_ADGUARD_USERNAME
+          password: YOUR_ADGUARD_PASSWORD
     - Nginx Proxy Manager:
         href: http://10.27.27.111:81
         description: Reverse proxy admin — pve1 CT101
         icon: nginx-proxy-manager.png
         ping: http://10.27.27.111:81
+        widget:
+          type: npm
+          url: http://10.27.27.111
+          username: YOUR_NPM_EMAIL
+          password: YOUR_NPM_PASSWORD
 
 - Media:
     - Jellyfin:
@@ -55,6 +67,10 @@
         description: Media requests — MM1
         icon: overseerr.png
         ping: http://10.27.27.22:5055
+        widget:
+          type: overseerr
+          url: http://10.27.27.22:5055
+          key: YOUR_OVERSEERR_API_KEY
     - Sonarr:
         href: http://10.27.27.22:8989
         description: TV show automation — MM1
