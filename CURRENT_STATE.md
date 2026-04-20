@@ -1,23 +1,24 @@
 # Current state
 
-Last updated: 2026-04-10
+Last updated: 2026-04-15
 
 Quick snapshot of what is running, what is stable, and any known issues.
 Update this after significant changes.
 
 ## Overall status
 
-**Yellow** — Core media services running and active on Mac Mini #1. Proxmox cluster formed (pve1/pve2/pve3 joined; no HA configured; no production workloads yet). pve1 front-door stack defined and ready to deploy (AdGuard Home, NPM, Homepage). Several MM1 services running but compose files not yet committed to git.
+**Yellow** — Core media services running on Mac Mini #1. Proxmox cluster operational. pve1 front-door stack live: AdGuard Home and Nginx Proxy Manager deployed and active. Jellyfin accessible at `jellyfin.chaseworkslab.com`. pve1 is Tailscale subnet router with split DNS — all `*.chaseworkslab.com` names resolve on the tailnet. Remaining services need DNS + NPM entries added (see `lxc/pve1/dns-proxy-entries.md`). Homepage LXC not yet deployed. Several MM1 Docker Compose files not yet committed to git.
 
 ## What is running
 
 | Service | Status | Host | Notes |
 | ------- | ------ | ---- | ----- |
-| Sonarr | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
-| Radarr | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
-| Prowlarr | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
-| qBittorrent | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
-| Overseerr | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
+| Sonarr | Running | docker-arr VM | Docker Compose; see `arr/docker-compose.yml` |
+| Radarr | Running | docker-arr VM | Docker Compose; see `arr/docker-compose.yml` |
+| Prowlarr | Running | docker-arr VM | Docker Compose; see `arr/docker-compose.yml` |
+| qBittorrent | Running | docker-arr VM | VPN via Gluetun (ProtonVPN kill switch) |
+| Seerr | Running | docker-arr VM | Replaces Overseerr; media request UI |
+| FlareSolverr | Running | docker-arr VM | Cloudflare bypass for Prowlarr |
 | Audiobookshelf | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
 | Jellyfin | Running | Ace Magician CK10 (`10.27.27.33`) | Not yet Dockerized; hardware transcoding unverified |
 | Uptime Kuma | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
@@ -26,8 +27,8 @@ Update this after significant changes.
 | pve1 | Clustered | `10.27.27.101` | Joined to cluster; no HA; no production workloads |
 | pve2 | Clustered | `10.27.27.102` | Joined to cluster; no HA; no production workloads |
 | pve3 | Clustered | `10.27.27.103` | Joined to cluster; no HA; no production workloads |
-| AdGuard Home | Ready to deploy | pve1 CT110 (`10.27.27.110`) | Community script; see `lxc/pve1/adguard-home/README.md` |
-| Nginx Proxy Manager | Ready to deploy | pve1 CT101 (`10.27.27.111`) | Community script; see `lxc/pve1/nginx-proxy-manager/README.md` |
+| AdGuard Home | Running | pve1 CT110 (`10.27.27.110`) | DNS rewrites active; individual entries per service → `10.27.27.111`; router DHCP DNS updated |
+| Nginx Proxy Manager | Running | pve1 CT101 (`10.27.27.111`) | Reverse proxy active; `jellyfin.chaseworkslab.com` live; more entries to add |
 | Homepage | Ready to deploy | pve1 CT102 (`10.27.27.112`) | Community script; see `lxc/pve1/homepage/README.md` |
 | Ollama | Not deployed | — | Planned: Proxmox LXC or VM |
 | Open WebUI | Not deployed | — | Planned: same host as Ollama |
@@ -37,21 +38,23 @@ Update this after significant changes.
 
 ## Known issues
 
-- **Proxmox cluster formed but idle**: pve1/pve2/pve3 clustered; no HA; no LXCs running. NFS storage mounted from MM1 (`littlepeggy`, `bigpeggy`). Testing only so far.
-- **Pi-hole on UTM VM**: fragile — tied to Mac Mini #1 macOS host, no HA. Replacement (AdGuard Home on pve1) is ready to deploy.
-- **Docker Compose files not in git**: arr stack, Uptime Kuma, Paperless-ngx all running but compose files not yet sanitized and committed.
+- **Pi-hole on UTM VM**: still running at `10.27.27.193` — router DNS has been updated to AdGuard Home, but UTM VM not yet shut down. Safe to decommission.
+- **Docker Compose files not in git**: Uptime Kuma and Paperless-ngx still running on MM1 but compose files not yet committed.
 - **Jellyfin**: not Dockerized, media path to Pegasus DAS not confirmed, Intel Quick Sync hardware transcoding not verified.
 - **Flat network**: all devices on `10.27.27.0/24` — no VLANs.
-- **`chaseworkslab.com`**: owned but DNS not configured — no internal service resolution yet.
+- **NPM entries incomplete**: only Jellyfin proxied so far; see `lxc/pve1/dns-proxy-entries.md` for full list to build out.
+- **Homepage LXC**: not yet deployed (CT102, `10.27.27.112`).
 - **LLM stack**: not yet deployed — architecture planned, repo scaffolded.
 - **Monitoring stack**: Uptime Kuma only — Grafana/Prometheus not yet deployed.
 
 ## Last stable configuration
 
-Mac Mini #1 (`10.27.27.22`) running arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Overseerr, Audiobookshelf) + Uptime Kuma + Paperless-ngx via Docker Compose. Media stored on Pegasus DAS (Thunderbolt-attached). Jellyfin running bare on Ace Magician CK10. Pi-hole as UTM VM at `10.27.27.193` handling DNS for all local devices.
+Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running on docker-arr Proxmox VM via Docker Compose with Gluetun VPN. Storage on BigPeggy NFS. MM1 still hosts Audiobookshelf, Uptime Kuma, and Paperless-ngx. Jellyfin running bare on Ace Magician CK10 at `jellyfin.chaseworkslab.com`. AdGuard Home on pve1 CT110 is the active DNS resolver. NPM on pve1 CT101 is the active reverse proxy. pve1 is Tailscale subnet router with split DNS for `chaseworkslab.com`.
 
 ## Recent changes
 
+- 2026-04-15: Arr stack migrated to docker-arr Proxmox VM (Docker Compose + Gluetun VPN). Seerr replaces Overseerr. FlareSolverr added. Compose file committed to `arr/docker-compose.yml`.
+- 2026-04-13: AdGuard Home (CT110) and NPM (CT101) deployed on pve1 and active. Jellyfin proxy entry live at `jellyfin.chaseworkslab.com`. pve1 configured as Tailscale subnet router with split DNS. Router DHCP DNS updated from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`).
 - 2026-04-10: Replaced custom create-lxc.sh scripts with per-service READMEs referencing community helper scripts; removed shared Docker LXC approach; AdGuard Home (CT110), NPM (CT101), Homepage (CT102) each get their own LXC
 - 2026-04-10: pve1 front-door stack fully defined — AdGuard Home, NPM, Homepage ready to deploy via community scripts
 - 2026-04-10: Proxmox cluster formed — pve1/pve2/pve3 joined; no HA; NFS storage (LittlePeggy + BigPeggy) mounted on all nodes

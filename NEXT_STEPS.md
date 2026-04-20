@@ -50,18 +50,18 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 1. ~~Choose DNS stack: AdGuard Home or Pi-hole~~ ✓ AdGuard Home
 2. ~~Choose dashboard: Homepage, Glance, or Homarr~~ ✓ Homepage (may revisit Homarr later)
-3. Deploy AdGuard Home LXC on pve1 — see `lxc/pve1/adguard-home/README.md` (CT110, `10.27.27.110`)
-4. Deploy Nginx Proxy Manager LXC on pve1 — see `lxc/pve1/nginx-proxy-manager/README.md` (CT101, `10.27.27.111`)
+3. ~~**Deploy AdGuard Home LXC on pve1**~~ ✓ Done 2026-04-13 — CT110, `10.27.27.110`, active
+4. ~~**Deploy Nginx Proxy Manager LXC on pve1**~~ ✓ Done 2026-04-13 — CT101, `10.27.27.111`, active
 5. Deploy Homepage LXC on pve1 — see `lxc/pve1/homepage/README.md` (CT102, `10.27.27.112`)
-6. Configure AdGuard Home DNS rewrites for `*.chaseworkslab.com` → `10.27.27.111` (NPM)
-7. Update router DNS from `10.27.27.193` (Pi-hole UTM) to `10.27.27.110` (AdGuard Home)
-8. Add proxy hosts in NPM for each service; record mappings in inventory/README.md
+6. ~~**Configure AdGuard Home DNS rewrites**~~ ✓ In progress — individual entries per service → `10.27.27.111`; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md` for full list
+7. ~~**Update router DNS** from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`)~~ ✓ Done 2026-04-13
+8. Add proxy hosts in NPM for each service — ⚠️ In progress; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md`
 
 ### Phase 2 — private DNS and Tailscale behavior
 
-1. Keep Tailscale as the private remote-access layer
-2. Configure DNS so service names under `chaseworkslab.com` resolve privately on LAN/tailnet
-3. Prefer split-DNS behavior for `chaseworkslab.com`
+1. ~~**Keep Tailscale as the private remote-access layer**~~ ✓ Active
+2. ~~**Configure DNS so service names under `chaseworkslab.com` resolve privately on LAN/tailnet**~~ ✓ Done 2026-04-13 — AdGuard Home DNS rewrites active
+3. ~~**Split-DNS behavior for `chaseworkslab.com`**~~ ✓ Done 2026-04-13 — pve1 is Tailscale subnet router; `chaseworkslab.com` resolves on tailnet
 4. Keep services non-public by default
 
 ### Phase 3 — monitoring and visibility on pve3
@@ -74,11 +74,11 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 ### Phase 4 — application stack on pve2
 
-1. Decide grouped Docker LXC vs separate LXCs for the arr stack
-2. Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2
-3. Deploy Audiobookshelf on pve2
+1. ~~Decide grouped Docker LXC vs separate LXCs for the arr stack~~ ✓ Done 2026-04-15 — deployed as Docker Compose on docker-arr VM; Gluetun VPN, Seerr, FlareSolverr included; see `arr/docker-compose.yml`
+2. ~~Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2~~ ✓ Done 2026-04-15 — deployed on docker-arr VM (Overseerr replaced by Seerr)
+3. Deploy Audiobookshelf on pve2 (currently on MM1)
 4. Deploy Calibre-Web on pve2
-5. Validate pathing to MM1 storage and qBittorrent integration
+5. ~~Validate pathing to MM1 storage and qBittorrent integration~~ ✓ Done — storage via BigPeggy NFS at `/mnt/bigpeggy`
 
 ### Phase 5 — automation and document tools on pve3
 
@@ -119,7 +119,7 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 1. SSH into Mac Mini #1, dump existing `docker-compose.yml` for each service
 2. Sanitize (strip secrets), add `.env.example` with placeholder values, commit to repo:
-   - arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Overseerr, Audiobookshelf) → `arr/`
+   - ~~arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) → `arr/`~~ ✓ Done 2026-04-15
    - Uptime Kuma → `docker/`
    - Paperless-ngx → `docker/`
 3. Assign static IP to Ace Magician CK10; document in STACK.md

@@ -43,11 +43,28 @@ Then navigate to whichever subfolder you need and follow its README.
 ## Context files for AI tools
 
 This repo includes a set of context and memory files designed to onboard any LLM
-without requiring it to scan the full codebase from scratch:
+without requiring it to scan the full codebase from scratch.
+
+Recommended read order for other AI tools:
+1. `README.md`
+2. `AGENTS.md`
+3. `AGENT_ROUTING.md`
+4. `CURRENT_STATE.md`
+5. `NEXT_STEPS.md`
+6. `DECISIONS.md`
+7. `STACK.md`
+8. `CLAUDE.md` if the tool supports or benefits from Claude-specific notes
+
+Important continuity note:
+- broader assistant memory, identity, and migration context live outside this repo in the OpenClaw workspace and backup repo
+- primary OpenClaw workspace path: `/home/chaseworkslab/.openclaw/workspace`
+- backup repo: `https://github.com/chaserbot/openclaw-backup`
+- if an AI tool is helping with ongoing homelab work, it should prefer repo docs for infrastructure truth and use the OpenClaw workspace/backup only for assistant continuity, prior notes, and migration context
 
 | File | Purpose |
 |------|---------|
 | AGENTS.md | Project rules and behavioral guidelines for AI agents |
+| AGENT_ROUTING.md | Task-routing and model-selection guidance |
 | CLAUDE.md | Claude-specific guidance and environment assumptions |
 | STACK.md | Full service, port, and tool inventory |
 | CURRENT_STATE.md | What is running, what is stable, last-known-good state |

@@ -3,9 +3,15 @@
 # Copy to /opt/homepage/config/bookmarks.yaml on the Homepage LXC (CT102, 10.27.27.112)
 
 - Admin:
-    - Proxmox Cluster (pve1):
+    - Proxmox Cluster (PVE1):
         - abbr: PV
           href: https://10.27.27.101:8006
+    - Proxmox Cluster (PVE2):
+        - abbr: PV
+          href: https://10.27.27.102:8006
+    - Proxmox Cluster (PVE3):
+        - abbr: PV
+          href: https://10.27.27.103:8006
     - UniFi Console:
         - abbr: UF
           href: https://10.27.27.1
