@@ -45,7 +45,7 @@
         ping: http://10.27.27.111:81
         widget:
           type: npm
-          url: http://10.27.27.111
+          url: http://10.27.27.111:81
           username: YOUR_NPM_EMAIL
           password: YOUR_NPM_PASSWORD
 
