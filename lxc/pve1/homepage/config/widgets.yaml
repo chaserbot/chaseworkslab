@@ -1,0 +1,27 @@
+---
+# Homepage widgets.yaml
+# Copy to /opt/homepage/config/widgets.yaml on the Homepage LXC (CT102, 10.27.27.112)
+#
+# These are global page widgets — they appear at the top of the dashboard.
+# Service-specific widgets (AdGuard, NPM, Overseerr) live in services.yaml.
+
+# Search bar — defaults to Google; change provider to duckduckgo, bing, etc.
+- search:
+    provider: google
+    focus: false
+    target: _blank
+
+# Clock and date display
+- datetime:
+    text_size: xl
+    format:
+      timeStyle: short
+      dateStyle: short
+      hour12: true
+
+# Resource usage for the Homepage LXC itself (CPU, RAM, disk)
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+    expanded: true
