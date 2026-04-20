@@ -36,8 +36,8 @@
         widget:
           type: adguardhome
           url: http://10.27.27.110
-          username: YOUR_ADGUARD_USERNAME
-          password: YOUR_ADGUARD_PASSWORD
+          username: admin
+          password: Ctc9312Ctc!!!
     - Nginx Proxy Manager:
         href: http://10.27.27.111:81
         description: Reverse proxy admin — pve1 CT101
@@ -46,8 +46,8 @@
         widget:
           type: npm
           url: http://10.27.27.111
-          username: YOUR_NPM_EMAIL
-          password: YOUR_NPM_PASSWORD
+          username: chasecook00@gmail.com
+          password: Ctc9312Ctc!!!
 
 - Media:
     - Jellyfin:
@@ -65,16 +65,12 @@
     - Overseerr:
         href: http://10.27.27.47:5055
         description: Media requests
-        icon: overseerr.png
-<<<<<<< HEAD
-        ping: http://10.27.27.22:5055
-        widget:
-          type: overseerr
-          url: http://10.27.27.22:5055
-          key: YOUR_OVERSEERR_API_KEY
-=======
+        icon: seerr.png
         ping: http://10.27.27.47:5055
->>>>>>> ef2d2b5 (changed IP of Arr stack services to match new IP of MM1, and added descriptions for each service)
+        widget:
+          type: Seerr
+          url: http://10.27.27.47:5055
+          key: MTc3NjIyNDAyODM4NTU3ZmJlZjk5LTRiODctNDlmZC05MGI3LTI2YzI4MzIyYmM1Yw==
     - Sonarr:
         href: http://10.27.27.47:8989
         description: TV show automation
