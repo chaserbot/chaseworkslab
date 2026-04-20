@@ -5,7 +5,7 @@
 # IPs pulled from inventory/README.md — update this file if services move to their
 # planned Proxmox LXC IPs (see the "Planned" section in inventory/README.md).
 #
-# ⚠️  qBittorrent port (8080) and Paperless-ngx port (8000) need confirmation on MM1.
+# ⚠️ Paperless-ngx port (8000) need confirmation on MM1.
 #
 # ping uses full URLs so Homepage checks the port, not just host reachability.
 # Proxmox uses https — self-signed cert may cause a ping warning; that's expected.
@@ -63,34 +63,38 @@
 
 - Arr Stack:
     - Overseerr:
-        href: http://10.27.27.22:5055
-        description: Media requests — MM1
+        href: http://10.27.27.47:5055
+        description: Media requests
         icon: overseerr.png
+<<<<<<< HEAD
         ping: http://10.27.27.22:5055
         widget:
           type: overseerr
           url: http://10.27.27.22:5055
           key: YOUR_OVERSEERR_API_KEY
+=======
+        ping: http://10.27.27.47:5055
+>>>>>>> ef2d2b5 (changed IP of Arr stack services to match new IP of MM1, and added descriptions for each service)
     - Sonarr:
-        href: http://10.27.27.22:8989
-        description: TV show automation — MM1
+        href: http://10.27.27.47:8989
+        description: TV show automation
         icon: sonarr.png
-        ping: http://10.27.27.22:8989
+        ping: http://10.27.27.47:8989
     - Radarr:
-        href: http://10.27.27.22:7878
-        description: Movie automation — MM1
+        href: http://10.27.27.47:7878
+        description: Movie automation
         icon: radarr.png
-        ping: http://10.27.27.22:7878
+        ping: http://10.27.27.47:7878
     - Prowlarr:
-        href: http://10.27.27.22:9696
-        description: Indexer management — MM1
+        href: http://10.27.27.47:9696
+        description: Indexer management
         icon: prowlarr.png
-        ping: http://10.27.27.22:9696
+        ping: http://10.27.27.47:9696
     - qBittorrent:
-        href: http://10.27.27.22:8080
-        description: Torrent client — MM1 (⚠️ verify port)
+        href: http://10.27.27.47:8080
+        description: Torrent client
         icon: qbittorrent.png
-        ping: http://10.27.27.22:8080
+        ping: http://10.27.27.47:8080
 
 - Documents:
     - Paperless-ngx:
