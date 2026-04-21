@@ -57,15 +57,12 @@
         description: UniFi network controller — UX7
         icon: unifi.png
         ping: https://10.27.27.1
-        # widget disabled — UX7 routes auth through Ubiquiti cloud SSO (MFA required),
-        # local-only admin accounts not available on this firmware
-        # widget:
-        #   type: unifi
-        #   url: https://10.27.27.1
-        #   username: "{{HOMEPAGE_VAR_UNIFI_USERNAME}}"
-        #   password: "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"
-        #   site: default
-        #   allowInsecure: true
+        widget:
+          type: unifi
+          url: https://10.27.27.1
+          username: "{{HOMEPAGE_VAR_UNIFI_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"
+          allowInsecure: true
     - AdGuard Home:
         href: http://10.27.27.110
         description: DNS and ad blocking — pve1 CT110
