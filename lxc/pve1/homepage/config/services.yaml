@@ -167,38 +167,38 @@
           enableLeechProgress: true
           enableLeechSize: true
 
-- Documents:
-    - Paperless-ngx:
-        href: http://10.27.27.22:8000
-        description: Document management — MM1 (⚠️ verify port)
-        icon: paperless-ngx.png
-        ping: http://10.27.27.22:8000
-        widget:
-          type: paperlessngx
-          url: http://10.27.27.22:8000
-          key: "{{HOMEPAGE_VAR_PAPERLESS_API_KEY}}"
+# - Documents:
+#    - Paperless-ngx:
+#        href: http://10.27.27.22:8000
+#        description: Document management — MM1 (⚠️ verify port)
+#        icon: paperless-ngx.png
+#        ping: http://10.27.27.22:8000
+#        widget:
+#          type: paperlessngx
+#          url: http://10.27.27.22:8000
+#          key: "{{HOMEPAGE_VAR_PAPERLESS_API_KEY}}"
 
-- Monitoring:
-    - Uptime Kuma:
-        href: http://10.27.27.22:3001
-        description: Service uptime monitoring — MM1
-        icon: uptime-kuma.png
-        ping: http://10.27.27.22:3001
-        widget:
-          type: uptimekuma
-          url: http://10.27.27.22:3001
-          slug: "{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}"
+# - Monitoring:
+#    - Uptime Kuma:
+#        href: http://10.27.27.22:3001
+#        description: Service uptime monitoring — MM1
+#        icon: uptime-kuma.png
+#        ping: http://10.27.27.22:3001
+#        widget:
+#          type: uptimekuma
+#          url: http://10.27.27.22:3001
+#          slug: "{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}"
 
-- Planned:
-    - Prometheus:
-        href: http://10.27.27.131:9090
-        description: Metrics collection — pve3 (not yet deployed)
-        icon: prometheus.png
-    - Grafana:
-        href: http://10.27.27.132:3000
-        description: Metrics dashboards — pve3 (not yet deployed)
-        icon: grafana.png
-    - n8n:
-        href: http://10.27.27.133:5678
-        description: Workflow automation — pve3 (not yet deployed)
-        icon: n8n.png
+# - Planned:
+#    - Prometheus:
+#        href: http://10.27.27.131:9090
+#        description: Metrics collection — pve3 (not yet deployed)
+#        icon: prometheus.png
+#    - Grafana:
+#        href: http://10.27.27.132:3000
+#        description: Metrics dashboards — pve3 (not yet deployed)
+#        icon: grafana.png
+#    - n8n:
+#        href: http://10.27.27.133:5678
+#        description: Workflow automation — pve3 (not yet deployed)
+#        icon: n8n.png
