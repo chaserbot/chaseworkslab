@@ -1,26 +1,9 @@
 ---
 # Homepage bookmarks.yaml
 # Copy to /opt/homepage/config/bookmarks.yaml on the Homepage LXC (CT102, 10.27.27.112)
-
-- Admin:
-    - Proxmox Cluster (PVE1):
-        - abbr: PV
-          href: https://10.27.27.101:8006
-    - Proxmox Cluster (PVE2):
-        - abbr: PV
-          href: https://10.27.27.102:8006
-    - Proxmox Cluster (PVE3):
-        - abbr: PV
-          href: https://10.27.27.103:8006
-    - UniFi Console:
-        - abbr: UF
-          href: https://10.27.27.1
-    - AdGuard Home:
-        - abbr: AG
-          href: http://10.27.27.110
-    - NPM Admin:
-        - abbr: NP
-          href: http://10.27.27.111:81
+#
+# Only links that don't have a service card. Infrastructure and media services
+# are in services.yaml with full widgets — no need to duplicate them here.
 
 - Source:
     - chaseworkslab repo:

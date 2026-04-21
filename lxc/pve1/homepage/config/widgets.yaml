@@ -3,9 +3,9 @@
 # Copy to /opt/homepage/config/widgets.yaml on the Homepage LXC (CT102, 10.27.27.112)
 #
 # These are global page widgets — they appear at the top of the dashboard.
-# Service-specific widgets (AdGuard, NPM, Overseerr) live in services.yaml.
+# Service-specific widgets (AdGuard, NPM, Overseerr, etc.) live in services.yaml.
 
-# Search bar — defaults to Google; change provider to duckduckgo, bing, etc.
+# Search bar
 - search:
     provider: google
     focus: false
@@ -25,3 +25,18 @@
     memory: true
     disk: /
     expanded: true
+
+# Glances — richer host stats (CPU, RAM, network, disk I/O) for any host running Glances
+# Uncomment once Glances is deployed (single Docker container, exposes API on port 61208)
+# Swap `url` for whichever host you want to monitor (MM1, a Proxmox node, etc.)
+#
+# - glances:
+#     url: http://10.27.27.22:61208
+#     cpu: true
+#     mem: true
+#     cputemp: true
+#     uptime: true
+#     disk: /
+#     diskUnits: bytes
+#     expanded: true
+#     label: MM1

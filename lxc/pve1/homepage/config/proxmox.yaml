@@ -19,3 +19,8 @@ pve2:
   url: https://10.27.27.102:8006
   token: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
   secret: "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}"
+
+pve3:
+  url: https://10.27.27.103:8006
+  token: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+  secret: "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}"
