@@ -3,20 +3,19 @@
 # Copy to /opt/homepage/config/proxmox.yaml on the Homepage LXC (CT102, 10.27.27.112)
 #
 # Enables per-VM/CT status badges on service cards (similar to docker.yaml).
-# Uses API token auth — create a read-only token on each node:
+# Token is created once at the datacenter level and works across the whole cluster.
 #   Datacenter > Permissions > API Tokens > Add
-#   User: root@pam, Token ID: homepage, Privilege Separation: yes
-#   Then grant PVEAuditor role on / (path) for that token.
+#   User: root@pam, Token ID: homepage, Privilege Separation: unchecked
 #
 # token format:  user@realm!TokenID   (e.g. root@pam!homepage)
 # secret:        the token value shown once at creation time
 
 pve1:
   url: https://10.27.27.101:8006
-  token: "{{HOMEPAGE_VAR_PVE1_TOKEN}}"
-  secret: "{{HOMEPAGE_VAR_PVE1_TOKEN_SECRET}}"
+  token: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+  secret: "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}"
 
 pve2:
   url: https://10.27.27.102:8006
-  token: "{{HOMEPAGE_VAR_PVE2_TOKEN}}"
-  secret: "{{HOMEPAGE_VAR_PVE2_TOKEN_SECRET}}"
+  token: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+  secret: "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}"
