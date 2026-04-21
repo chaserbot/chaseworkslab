@@ -23,7 +23,11 @@ layout:
     useEqualHeights: true
   Arr Stack:
     style: row
-    columns: 5
+    columns: 2
+    useEqualHeights: true
+  Downloads:
+    style: row
+    columns: 1
     useEqualHeights: true
   Documents:
     style: row

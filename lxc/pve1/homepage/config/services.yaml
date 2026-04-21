@@ -155,6 +155,8 @@
           type: prowlarr
           url: http://10.27.27.47:9696
           key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
+
+- Downloads:
     - qBittorrent:
         href: http://10.27.27.47:8080
         description: Torrent client

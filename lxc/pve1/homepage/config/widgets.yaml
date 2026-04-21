@@ -5,6 +5,11 @@
 # These are global page widgets — they appear at the top of the dashboard.
 # Service-specific widgets (AdGuard, NPM, Overseerr, etc.) live in services.yaml.
 
+# Page title
+- greeting:
+    text_size: 2xl
+    text: "ChaseWorks Lab"
+
 # Search bar
 - search:
     provider: google
