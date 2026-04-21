@@ -24,9 +24,10 @@
         widget:
           type: proxmox
           url: https://10.27.27.101:8006
-          username: root@pam
-          password: "{{HOMEPAGE_VAR_PVE1_PASSWORD}}"
+          username: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}"
           node: pve1
+          allowInsecure: true
     - pve2:
         href: https://10.27.27.102:8006
         description: Proxmox Node 2 — MM3
@@ -35,9 +36,10 @@
         widget:
           type: proxmox
           url: https://10.27.27.102:8006
-          username: root@pam
-          password: "{{HOMEPAGE_VAR_PVE2_PASSWORD}}"
+          username: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}"
           node: pve2
+          allowInsecure: true
     - pve3:
         href: https://10.27.27.103:8006
         description: Proxmox Node 3 — MM4
@@ -46,20 +48,24 @@
         widget:
           type: proxmox
           url: https://10.27.27.103:8006
-          username: root@pam
-          password: "{{HOMEPAGE_VAR_PVE3_PASSWORD}}"
+          username: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN_SECRET}}"
           node: pve3
+          allowInsecure: true
     - UniFi:
         href: https://10.27.27.1
         description: UniFi network controller — UX7
         icon: unifi.png
         ping: https://10.27.27.1
-        widget:
-          type: unifi
-          url: https://10.27.27.1
-          username: "{{HOMEPAGE_VAR_UNIFI_USERNAME}}"
-          password: "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"
-          site: default
+        # widget disabled — UX7 routes auth through Ubiquiti cloud SSO (MFA required),
+        # local-only admin accounts not available on this firmware
+        # widget:
+        #   type: unifi
+        #   url: https://10.27.27.1
+        #   username: "{{HOMEPAGE_VAR_UNIFI_USERNAME}}"
+        #   password: "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"
+        #   site: default
+        #   allowInsecure: true
     - AdGuard Home:
         href: http://10.27.27.110
         description: DNS and ad blocking — pve1 CT110
