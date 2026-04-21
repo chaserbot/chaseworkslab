@@ -5,12 +5,15 @@
 # IPs pulled from inventory/README.md — update this file if services move to their
 # planned Proxmox LXC IPs (see the "Planned" section in inventory/README.md).
 #
-# ⚠️ Paperless-ngx port (8000) need confirmation on MM1.
+# ⚠️ Paperless-ngx port (8000) needs confirmation on MM1.
+#
+# Secrets are injected via {{HOMEPAGE_VAR_*}} from /opt/homepage/config/.env
+# See .env.example in this directory for required variables.
 #
 # ping uses full URLs so Homepage checks the port, not just host reachability.
 # Proxmox uses https — self-signed cert may cause a ping warning; that's expected.
-#
-# Service widgets: replace all YOUR_* placeholders before deploying.
+# Proxmox widget: username format is "user@realm" (e.g. root@pam).
+# Uptime Kuma widget: slug is the status page slug from Settings > Status Pages.
 
 - Infrastructure:
     - pve1:
@@ -18,36 +21,71 @@
         description: Proxmox Node 1 — MM2
         icon: proxmox.png
         ping: https://10.27.27.101:8006
+        widget:
+          type: proxmox
+          url: https://10.27.27.101:8006
+          username: root@pam
+          password: "{{HOMEPAGE_VAR_PVE1_PASSWORD}}"
+          node: pve1
     - pve2:
         href: https://10.27.27.102:8006
         description: Proxmox Node 2 — MM3
         icon: proxmox.png
         ping: https://10.27.27.102:8006
+        widget:
+          type: proxmox
+          url: https://10.27.27.102:8006
+          username: root@pam
+          password: "{{HOMEPAGE_VAR_PVE2_PASSWORD}}"
+          node: pve2
     - pve3:
         href: https://10.27.27.103:8006
         description: Proxmox Node 3 — MM4
         icon: proxmox.png
         ping: https://10.27.27.103:8006
+        widget:
+          type: proxmox
+          url: https://10.27.27.103:8006
+          username: root@pam
+          password: "{{HOMEPAGE_VAR_PVE3_PASSWORD}}"
+          node: pve3
+    - UniFi:
+        href: https://10.27.27.1
+        description: UniFi network controller — UX7
+        icon: unifi.png
+        ping: https://10.27.27.1
+        widget:
+          type: unifi
+          url: https://10.27.27.1
+          username: "{{HOMEPAGE_VAR_UNIFI_USERNAME}}"
+          password: "{{HOMEPAGE_VAR_UNIFI_PASSWORD}}"
+          site: default
     - AdGuard Home:
         href: http://10.27.27.110
         description: DNS and ad blocking — pve1 CT110
         icon: adguard-home.png
         ping: http://10.27.27.110
+        proxmoxNode: pve1
+        proxmoxVMID: 110
+        proxmoxType: lxc
         widget:
           type: adguard
           url: http://10.27.27.110
           username: admin
-          password: Ctc9312Ctc!!!
+          password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
     - Nginx Proxy Manager:
         href: http://10.27.27.111:81
         description: Reverse proxy admin — pve1 CT101
         icon: nginx-proxy-manager.png
         ping: http://10.27.27.111:81
+        proxmoxNode: pve1
+        proxmoxVMID: 101
+        proxmoxType: lxc
         widget:
           type: npm
           url: http://10.27.27.111:81
           username: chasecook00@gmail.com
-          password: Ctc9312Ctc!!!
+          password: "{{HOMEPAGE_VAR_NPM_PASSWORD}}"
 
 - Media:
     - Jellyfin:
@@ -55,11 +93,19 @@
         description: Media server — CK10
         icon: jellyfin.png
         ping: http://10.27.27.33:8096
+        widget:
+          type: jellyfin
+          url: http://10.27.27.33:8096
+          key: "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}"
     - Audiobookshelf:
         href: http://10.27.27.22:13378
         description: Audiobooks and podcasts — MM1
         icon: audiobookshelf.png
         ping: http://10.27.27.22:13378
+        widget:
+          type: audiobookshelf
+          url: http://10.27.27.22:13378
+          key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}"
 
 - Arr Stack:
     - Seerr:
@@ -67,30 +113,59 @@
         description: Media requests
         icon: overseerr.png
         ping: http://10.27.27.47:5055
+        proxmoxNode: pve2
+        proxmoxVMID: 210
         widget:
           type: overseerr
           url: http://10.27.27.47:5055
-          key: MTc3NjIyNDAyODM4NTU3ZmJlZjk5LTRiODctNDlmZC05MGI3LTI2YzI4MzIyYmM1Yw==
+          key: "{{HOMEPAGE_VAR_OVERSEERR_API_KEY}}"
     - Sonarr:
         href: http://10.27.27.47:8989
         description: TV show automation
         icon: sonarr.png
         ping: http://10.27.27.47:8989
+        proxmoxNode: pve2
+        proxmoxVMID: 210
+        widget:
+          type: sonarr
+          url: http://10.27.27.47:8989
+          key: "{{HOMEPAGE_VAR_SONARR_API_KEY}}"
     - Radarr:
         href: http://10.27.27.47:7878
         description: Movie automation
         icon: radarr.png
         ping: http://10.27.27.47:7878
+        proxmoxNode: pve2
+        proxmoxVMID: 210
+        widget:
+          type: radarr
+          url: http://10.27.27.47:7878
+          key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
     - Prowlarr:
         href: http://10.27.27.47:9696
         description: Indexer management
         icon: prowlarr.png
         ping: http://10.27.27.47:9696
+        proxmoxNode: pve2
+        proxmoxVMID: 210
+        widget:
+          type: prowlarr
+          url: http://10.27.27.47:9696
+          key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
     - qBittorrent:
         href: http://10.27.27.47:8080
         description: Torrent client
         icon: qbittorrent.png
         ping: http://10.27.27.47:8080
+        proxmoxNode: pve2
+        proxmoxVMID: 210
+        widget:
+          type: qbittorrent
+          url: http://10.27.27.47:8080
+          username: admin
+          password: "{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}"
+          enableLeechProgress: true
+          enableLeechSize: true
 
 - Documents:
     - Paperless-ngx:
@@ -98,6 +173,10 @@
         description: Document management — MM1 (⚠️ verify port)
         icon: paperless-ngx.png
         ping: http://10.27.27.22:8000
+        widget:
+          type: paperlessngx
+          url: http://10.27.27.22:8000
+          key: "{{HOMEPAGE_VAR_PAPERLESS_API_KEY}}"
 
 - Monitoring:
     - Uptime Kuma:
@@ -105,3 +184,7 @@
         description: Service uptime monitoring — MM1
         icon: uptime-kuma.png
         ping: http://10.27.27.22:3001
+        widget:
+          type: uptimekuma
+          url: http://10.27.27.22:3001
+          slug: "{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}"
