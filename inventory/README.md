@@ -9,9 +9,9 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | Name | Role | OS | IP | Access |
 | ---- | ---- | -- | -- | ------ |
 | **MM1** — Mac Mini #1 (A1347) | NAS Brain / DAS Host | macOS | `10.27.27.22` | SSH / local |
-| **MM2** — Mac Mini #2 (A1347) | Proxmox Node 1 — pve1 | Proxmox VE | `10.27.27.101` | https://10.27.27.101:8006 |
-| **MM3** — Mac Mini #3 (A1347) | Proxmox Node 2 — pve2 | Proxmox VE | `10.27.27.102` | https://10.27.27.102:8006 |
-| **MM4** — Mac Mini #4 (A1347) | Proxmox Node 3 — pve3 | Proxmox VE | `10.27.27.103` | https://10.27.27.103:8006 |
+| **MM2** — Mac Mini #2 (A1347) | Proxmox Node 1 — pve1 | Proxmox VE | `10.27.27.101` | <https://10.27.27.101:8006> |
+| **MM3** — Mac Mini #3 (A1347) | Proxmox Node 2 — pve2 | Proxmox VE | `10.27.27.102` | <https://10.27.27.102:8006> |
+| **MM4** — Mac Mini #4 (A1347) | Proxmox Node 3 — pve3 | Proxmox VE | `10.27.27.103` | <https://10.27.27.103:8006> |
 | **CK10** — Ace Magician CK10 | Jellyfin media server | Windows | `10.27.27.33` | — |
 | **LittlePeggy** — Pegasus 2 R8 | DAS storage (TB2 → MM1) | — | N/A (Thunderbolt) | — |
 | **BigPeggy** — Pegasus 3 R8 | DAS storage (TB3 → MM1) | — | N/A (Thunderbolt) | — |
@@ -24,21 +24,21 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 | Service | Host | IP | Port | URL | Status |
 | ------- | ---- | -- | ---- | --- | ------ |
-| **Proxmox UI** | MM2 (pve1) | `10.27.27.101` | `8006` | https://10.27.27.101:8006 | ✅ Active |
-| **Proxmox UI** | MM3 (pve2) | `10.27.27.102` | `8006` | https://10.27.27.102:8006 | ✅ Active |
-| **Proxmox UI** | MM4 (pve3) | `10.27.27.103` | `8006` | https://10.27.27.103:8006 | ✅ Active |
-| **Jellyfin** | CK10 | `10.27.27.33` | `8096` | http://10.27.27.33:8096 · https://jellyfin.chaseworkslab.com | ✅ Active |
-| **AdGuard Home** | pve1 CT110 | `10.27.27.110` | `53`, `80` | http://10.27.27.110 (web UI) | ✅ Active |
-| **Nginx Proxy Manager** | pve1 CT101 | `10.27.27.111` | `80`, `443`, `81` | http://10.27.27.111:81 (admin) | ✅ Active |
-| **Audiobookshelf** | MM1 | `10.27.27.22` | `13378` | http://10.27.27.22:13378 | ✅ Active |
-| **Radarr** | docker-arr VM | TBD | `7878` | http://docker-arr:7878 | ✅ Active |
-| **Sonarr** | docker-arr VM | TBD | `8989` | http://docker-arr:8989 | ✅ Active |
-| **Prowlarr** | docker-arr VM | TBD | `9696` | http://docker-arr:9696 | ✅ Active |
-| **Seerr** | docker-arr VM | TBD | `5055` | http://docker-arr:5055 | ✅ Active |
-| **FlareSolverr** | docker-arr VM | TBD | `8191` | http://docker-arr:8191 | ✅ Active |
-| **qBittorrent** | docker-arr VM | TBD | `8080` | http://docker-arr:8080 | ✅ Active (VPN via Gluetun) |
-| **Paperless-ngx** | MM1 | `10.27.27.22` | `8000` | http://10.27.27.22:8000 | ⚠️ Verify port |
-| **Uptime Kuma** | MM1 | `10.27.27.22` | `3001` | http://10.27.27.22:3001 | ✅ Active |
+| **Proxmox UI** | MM2 (pve1) | `10.27.27.101` | `8006` | <https://10.27.27.101:8006> | ✅ Active |
+| **Proxmox UI** | MM3 (pve2) | `10.27.27.102` | `8006` | <https://10.27.27.102:8006> | ✅ Active |
+| **Proxmox UI** | MM4 (pve3) | `10.27.27.103` | `8006` | <https://10.27.27.103:8006> | ✅ Active |
+| **Jellyfin** | CK10 | `10.27.27.33` | `8096` | <http://10.27.27.33:8096> · <https://jellyfin.chaseworkslab.com> | ✅ Active |
+| **AdGuard Home** | pve1 CT110 | `10.27.27.110` | `53`, `80` | <http://10.27.27.110> (web UI) | ✅ Active |
+| **Nginx Proxy Manager** | pve1 CT101 | `10.27.27.111` | `80`, `443`, `81` | <http://10.27.27.111:81> (admin) | ✅ Active |
+| **Audiobookshelf** | MM1 | `10.27.27.22` | `13378` | <http://10.27.27.22:13378> | ✅ Active |
+| **Radarr** | docker-arr VM | TBD | `7878` | <http://docker-arr:7878> | ✅ Active |
+| **Sonarr** | docker-arr VM | TBD | `8989` | <http://docker-arr:8989> | ✅ Active |
+| **Prowlarr** | docker-arr VM | TBD | `9696` | <http://docker-arr:9696> | ✅ Active |
+| **Seerr** | docker-arr VM | TBD | `5055` | <http://docker-arr:5055> | ✅ Active |
+| **FlareSolverr** | docker-arr VM | TBD | `8191` | <http://docker-arr:8191> | ✅ Active |
+| **qBittorrent** | docker-arr VM | TBD | `8080` | <http://docker-arr:8080> | ✅ Active (VPN via Gluetun) |
+| **Paperless-ngx** | MM1 | `10.27.27.22` | `8000` | <http://10.27.27.22:8000> | ⚠️ Verify port |
+| **Uptime Kuma** | MM1 | `10.27.27.22` | `3001` | <http://10.27.27.22:3001> | ✅ Active |
 
 > ⚠️ docker-arr VM IP is TBD — update this table once a static IP is assigned in Proxmox. Paperless-ngx port on MM1 still needs confirmation.
 
@@ -78,6 +78,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | **BigPeggy** | Promise Pegasus 3 R8 (TB3, capped at TB2) | MM1 — `10.27.27.22` | `/mnt/bigpeggy` | `bigpeggy` |
 
 NFS exports from MM1:
+
 - `/Volumes/LittlePeggy` → `10.27.27.0/24`
 - `/Volumes/BigPeggy` → `10.27.27.0/24`
 
@@ -100,11 +101,13 @@ DNS resolver: AdGuard Home at `10.27.27.110` (replaces Pi-hole at `10.27.27.193`
 Split DNS: pve1 (`10.27.27.101`) is Tailscale subnet router; `chaseworkslab.com` resolves on tailnet
 
 Node hostnames (AdGuard DNS rewrites → direct to host):
+
 - `pve1.chaseworkslab.com` → `10.27.27.101`
 - `pve2.chaseworkslab.com` → `10.27.27.102`
 - `pve3.chaseworkslab.com` → `10.27.27.103`
 
 Service hostnames (AdGuard DNS rewrites → `10.27.27.111` → NPM → service):
+
 - See `lxc/pve1/dns-proxy-entries.md` for complete list
 
 ---

@@ -6,7 +6,7 @@ Update this file whenever a service is added, removed, or its port changes.
 ## Infrastructure
 
 | Component | Role | IP | Notes |
-|-----------|------|----|-------|
+| ----------- | ------ | ---- | ------- |
 | UniFi UX7 | Router / gateway | 10.27.27.1 | DHCP server; DNS points all clients to AdGuard Home (planned) |
 | USW Flex 2.5G 8-port PoE | Core switch (rack) | — | Uplinks to UX7; distributes to all other switches |
 | USW Flex 2.5G Mini (4-port) | Desktop switch | — | MacBook Pro M3 Pro + 2017 MacBook Pro |
@@ -69,7 +69,7 @@ Update this file whenever a service is added, removed, or its port changes.
 ## Tools
 
 | Tool | Purpose | Installed on |
-|------|---------|-------------|
+| ------ | --------- | ------------- |
 | Docker + Compose | Container runtime | Mac Mini #1; planned for Proxmox LXCs |
 | Ansible | Config management | Mac Mini #1 (control node) |
 | UTM | macOS VM host | Mac Mini #1 (hosts Pi-hole VM) |

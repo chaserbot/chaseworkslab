@@ -3,18 +3,19 @@
 Master reference for all AdGuard Home DNS rewrites and Nginx Proxy Manager proxy hosts.
 
 **The pattern:**
+
 1. Add a DNS rewrite in AdGuard Home: `<service>.chaseworkslab.com → 10.27.27.111`
 2. Add a proxy host in NPM: `<service>.chaseworkslab.com → http://<service-ip>:<port>`
 
-AdGuard Home admin: http://10.27.27.110  
-NPM admin: http://10.27.27.111:81
+AdGuard Home admin: <http://10.27.27.110>  
+NPM admin: <http://10.27.27.111:81>
 
 ---
 
 ## Tier 1 — Media (currently running on MM1 / CK10)
 
 | Subdomain | AdGuard rewrite | NPM forward host | NPM forward port | Status |
-|-----------|-----------------|------------------|------------------|--------|
+| ----------- | ----------------- | ------------------ | ------------------ | -------- |
 | `jellyfin.chaseworkslab.com` | `10.27.27.111` | `10.27.27.33` | `8096` | ✅ Done |
 | `sonarr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `8989` | ⬜ Todo |
 | `radarr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `7878` | ⬜ Todo |

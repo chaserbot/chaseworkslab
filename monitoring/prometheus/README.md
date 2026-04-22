@@ -28,7 +28,7 @@ ssh root@10.27.27.130 systemctl restart prometheus
 
 ## Verifying targets
 
-Open http://10.27.27.130:9090/targets in a browser after deploy.
+Open <http://10.27.27.130:9090/targets> in a browser after deploy.
 Each exporter target should show State = UP within one scrape interval (30s).
 
 ## pve_exporter note

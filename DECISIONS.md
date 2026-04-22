@@ -133,6 +133,7 @@ Format:
 ## 2026-04-03: Role-based split for homelab hardware
 
 **Decision:** Standardized the hardware roles as follows:
+
 - MM1 stays a macOS storage/download bridge for Pegasus DAS, NFS/SMB exports, and qBittorrent
 - CK10 stays a dedicated Jellyfin box
 - the 3-node Proxmox Mac mini cluster becomes the main infrastructure/app platform
@@ -149,6 +150,7 @@ Format:
 ## 2026-04-03: Proxmox node role split by service behavior
 
 **Decision:** Assigned the three Proxmox nodes distinct roles:
+
 - **pve1** = front door / network core (DNS, reverse proxy, dashboard)
 - **pve2** = media-support app node (arr stack, Overseerr, Audiobookshelf, Calibre-Web)
 - **pve3** = ops / automation / documents (Uptime Kuma, Prometheus, Grafana, alerting, n8n, Paperless-ngx, Portainer)
