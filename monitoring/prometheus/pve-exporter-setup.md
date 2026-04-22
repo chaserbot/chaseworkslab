@@ -79,5 +79,5 @@ curl "http://localhost:9221/pve?target=10.27.27.101"
 ```
 
 The Prometheus scrape config in `prometheus.yml` passes each PVE node IP as
-`?target=<ip>` and rewrites `__address__` to `localhost:9221` so all three
+`?target=<ip>` and rewrites `__address__` to `10.27.27.139:9221` so all three
 nodes are scraped via this single exporter instance.

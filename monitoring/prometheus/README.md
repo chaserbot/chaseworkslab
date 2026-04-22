@@ -29,9 +29,17 @@ ssh root@10.27.27.130 systemctl restart prometheus
 ## Verifying targets
 
 Open http://10.27.27.130:9090/targets in a browser after deploy.
-Each node_exporter target should show State = UP within one scrape interval (30s).
+Each exporter target should show State = UP within one scrape interval (30s).
 
 ## pve_exporter note
 
 `pve_exporter` is listed in the config but needs to be separately installed and given a
 read-only Proxmox API token before its job will work. Comment it out if not yet set up.
+
+## Pending credential-backed exporters
+
+`scraparr` and `qbittorrent` are listed in the config, but they will stay DOWN until
+their credentials are configured in their LXCs:
+
+- Scraparr: `/scraparr/config/config.yaml` on `10.27.27.138`
+- qbittorrent-exporter: `/opt/qbittorrent-exporter.env` on `10.27.27.137`

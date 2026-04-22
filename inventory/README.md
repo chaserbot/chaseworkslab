@@ -59,7 +59,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 | Service | Target IP | Port | Notes |
 | ------- | --------- | ---- | ----- |
-| **Prometheus** | `10.27.27.130` | `9090` | Running — LXC on pve3 |
+| **Prometheus** | `10.27.27.130` | `9090` | Config ready; deploy pending — LXC on pve3 |
 | **pve_exporter** | `10.27.27.139` | `9221` | Running — LXC on pve3; community script |
 | **Scraparr** | `10.27.27.138` | `7100` | Pending config — LXC on pve3; community script |
 | **qbittorrent-exporter** | `10.27.27.137` | `8090` | Pending config — LXC on pve3; community script |
@@ -111,7 +111,7 @@ Service hostnames (AdGuard DNS rewrites → `10.27.27.111` → NPM → service):
 
 ## 📊 Monitoring Scrape Targets
 
-Prometheus running at `10.27.27.130:9090` (pve3 LXC). Config at `monitoring/prometheus/prometheus.yml`.
+Prometheus planned at `10.27.27.130:9090` (pve3 LXC). Config at `monitoring/prometheus/prometheus.yml`.
 
 | Target | Address | Exporter | Status |
 | ------ | ------- | -------- | ------ |
@@ -119,13 +119,11 @@ Prometheus running at `10.27.27.130:9090` (pve3 LXC). Config at `monitoring/prom
 | Proxmox pve2 | `10.27.27.102:9100` | node_exporter | Pending |
 | Proxmox pve3 | `10.27.27.103:9100` | node_exporter | Pending |
 | MM1 (macOS) | `10.27.27.22:9100` | node_exporter (or Telegraf) | Pending |
-| CK10 (Jellyfin) | `10.27.27.33:9100` | windows_exporter | Pending |
-| Proxmox API (pve1/2/3) | `10.27.27.130:9221` | pve_exporter (on Prometheus LXC) | Pending setup |
+| CK10 (Jellyfin) | `10.27.27.33:9182` | windows_exporter | Pending |
+| Proxmox API (pve1/2/3) | `10.27.27.139:9221` | pve_exporter LXC | Running |
 | docker-arr VM | `10.27.27.47:9100` | node_exporter | Pending |
-| Sonarr | `10.27.27.47:9707` | exportarr | Pending deploy |
-| Radarr | `10.27.27.47:9708` | exportarr | Pending deploy |
-| Prowlarr | `10.27.27.47:9709` | exportarr | Pending deploy |
-| qBittorrent | `10.27.27.47:9731` | prometheus-qbittorrent-exporter | Pending deploy |
+| Sonarr/Radarr/Prowlarr | `10.27.27.138:7100` | Scraparr | Pending credentials |
+| qBittorrent | `10.27.27.137:8090` | qbittorrent-exporter | Pending credentials |
 | cAdvisor (docker-arr VM) | `10.27.27.47:8085` | cadvisor | Running |
 
 ---

@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-04-22: Standardize Prometheus labels and CK10 exporter port
+
+**Decision:** Prometheus scrape jobs now use readable `node`/`host` labels for Proxmox targets, and CK10 is scraped as a Windows host via `windows_exporter` on its default port `9182`.
+
+**Why:** Stable labels make Grafana dashboards easier to read than IP-only instances. Using the default windows_exporter port avoids accidentally treating CK10 like a node_exporter host on `9100`.
+
+**Rollback:** Revert `monitoring/prometheus/prometheus.yml` to the previous target list and change CK10 back to `10.27.27.33:9100` only if windows_exporter is intentionally configured to listen there.
+
+---
+
 ## 2026-04-22: Monitoring exporters deployed as individual LXCs via community scripts
 
 **Decision:** Each Prometheus exporter (pve_exporter, Scraparr, qbittorrent-exporter) gets its own dedicated LXC on pve3, installed via the [Proxmox VE community helper scripts](https://community-scripts.org), rather than running as Docker sidecars alongside the arr stack.
