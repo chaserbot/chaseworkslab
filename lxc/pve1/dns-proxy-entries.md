@@ -33,7 +33,7 @@ NPM admin: <http://10.27.27.111:81>
 ## Tier 2 — pve1 infrastructure services
 
 | Subdomain | AdGuard rewrite | NPM forward host | NPM forward port | Status |
-|-----------|-----------------|------------------|------------------|--------|
+| ----------- | ----------------- | ------------------ | ------------------ | -------- |
 | `npm.chaseworkslab.com` | `10.27.27.111` | `10.27.27.111` | `81` | ⬜ Todo |
 | `adguard.chaseworkslab.com` | `10.27.27.111` | `10.27.27.110` | `80` | ⬜ Todo |
 | `home.chaseworkslab.com` | `10.27.27.111` | `10.27.27.112` | `3000` | ⬜ Todo (Homepage not yet deployed) |
@@ -44,11 +44,11 @@ NPM admin: <http://10.27.27.111:81>
 
 These resolve directly to the Proxmox node IPs — they bypass NPM entirely. Proxmox runs HTTPS with a self-signed cert; routing it through NPM adds friction without benefit.
 
-| Subdomain | AdGuard rewrite | Notes |
+|Subdomain|AdGuard rewrite|Notes|
 |-----------|-----------------|-------|
-| `pve1.chaseworkslab.com` | `10.27.27.101` | Direct to node — no NPM entry |
-| `pve2.chaseworkslab.com` | `10.27.27.102` | Direct to node — no NPM entry |
-| `pve3.chaseworkslab.com` | `10.27.27.103` | Direct to node — no NPM entry |
+|`pve1.chaseworkslab.com`|`10.27.27.101`|Direct to node — no NPM entry|
+|`pve2.chaseworkslab.com`|`10.27.27.102`|Direct to node — no NPM entry|
+|`pve3.chaseworkslab.com`|`10.27.27.103`|Direct to node — no NPM entry|
 
 Access Proxmox at: `https://pve1.chaseworkslab.com:8006` etc.
 
@@ -57,7 +57,7 @@ Access Proxmox at: `https://pve1.chaseworkslab.com:8006` etc.
 ## Tier 4 — Not yet deployed (add DNS + NPM entries when live)
 
 | Subdomain | Future forward host | Port | Notes |
-|-----------|---------------------|------|-------|
+| ----------- | --------------------- | ------ | ------- |
 | `grafana.chaseworkslab.com` | `10.27.27.132` | `3000` | pve3 — not yet deployed |
 | `prometheus.chaseworkslab.com` | `10.27.27.130` | `9090` | pve3 — deploy pending |
 | `n8n.chaseworkslab.com` | `10.27.27.133` | `5678` | pve3 — not yet deployed |
@@ -78,7 +78,7 @@ Access Proxmox at: `https://pve1.chaseworkslab.com:8006` etc.
 When the arr stack moves from MM1 to pve2, update NPM to point to the new IPs:
 
 | Service | Current (MM1) | Future (pve2) |
-|---------|---------------|---------------|
+| -------- | -------------- | -------------- |
 | Sonarr | `10.27.27.22:8989` | `10.27.27.120:8989` |
 | Radarr | `10.27.27.22:7878` | `10.27.27.121:7878` |
 | Prowlarr | `10.27.27.22:9696` | `10.27.27.122:9696` |
