@@ -4,6 +4,8 @@ description: Prometheus scrape config, exporter LXC IPs, and config file locatio
 type: project
 ---
 
+# Monitoring stack architecture
+
 Prometheus scrape config is fully built and committed. All monitoring exporters are deployed as individual LXCs on pve3 via community helper scripts.
 
 **Why:** Keeps arr compose clean, each exporter independently manageable, credentials isolated per LXC.
@@ -12,13 +14,13 @@ Prometheus scrape config is fully built and committed. All monitoring exporters 
 
 ## IPs and ports (all on pve3, 10.27.27.103)
 
-| Service | IP | Port | Status |
+|Service|IP|Port|Status|
 |---|---|---|---|
-| Prometheus | 10.27.27.130 | 9090 | Config ready; LXC deploy pending |
-| pve_exporter | 10.27.27.139 | 9221 | Running |
-| Scraparr | 10.27.27.138 | 7100 | LXC up; needs API keys in config |
-| qbittorrent-exporter | 10.27.27.137 | 8090 | LXC up; needs password in env file |
-| cAdvisor | 10.27.27.47 | 8085 | Running on docker-arr VM |
+|Prometheus|10.27.27.130|9090|Config ready; LXC deploy pending|
+|pve_exporter|10.27.27.139|9221|Running|
+|Scraparr|10.27.27.138|7100|LXC up; needs API keys in config|
+|qbittorrent-exporter|10.27.27.137|8090|LXC up; needs password in env file|
+|cAdvisor|10.27.27.47|8085|Running on docker-arr VM|
 
 ## Config file locations (in this repo)
 
@@ -30,7 +32,7 @@ Prometheus scrape config is fully built and committed. All monitoring exporters 
 ## Config file locations (on LXCs)
 
 - Prometheus: `/etc/prometheus/prometheus.yml`
-- pve_exporter: `/etc/pve_exporter/pve.yml`
+- pve_exporter: `/opt/prometheus-pve-exporter/pve.yml`
 - Scraparr: `/scraparr/config/config.yaml`
 - qbittorrent-exporter: `/opt/qbittorrent-exporter.env`
 

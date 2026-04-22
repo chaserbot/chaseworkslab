@@ -21,22 +21,27 @@ pveum aclmod / -user prometheus@pve!prometheus -role PVEAuditor
 
 The token ID will be `prometheus@pve!prometheus`.
 
-## 2. Install pve_exporter in the exporter LXC
+## 2. Install prometheus-pve-exporter LXC
+
+Run the community script from a Proxmox node shell, not from inside an existing
+container:
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/ct/prometheus-pve-exporter.sh)"
+```
+
+Use the interactive prompts to create the exporter LXC at `10.27.27.139`.
+The community script exposes the exporter on port `9221`.
+
+## 3. Configure prometheus-pve-exporter
+
+After the LXC is created, SSH into it and add the Proxmox API token config.
+Keep the token secret only on the LXC; do not commit it to this repo.
 
 ```bash
 ssh root@10.27.27.139
 
-apt-get update && apt-get install -y python3-pip python3-venv
-
-python3 -m venv /opt/pve_exporter
-/opt/pve_exporter/bin/pip install prometheus-pve-exporter
-```
-
-## 3. Configure pve_exporter
-
-```bash
-mkdir -p /etc/pve_exporter
-cat > /etc/pve_exporter/pve.yml <<EOF
+cat > /opt/prometheus-pve-exporter/pve.yml <<EOF
 default:
   user: prometheus@pve
   token_name: prometheus
@@ -44,36 +49,19 @@ default:
   verify_ssl: false
 EOF
 
-chmod 600 /etc/pve_exporter/pve.yml
+chmod 600 /opt/prometheus-pve-exporter/pve.yml
 ```
 
-## 4. Create a systemd service
+## 4. Restart the service
 
 ```bash
-cat > /etc/systemd/system/pve_exporter.service <<EOF
-[Unit]
-Description=Prometheus Proxmox VE Exporter
-After=network.target
-
-[Service]
-User=root
-ExecStart=/opt/pve_exporter/bin/pve_exporter --config.file /etc/pve_exporter/pve.yml --web.listen-address 0.0.0.0:9221
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-systemctl daemon-reload
-systemctl enable --now pve_exporter
+systemctl restart prometheus-pve-exporter
+systemctl status prometheus-pve-exporter
 ```
 
 ## 5. Verify
 
 ```bash
-# Check service
-systemctl status pve_exporter
-
 # Test pve1 target manually
 curl "http://localhost:9221/pve?target=10.27.27.101"
 ```

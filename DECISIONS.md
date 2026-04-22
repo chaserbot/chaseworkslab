@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-04-22: Use community script for prometheus-pve-exporter install
+
+**Decision:** The pve_exporter setup guide now uses the Proxmox VE community `prometheus-pve-exporter` LXC script instead of documenting a manual Python venv and systemd install.
+
+**Why:** This matches the established homelab pattern for exporter LXCs, reduces manual install drift, and uses the script-managed service/config layout.
+
+**Rollback:** Install `prometheus-pve-exporter` manually in a Python venv and provide a matching systemd unit, then update `monitoring/prometheus/pve-exporter-setup.md` with the manual paths.
+
+---
+
 ## 2026-04-22: Standardize Prometheus labels and CK10 exporter port
 
 **Decision:** Prometheus scrape jobs now use readable `node`/`host` labels for Proxmox targets, and CK10 is scraped as a Windows host via `windows_exporter` on its default port `9182`.
