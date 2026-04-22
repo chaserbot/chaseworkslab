@@ -1,0 +1,15 @@
+# Scraparr config — deploy to /scraparr/config/config.yaml in the Scraparr LXC (10.27.27.138)
+# Restart after changes: systemctl restart scraparr
+# Metrics endpoint: http://10.27.27.138:7100/metrics
+
+sonarr:
+  url: http://10.27.27.47:8989
+  api_key: YOUR_SONARR_API_KEY   # Settings > General > API Key
+
+radarr:
+  url: http://10.27.27.47:7878
+  api_key: YOUR_RADARR_API_KEY   # Settings > General > API Key
+
+prowlarr:
+  url: http://10.27.27.47:9696
+  api_key: YOUR_PROWLARR_API_KEY  # Settings > General > API Key

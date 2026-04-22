@@ -12,6 +12,36 @@ Format:
 
 ---
 
+## 2026-04-22: Monitoring exporters deployed as individual LXCs via community scripts
+
+**Decision:** Each Prometheus exporter (pve_exporter, Scraparr, qbittorrent-exporter) gets its own dedicated LXC on pve3, installed via the [Proxmox VE community helper scripts](https://community-scripts.org), rather than running as Docker sidecars alongside the arr stack.
+
+**Why:** Community scripts handle install cleanly with no Docker overhead. Individual LXCs are independently manageable and restartable. Keeps the arr compose file clean — no monitoring concerns mixed into it. pve_exporter in particular benefits from LXC isolation since it holds PVE API credentials.
+
+**Rollback:** The Docker sidecar approach (exportarr containers in arr compose) is documented in git history. To revert, restore the sidecar services from the previous compose commit.
+
+---
+
+## 2026-04-22: Scraparr instead of per-service exportarr for arr stack metrics
+
+**Decision:** Use Scraparr (single LXC, one `/metrics` endpoint at port 7100) to cover Sonarr, Radarr, and Prowlarr instead of running three separate exportarr sidecar containers (one per service).
+
+**Why:** Scraparr is available as a community script, making it trivial to deploy as an LXC. It covers all three arr services from one config file and one scrape job in Prometheus. Per-service exportarr containers would require maintaining three separate Docker images and three Prometheus jobs with no meaningful operational advantage in this setup.
+
+**Rollback:** exportarr is on ghcr.io/onedr0p/exportarr — add sidecar containers back to `arr/docker-compose.yml` with ports 9707/9708/9709 and update prometheus.yml jobs accordingly.
+
+---
+
+## 2026-04-21: Homepage config files authored locally and committed to repo
+
+**Decision:** Built the full Homepage configuration (services.yaml, settings.yaml, widgets.yaml, bookmarks.yaml) locally in this repo under `lxc/pve1/homepage/config/` rather than editing directly on the LXC.
+
+**Why:** Keeps config in version control. Deploy = copy files to LXC. Consistent with the established pattern of authoring configs here and pushing intentionally to hosts. Proxmox widget uses API token auth (not root password). UniFi widget enabled with site name specified.
+
+**Rollback:** Files are in git. If the LXC config diverges, diff against this repo and re-copy.
+
+---
+
 ## 2026-04-15: Arr stack migrated to docker-arr Proxmox VM with Gluetun VPN
 
 **Decision:** Moved the entire arr stack (Sonarr, Radarr, Prowlarr, qBittorrent) off Mac Mini #1 to a dedicated Proxmox VM (`docker-arr`) running Docker Compose. Added Gluetun (ProtonVPN OpenVPN) as a VPN gateway for qBittorrent using `network_mode: service:gluetun` (kill switch). Replaced Overseerr with Seerr. Added FlareSolverr for Prowlarr Cloudflare bypasses. Storage via BigPeggy NFS at `/mnt/bigpeggy`.

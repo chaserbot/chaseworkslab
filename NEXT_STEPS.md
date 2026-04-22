@@ -52,10 +52,11 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 2. ~~Choose dashboard: Homepage, Glance, or Homarr~~ ✓ Homepage (may revisit Homarr later)
 3. ~~**Deploy AdGuard Home LXC on pve1**~~ ✓ Done 2026-04-13 — CT110, `10.27.27.110`, active
 4. ~~**Deploy Nginx Proxy Manager LXC on pve1**~~ ✓ Done 2026-04-13 — CT101, `10.27.27.111`, active
-5. Deploy Homepage LXC on pve1 — see `lxc/pve1/homepage/README.md` (CT102, `10.27.27.112`)
-6. ~~**Configure AdGuard Home DNS rewrites**~~ ✓ In progress — individual entries per service → `10.27.27.111`; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md` for full list
-7. ~~**Update router DNS** from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`)~~ ✓ Done 2026-04-13
-8. Add proxy hosts in NPM for each service — ⚠️ In progress; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md`
+5. ~~**Build Homepage config files**~~ ✓ Done 2026-04-21 — services, settings, widgets, bookmarks committed to `lxc/pve1/homepage/config/`
+6. Deploy Homepage LXC on pve1 — see `lxc/pve1/homepage/README.md` (CT102, `10.27.27.112`); copy config files from repo
+7. ~~**Configure AdGuard Home DNS rewrites**~~ ✓ In progress — individual entries per service → `10.27.27.111`; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md` for full list
+8. ~~**Update router DNS** from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`)~~ ✓ Done 2026-04-13
+9. Add proxy hosts in NPM for each service — ⚠️ In progress; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md`
 
 ### Phase 2 — private DNS and Tailscale behavior
 
@@ -66,11 +67,15 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 ### Phase 3 — monitoring and visibility on pve3
 
-1. Deploy Uptime Kuma on pve3
-2. Deploy Prometheus on pve3
-3. Deploy Grafana on pve3
-4. Add basic node/service checks for MM1, pve1, pve2, pve3, and CK10
-5. Add basic alerts for service downtime and node reachability
+1. Deploy Uptime Kuma on pve3 (IP TBD — was `.130`, now taken by Prometheus)
+2. ~~**Build Prometheus scrape config**~~ ✓ Done 2026-04-22 — `monitoring/prometheus/prometheus.yml`; all jobs defined
+3. ~~**Deploy pve_exporter LXC**~~ ✓ Done — `10.27.27.139`, community script, scrapes pve1/2/3 API
+4. ~~**Deploy Scraparr LXC**~~ ✓ LXC at `10.27.27.138`; fill in API keys at `/scraparr/config/config.yaml` and `systemctl restart scraparr`
+5. ~~**Deploy qbittorrent-exporter LXC**~~ ✓ LXC at `10.27.27.137`; fill in password at `/opt/qbittorrent-exporter.env` and `systemctl restart qbittorrent-exporter`
+6. Deploy Prometheus LXC on pve3 (`10.27.27.130`) — copy `monitoring/prometheus/prometheus.yml` to `/etc/prometheus/`
+7. Deploy Grafana on pve3 (IP TBD)
+8. Add node_exporter to pve1/2/3 bare-metal hosts and MM1, CK10
+9. Add basic alerts for service downtime and node reachability
 
 ### Phase 4 — application stack on pve2
 

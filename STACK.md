@@ -59,7 +59,12 @@ Update this file whenever a service is added, removed, or its port changes.
 | n8n | — | `5678` | pve3 (`10.27.27.133`) | Not deployed | Automation / agent orchestration |
 | Grafana | monitoring/ | `3000` | pve3 (`10.27.27.132`) | Not deployed | Dashboards |
 | Prometheus | monitoring/ | `9090` | pve3 (`10.27.27.131`) | Not deployed | Metrics scraping and storage |
-| Node Exporter | monitoring/ | `9100` | Each Proxmox node + MM1 | Not deployed | Per-host system metrics |
+| Node Exporter | monitoring/ | `9100` | Each Proxmox node + MM1 + CK10 + docker-arr VM | Not deployed | Per-host system metrics |
+| **Prometheus** | monitoring/ | `9090` | pve3 LXC (`10.27.27.130`) | Config ready; deploy pending | Scrape config at `monitoring/prometheus/prometheus.yml` |
+| **pve_exporter** | monitoring/ | `9221` | pve3 LXC (`10.27.27.139`) | Running | Scrapes Proxmox API for VM/CT metrics; community script |
+| **Scraparr** | monitoring/ | `7100` | pve3 LXC (`10.27.27.138`) | Pending config | Arr suite exporter (Sonarr/Radarr/Prowlarr); community script |
+| **qbittorrent-exporter** | monitoring/ | `8090` | pve3 LXC (`10.27.27.137`) | Pending config | qBittorrent metrics; community addon script |
+| **cAdvisor** | — | `8085` | docker-arr VM (`10.27.27.47`) | Running | Docker container metrics |
 
 ## Tools
 

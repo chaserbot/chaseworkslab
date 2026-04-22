@@ -196,14 +196,14 @@
 
 # - Planned:
 #    - Prometheus:
-#        href: http://10.27.27.131:9090
-#        description: Metrics collection — pve3 (not yet deployed)
+#        href: http://10.27.27.130:9090
+#        description: Metrics collection — pve3 LXC
 #        icon: prometheus.png
 #    - Grafana:
 #        href: http://10.27.27.132:3000
-#        description: Metrics dashboards — pve3 (not yet deployed)
+#        description: Metrics dashboards — pve3 (IP TBD)
 #        icon: grafana.png
 #    - n8n:
 #        href: http://10.27.27.133:5678
-#        description: Workflow automation — pve3 (not yet deployed)
+#        description: Workflow automation — pve3 (IP TBD)
 #        icon: n8n.png

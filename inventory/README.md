@@ -52,15 +52,18 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 | Service | Target IP | Port | Notes |
 | ------- | --------- | ---- | ----- |
-| **docker-arr VM** | 10.27.27.47 | — | Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) — already running; assign static IP |
+| **docker-arr VM** | `10.27.27.47` | — | Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) — running; IP confirmed static |
 | **Audiobookshelf** | `10.27.27.124` | `13378` | Moving from MM1 |
 
 ### Planned (pve3 — ops)
 
 | Service | Target IP | Port | Notes |
 | ------- | --------- | ---- | ----- |
-| **Uptime Kuma** | `10.27.27.130` | `3001` | Moving from MM1 |
-| **Prometheus** | `10.27.27.131` | `9090` | New deployment |
+| **Prometheus** | `10.27.27.130` | `9090` | Running — LXC on pve3 |
+| **pve_exporter** | `10.27.27.139` | `9221` | Running — LXC on pve3; community script |
+| **Scraparr** | `10.27.27.138` | `7100` | Pending config — LXC on pve3; community script |
+| **qbittorrent-exporter** | `10.27.27.137` | `8090` | Pending config — LXC on pve3; community script |
+| **Uptime Kuma** | TBD | `3001` | Moving from MM1 — IP TBD |
 | **Grafana** | `10.27.27.132` | `3000` | New deployment |
 | **n8n** | `10.27.27.133` | `5678` | New deployment |
 | **Paperless-ngx** | `10.27.27.134` | `8000` | Moving from MM1 |
@@ -106,18 +109,24 @@ Service hostnames (AdGuard DNS rewrites → `10.27.27.111` → NPM → service):
 
 ---
 
-## 📊 Monitoring Scrape Targets (future Prometheus config)
+## 📊 Monitoring Scrape Targets
 
-When Prometheus is running, these are the targets to add. Ports listed are standard defaults — confirm each before deploying.
+Prometheus running at `10.27.27.130:9090` (pve3 LXC). Config at `monitoring/prometheus/prometheus.yml`.
 
-| Target | Address | Exporter |
-| ------ | ------- | -------- |
-| Proxmox pve1 | `10.27.27.101:9100` | node_exporter |
-| Proxmox pve2 | `10.27.27.102:9100` | node_exporter |
-| Proxmox pve3 | `10.27.27.103:9100` | node_exporter |
-| MM1 (macOS) | `10.27.27.22:9100` | node_exporter (or Telegraf) |
-| CK10 (Jellyfin) | `10.27.27.33:9100` | node_exporter |
-| Proxmox API | `10.27.27.101:8006` | pve_exporter |
+| Target | Address | Exporter | Status |
+| ------ | ------- | -------- | ------ |
+| Proxmox pve1 | `10.27.27.101:9100` | node_exporter | Pending |
+| Proxmox pve2 | `10.27.27.102:9100` | node_exporter | Pending |
+| Proxmox pve3 | `10.27.27.103:9100` | node_exporter | Pending |
+| MM1 (macOS) | `10.27.27.22:9100` | node_exporter (or Telegraf) | Pending |
+| CK10 (Jellyfin) | `10.27.27.33:9100` | windows_exporter | Pending |
+| Proxmox API (pve1/2/3) | `10.27.27.130:9221` | pve_exporter (on Prometheus LXC) | Pending setup |
+| docker-arr VM | `10.27.27.47:9100` | node_exporter | Pending |
+| Sonarr | `10.27.27.47:9707` | exportarr | Pending deploy |
+| Radarr | `10.27.27.47:9708` | exportarr | Pending deploy |
+| Prowlarr | `10.27.27.47:9709` | exportarr | Pending deploy |
+| qBittorrent | `10.27.27.47:9731` | prometheus-qbittorrent-exporter | Pending deploy |
+| cAdvisor (docker-arr VM) | `10.27.27.47:8085` | cadvisor | Running |
 
 ---
 
