@@ -38,8 +38,14 @@ read-only Proxmox API token before its job will work. Comment it out if not yet 
 
 ## Pending credential-backed exporters
 
-`scraparr` and `qbittorrent` are listed in the config, but they will stay DOWN until
-their credentials are configured in their LXCs:
+`exportarr` and `qbittorrent` are listed in the config, but they will stay DOWN until
+their credentials are configured:
 
-- Scraparr: `/scraparr/config/config.yaml` on `10.27.27.138`
+- Exportarr: Arr API keys in `arr/.env` on the docker-arr VM (`10.27.27.47`)
 - qbittorrent-exporter: `/opt/qbittorrent-exporter.env` on `10.27.27.137`
+
+## Blackbox exporter note
+
+Blackbox exporter is planned at `10.27.27.136:9115`. Until that LXC is deployed and
+`monitoring/blackbox/blackbox.yml` is copied into place, the `blackbox_http` and
+`blackbox_tcp` jobs will show as DOWN.

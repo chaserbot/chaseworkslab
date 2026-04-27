@@ -8,4 +8,4 @@ Use the [Proxmox VE community helper scripts](https://community-scripts.org) for
 
 **Why:** Community scripts always pull a current valid template, handle the full install interactively, and are maintained externally — nothing on our end breaks when upstream templates change. Custom scripts hardcode template version strings that go stale.
 
-**How to apply:** When the user wants to deploy a new service as a Proxmox LXC, recommend the community script install command rather than a custom script. Per-service READMEs document the values to enter at the interactive prompts (CT ID, IP, gateway). This pattern is established across pve1 (AdGuard Home, NPM, Homepage) and pve3 (pve_exporter, Scraparr, qbittorrent-exporter).
+**How to apply:** When the user wants to deploy a new service as a Proxmox LXC, recommend the community script install command rather than a custom script. Per-service READMEs document the values to enter at the interactive prompts (CT ID, IP, gateway). This pattern is established across pve1 (AdGuard Home, NPM, Homepage) and pve3 (pve_exporter, qbittorrent-exporter). Arr app metrics moved away from Scraparr to Exportarr sidecars on 2026-04-27.

@@ -1,6 +1,6 @@
 # Current state
 
-Last updated: 2026-04-22
+Last updated: 2026-04-27
 
 Quick snapshot of what is running, what is stable, and any known issues.
 Update this after significant changes.
@@ -33,7 +33,8 @@ Update this after significant changes.
 | Homepage | Config ready; deploy pending | pve1 CT102 (`10.27.27.112`) | Config files in `lxc/pve1/homepage/config/`; full service layout built incl. widgets, Proxmox API token auth, UniFi widget |
 | Prometheus | Config ready; deploy pending | pve3 LXC (`10.27.27.130`) | Scrape config in `monitoring/prometheus/prometheus.yml`; jobs labeled for readable Grafana dashboards |
 | pve_exporter | Running | pve3 LXC (`10.27.27.139`) | Installed via community script; scrapes pve1/2/3 API; see `monitoring/prometheus/pve-exporter-setup.md` |
-| Scraparr | Pending config | pve3 LXC (`10.27.27.138`) | Config template at `monitoring/scraparr/config.yaml`; needs API keys filled in |
+| Exportarr | Planned | docker-arr VM (`10.27.27.47`) | Compose sidecars for Radarr (`9707`), Sonarr (`9708`), Prowlarr (`9709`); API keys come from `arr/.env` |
+| Blackbox exporter | Planned | pve3 LXC (`10.27.27.136`) | HTTP/TCP probes configured in Prometheus; config template at `monitoring/blackbox/blackbox.yml` |
 | qbittorrent-exporter | Pending config | pve3 LXC (`10.27.27.137`) | Config template at `monitoring/qbittorrent-exporter/qbittorrent-exporter.env`; needs qBT password |
 | Ollama | Not deployed | — | Planned: Proxmox LXC or VM |
 | Open WebUI | Not deployed | — | Planned: same host as Ollama |
@@ -49,7 +50,7 @@ Update this after significant changes.
 - **NPM entries incomplete**: only Jellyfin proxied so far; see `lxc/pve1/dns-proxy-entries.md` for full list to build out.
 - **Homepage LXC**: config files ready but LXC not yet deployed (CT102, `10.27.27.112`).
 - **LLM stack**: not yet deployed — architecture planned, repo scaffolded.
-- **Monitoring stack**: Prometheus config built; Grafana not yet deployed; Scraparr and qbittorrent-exporter need credentials configured in their LXCs.
+- **Monitoring stack**: Prometheus config built; Grafana not yet deployed; Exportarr sidecars need Arr API keys in docker-arr `.env`; Blackbox LXC not yet deployed; qbittorrent-exporter needs credentials configured in its LXC.
 - **Homepage services.yaml**: Planned section has stale IPs for Prometheus (was `.131`, now `.130`) and Grafana/n8n — update once those LXCs are assigned IPs.
 
 ## Last stable configuration
@@ -58,9 +59,10 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 
 ## Recent changes
 
-- 2026-04-22: Prometheus scrape config reviewed and refined — CK10 uses default windows_exporter port `9182`; Proxmox node/API jobs have readable `node`/`host` labels; Scraparr and qbittorrent-exporter jobs are documented as credential-dependent.
+- 2026-04-27: Monitoring plan changed from Scraparr LXC to Exportarr sidecars in the docker-arr VM. Added Blackbox exporter plan at `10.27.27.136:9115` with HTTP/TCP probes for core services.
+- 2026-04-22: Prometheus scrape config reviewed and refined — CK10 uses default windows_exporter port `9182`; Proxmox node/API jobs have readable `node`/`host` labels; Arr and qBittorrent jobs are documented as credential-dependent.
 - 2026-04-22: pve_exporter setup doc updated to use the community `prometheus-pve-exporter` LXC script; config path documented as `/opt/prometheus-pve-exporter/pve.yml`.
-- 2026-04-22: Prometheus scrape config built (`monitoring/prometheus/prometheus.yml`) — jobs for node_exporter (pve1/2/3, MM1, docker-arr VM), windows_exporter (CK10), pve_exporter, Scraparr, qbittorrent-exporter, cAdvisor. All monitoring exporters deployed as individual LXCs on pve3 via community scripts (pve_exporter `.139`, Scraparr `.138`, qbittorrent-exporter `.137`). Config templates committed for Scraparr (`monitoring/scraparr/config.yaml`) and qbittorrent-exporter (`monitoring/qbittorrent-exporter/qbittorrent-exporter.env`).
+- 2026-04-22: Prometheus scrape config built (`monitoring/prometheus/prometheus.yml`) — jobs for node_exporter (pve1/2/3, MM1, docker-arr VM), windows_exporter (CK10), pve_exporter, Arr app metrics, qbittorrent-exporter, cAdvisor. Initial plan used Scraparr; superseded by Exportarr sidecars on 2026-04-27.
 - 2026-04-21: Homepage config files built and committed to `lxc/pve1/homepage/config/` — services.yaml (Infrastructure, Media, Arr Stack, Downloads sections with live widgets), settings.yaml, widgets.yaml (greeting, search, datetime, resources), bookmarks.yaml. Proxmox widgets use API token auth. UniFi widget enabled with site name.
 - 2026-04-15: Arr stack migrated to docker-arr Proxmox VM (Docker Compose + Gluetun VPN). Seerr replaces Overseerr. FlareSolverr added. Compose file committed to `arr/docker-compose.yml`.
 - 2026-04-13: AdGuard Home (CT110) and NPM (CT101) deployed on pve1 and active. Jellyfin proxy entry live at `jellyfin.chaseworkslab.com`. pve1 configured as Tailscale subnet router with split DNS. Router DHCP DNS updated from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`).

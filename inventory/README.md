@@ -61,7 +61,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | ------- | --------- | ---- | ----- |
 | **Prometheus** | `10.27.27.130` | `9090` | Config ready; deploy pending — LXC on pve3 |
 | **pve_exporter** | `10.27.27.139` | `9221` | Running — LXC on pve3; community script |
-| **Scraparr** | `10.27.27.138` | `7100` | Pending config — LXC on pve3; community script |
+| **Blackbox exporter** | `10.27.27.136` | `9115` | Planned — LXC on pve3 |
 | **qbittorrent-exporter** | `10.27.27.137` | `8090` | Pending config — LXC on pve3; community script |
 | **Uptime Kuma** | TBD | `3001` | Moving from MM1 — IP TBD |
 | **Grafana** | `10.27.27.132` | `3000` | New deployment |
@@ -125,9 +125,12 @@ Prometheus planned at `10.27.27.130:9090` (pve3 LXC). Config at `monitoring/prom
 | CK10 (Jellyfin) | `10.27.27.33:9182` | windows_exporter | Pending |
 | Proxmox API (pve1/2/3) | `10.27.27.139:9221` | pve_exporter LXC | Running |
 | docker-arr VM | `10.27.27.47:9100` | node_exporter | Pending |
-| Sonarr/Radarr/Prowlarr | `10.27.27.138:7100` | Scraparr | Pending credentials |
+| Radarr | `10.27.27.47:9707` | Exportarr | Planned; needs API key in docker-arr `.env` |
+| Sonarr | `10.27.27.47:9708` | Exportarr | Planned; needs API key in docker-arr `.env` |
+| Prowlarr | `10.27.27.47:9709` | Exportarr | Planned; needs API key in docker-arr `.env` |
 | qBittorrent | `10.27.27.137:8090` | qbittorrent-exporter | Pending credentials |
 | cAdvisor (docker-arr VM) | `10.27.27.47:8085` | cadvisor | Running |
+| Key HTTP/TCP services | `10.27.27.136:9115` | Blackbox exporter | Planned |
 
 ---
 

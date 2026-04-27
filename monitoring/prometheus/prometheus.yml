@@ -102,18 +102,26 @@ scrape_configs:
       - target_label: __address__
         replacement: '10.27.27.139:9221'  # pve_exporter LXC
 
-  # ── Arr stack metrics (Scraparr LXC) ─────────────────────────────────────
-  # Single exporter covers Sonarr, Radarr, Prowlarr.
-  # Expect a DOWN target until API keys are configured.
-  # Config lives at /scraparr/config/config.yaml in the Scraparr LXC.
-  # See: monitoring/scraparr/config.yaml
-  - job_name: scraparr
+  # ── Arr stack metrics (Exportarr sidecars on docker-arr VM) ──────────────
+  # One Exportarr instance per Arr app; API keys live in arr/.env on docker-arr.
+  - job_name: exportarr
     metrics_path: /metrics
     static_configs:
       - targets:
-          - '10.27.27.138:7100'
+          - '10.27.27.47:9707'
         labels:
           role: arr
+          app: radarr
+      - targets:
+          - '10.27.27.47:9708'
+        labels:
+          role: arr
+          app: sonarr
+      - targets:
+          - '10.27.27.47:9709'
+        labels:
+          role: arr
+          app: prowlarr
 
   # ── qBittorrent exporter (LXC) ───────────────────────────────────────────
   # Connects to qBittorrent web UI at 10.27.27.47:8080 (via Gluetun).
@@ -136,3 +144,50 @@ scrape_configs:
         labels:
           role: arr
           app: cadvisor
+
+  # ── Blackbox — HTTP service probes ───────────────────────────────────────
+  # blackbox_exporter runs in its own pve3 LXC at 10.27.27.136:9115.
+  # See: monitoring/blackbox/blackbox.yml
+  - job_name: blackbox_http
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+          - http://10.27.27.110/
+          - http://10.27.27.111:81/
+          - http://10.27.27.33:8096/
+          - http://10.27.27.47:5055/
+          - http://10.27.27.47:7878/
+          - http://10.27.27.47:8989/
+          - http://10.27.27.47:9696/
+          - http://10.27.27.130:9090/
+          - https://10.27.27.101:8006/
+          - https://10.27.27.102:8006/
+          - https://10.27.27.103:8006/
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: '10.27.27.136:9115'
+
+  # ── Blackbox — TCP probes for non-HTTP essentials ────────────────────────
+  - job_name: blackbox_tcp
+    metrics_path: /probe
+    params:
+      module: [tcp_connect]
+    static_configs:
+      - targets:
+          - 10.27.27.110:53
+          - 10.27.27.111:80
+          - 10.27.27.111:443
+          - 10.27.27.47:8080
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: '10.27.27.136:9115'

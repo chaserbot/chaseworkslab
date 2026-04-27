@@ -46,6 +46,9 @@ Update this file whenever a service is added, removed, or its port changes.
 | Gluetun | arr/ | `6881`, `6881/udp` | docker-arr VM | Running | ProtonVPN OpenVPN gateway for qBittorrent |
 | FlareSolverr | arr/ | `8191` | docker-arr VM | Running | Cloudflare bypass for Prowlarr |
 | Seerr | arr/ | `5055` | docker-arr VM | Running | Media request UI; replaces Overseerr |
+| Exportarr Radarr | arr/ | `9707` | docker-arr VM (`10.27.27.47`) | Planned | Prometheus metrics for Radarr; Docker Compose sidecar |
+| Exportarr Sonarr | arr/ | `9708` | docker-arr VM (`10.27.27.47`) | Planned | Prometheus metrics for Sonarr; Docker Compose sidecar |
+| Exportarr Prowlarr | arr/ | `9709` | docker-arr VM (`10.27.27.47`) | Planned | Prometheus metrics for Prowlarr; Docker Compose sidecar |
 | Audiobookshelf | arr/ | `13378` | Mac Mini #1 (`10.27.27.22`) | Running | Audiobook/podcast server; compose file not yet in git |
 | Jellyfin | docker/ | `8096` | Ace Magician CK10 (`10.27.27.33`) | Running | Media server; not yet Dockerized; HW transcoding unverified |
 | Uptime Kuma | docker/ | `3001` | Mac Mini #1 (`10.27.27.22`) | Running | Uptime monitoring; compose file not yet in git |
@@ -62,7 +65,7 @@ Update this file whenever a service is added, removed, or its port changes.
 | Windows Exporter | monitoring/ | `9182` | CK10 (`10.27.27.33`) | Not deployed | Windows host metrics |
 | **Prometheus** | monitoring/ | `9090` | pve3 LXC (`10.27.27.130`) | Config ready; deploy pending | Scrape config at `monitoring/prometheus/prometheus.yml` |
 | **pve_exporter** | monitoring/ | `9221` | pve3 LXC (`10.27.27.139`) | Running | Scrapes Proxmox API for VM/CT metrics; community script |
-| **Scraparr** | monitoring/ | `7100` | pve3 LXC (`10.27.27.138`) | Pending config | Arr suite exporter (Sonarr/Radarr/Prowlarr); community script |
+| **Blackbox exporter** | monitoring/ | `9115` | pve3 LXC (`10.27.27.136`) | Planned | HTTP/TCP probes for key services |
 | **qbittorrent-exporter** | monitoring/ | `8090` | pve3 LXC (`10.27.27.137`) | Pending config | qBittorrent metrics; community addon script |
 | **cAdvisor** | — | `8085` | docker-arr VM (`10.27.27.47`) | Running | Docker container metrics |
 

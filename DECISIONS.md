@@ -12,6 +12,14 @@ Format:
 
 ---
 
+## 2026-04-27: Use Exportarr sidecars and Blackbox probes for monitoring
+
+**Decision:** Replace the planned Scraparr LXC with three Exportarr sidecars in the docker-arr Compose stack: Radarr on `9707`, Sonarr on `9708`, and Prowlarr on `9709`. Add Blackbox exporter as a lightweight PVE3 LXC at `10.27.27.136:9115` for HTTP/TCP service probes.
+
+**Why:** Exportarr keeps Arr metrics close to the Arr services and matches the user's preference. Blackbox adds simple availability checks that produce clean Grafana panels without adding a heavy logging or tracing stack.
+
+**Rollback:** Stop/remove the Exportarr sidecars from `arr/docker-compose.yml`, restore the Scraparr scrape job in `monitoring/prometheus/prometheus.yml`, and point Arr metrics back to the Scraparr LXC at `10.27.27.138:7100`. Remove or comment out the `blackbox_http` and `blackbox_tcp` Prometheus jobs if the Blackbox LXC is not wanted.
+
 ## 2026-04-22: Use community script for prometheus-pve-exporter install
 
 **Decision:** The pve_exporter setup guide now uses the Proxmox VE community `prometheus-pve-exporter` LXC script instead of documenting a manual Python venv and systemd install.
@@ -34,7 +42,7 @@ Format:
 
 ## 2026-04-22: Monitoring exporters deployed as individual LXCs via community scripts
 
-**Decision:** Each Prometheus exporter (pve_exporter, Scraparr, qbittorrent-exporter) gets its own dedicated LXC on pve3, installed via the [Proxmox VE community helper scripts](https://community-scripts.org), rather than running as Docker sidecars alongside the arr stack.
+**Decision:** Each Prometheus exporter (pve_exporter, Scraparr, qbittorrent-exporter) gets its own dedicated LXC on pve3, installed via the [Proxmox VE community helper scripts](https://community-scripts.org), rather than running as Docker sidecars alongside the arr stack. Superseded on 2026-04-27 for Arr app metrics only; pve_exporter and qbittorrent-exporter remain LXC-based.
 
 **Why:** Community scripts handle install cleanly with no Docker overhead. Individual LXCs are independently manageable and restartable. Keeps the arr compose file clean — no monitoring concerns mixed into it. pve_exporter in particular benefits from LXC isolation since it holds PVE API credentials.
 
@@ -44,7 +52,7 @@ Format:
 
 ## 2026-04-22: Scraparr instead of per-service exportarr for arr stack metrics
 
-**Decision:** Use Scraparr (single LXC, one `/metrics` endpoint at port 7100) to cover Sonarr, Radarr, and Prowlarr instead of running three separate exportarr sidecar containers (one per service).
+**Decision:** Use Scraparr (single LXC, one `/metrics` endpoint at port 7100) to cover Sonarr, Radarr, and Prowlarr instead of running three separate exportarr sidecar containers (one per service). Superseded on 2026-04-27 by the Exportarr sidecar decision above.
 
 **Why:** Scraparr is available as a community script, making it trivial to deploy as an LXC. It covers all three arr services from one config file and one scrape job in Prometheus. Per-service exportarr containers would require maintaining three separate Docker images and three Prometheus jobs with no meaningful operational advantage in this setup.
 

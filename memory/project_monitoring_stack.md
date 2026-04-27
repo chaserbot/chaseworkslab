@@ -18,27 +18,30 @@ Prometheus scrape config is fully built and committed. All monitoring exporters 
 |---|---|---|---|
 |Prometheus|10.27.27.130|9090|Config ready; LXC deploy pending|
 |pve_exporter|10.27.27.139|9221|Running|
-|Scraparr|10.27.27.138|7100|LXC up; needs API keys in config|
+|Blackbox exporter|10.27.27.136|9115|Planned|
 |qbittorrent-exporter|10.27.27.137|8090|LXC up; needs password in env file|
 |cAdvisor|10.27.27.47|8085|Running on docker-arr VM|
+|Exportarr Radarr|10.27.27.47|9707|Planned docker-arr Compose sidecar|
+|Exportarr Sonarr|10.27.27.47|9708|Planned docker-arr Compose sidecar|
+|Exportarr Prowlarr|10.27.27.47|9709|Planned docker-arr Compose sidecar|
 
 ## Config file locations (in this repo)
 
 - Prometheus scrape config: `monitoring/prometheus/prometheus.yml`
 - pve_exporter setup guide: `monitoring/prometheus/pve-exporter-setup.md`
-- Scraparr config template: `monitoring/scraparr/config.yaml`
+- Blackbox config template: `monitoring/blackbox/blackbox.yml`
 - qbittorrent-exporter env template: `monitoring/qbittorrent-exporter/qbittorrent-exporter.env`
 
 ## Config file locations (on LXCs)
 
 - Prometheus: `/etc/prometheus/prometheus.yml`
 - pve_exporter: `/opt/prometheus-pve-exporter/pve.yml`
-- Scraparr: `/scraparr/config/config.yaml`
+- Blackbox exporter: `/etc/blackbox_exporter/blackbox.yml`
 - qbittorrent-exporter: `/opt/qbittorrent-exporter.env`
 
 ## Pending actions (as of 2026-04-22)
 
-1. Fill in Scraparr API keys (Sonarr/Radarr/Prowlarr) and restart service
+1. Fill in Exportarr API keys (Sonarr/Radarr/Prowlarr) in docker-arr `.env` and restart the Compose sidecars
 2. Fill in qBittorrent password in exporter env file and restart service
 3. Deploy Prometheus LXC and copy config file
 4. Deploy Grafana LXC (IP not yet assigned)

@@ -70,12 +70,13 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 1. Deploy Uptime Kuma on pve3 (IP TBD — was `.130`, now taken by Prometheus)
 2. ~~**Build Prometheus scrape config**~~ ✓ Done 2026-04-22 — `monitoring/prometheus/prometheus.yml`; all jobs defined
 3. ~~**Deploy pve_exporter LXC**~~ ✓ Done — `10.27.27.139`, community script, scrapes pve1/2/3 API
-4. ~~**Deploy Scraparr LXC**~~ ✓ LXC at `10.27.27.138`; fill in API keys at `/scraparr/config/config.yaml` and `systemctl restart scraparr`
+4. Add Exportarr sidecars to docker-arr VM (`9707` Radarr, `9708` Sonarr, `9709` Prowlarr); fill Arr API keys in `.env`
 5. ~~**Deploy qbittorrent-exporter LXC**~~ ✓ LXC at `10.27.27.137`; fill in password at `/opt/qbittorrent-exporter.env` and `systemctl restart qbittorrent-exporter`
-6. Deploy Prometheus LXC on pve3 (`10.27.27.130`) — copy `monitoring/prometheus/prometheus.yml` to `/etc/prometheus/`
-7. Deploy Grafana on pve3 (IP TBD)
-8. Add node_exporter to pve1/2/3 bare-metal hosts and MM1, CK10
-9. Add basic alerts for service downtime and node reachability
+6. Deploy Blackbox exporter LXC on pve3 (`10.27.27.136`) — copy `monitoring/blackbox/blackbox.yml` to `/etc/blackbox_exporter/`
+7. Deploy Prometheus LXC on pve3 (`10.27.27.130`) — copy `monitoring/prometheus/prometheus.yml` to `/etc/prometheus/`
+8. Deploy Grafana on pve3 (IP TBD)
+9. Add node_exporter to pve1/2/3 bare-metal hosts and MM1, CK10
+10. Add basic alerts for service downtime and node reachability
 
 ### Phase 4 — application stack on pve2
 
