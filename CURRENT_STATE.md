@@ -59,7 +59,9 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 
 ## Recent changes
 
+- 2026-04-27: pve_exporter setup verified. Guide now uses the working token config and grants `PVEAuditor` to both `prometheus@pve` and `prometheus@pve!prometheus`.
 - 2026-04-27: Monitoring plan changed from Scraparr LXC to Exportarr sidecars in the docker-arr VM. Added Blackbox exporter plan at `10.27.27.136:9115` with HTTP/TCP probes for core services.
+- 2026-04-27: pve_exporter setup doc corrected to grant `PVEAuditor` to the API token with `--tokens 'prometheus@pve!prometheus'` instead of passing the token ID as a user.
 - 2026-04-22: Prometheus scrape config reviewed and refined — CK10 uses default windows_exporter port `9182`; Proxmox node/API jobs have readable `node`/`host` labels; Arr and qBittorrent jobs are documented as credential-dependent.
 - 2026-04-22: pve_exporter setup doc updated to use the community `prometheus-pve-exporter` LXC script; config path documented as `/opt/prometheus-pve-exporter/pve.yml`.
 - 2026-04-22: Prometheus scrape config built (`monitoring/prometheus/prometheus.yml`) — jobs for node_exporter (pve1/2/3, MM1, docker-arr VM), windows_exporter (CK10), pve_exporter, Arr app metrics, qbittorrent-exporter, cAdvisor. Initial plan used Scraparr; superseded by Exportarr sidecars on 2026-04-27.

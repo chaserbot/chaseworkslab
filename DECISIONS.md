@@ -12,6 +12,22 @@ Format:
 
 ---
 
+## 2026-04-27: Keep pve_exporter guide focused on working setup
+
+**Decision:** The pve_exporter setup guide now keeps only the working install, token config, ACL, restart, and verification steps.
+
+**Why:** The setup has been verified, and the earlier troubleshooting notes were too noisy for a normal rebuild/runbook path.
+
+**Rollback:** Restore the troubleshooting notes from git history if this guide needs to double as an incident runbook again.
+
+## 2026-04-27: Grant pve_exporter permissions to user and API token
+
+**Decision:** The pve_exporter setup now grants `PVEAuditor` to both the backing user (`prometheus@pve`) and the separated API token (`prometheus@pve!prometheus`).
+
+**Why:** The token was created with `--privsep 1`, so effective token permissions are the intersection of the user ACL and token ACL. A token-only grant can still fail with `403 Forbidden: Permission check failed (/, Sys.Audit)` if the backing user has no matching read permission.
+
+**Rollback:** If token-separated permissions are not wanted, recreate or update the token with privilege separation disabled, grant `PVEAuditor` to `prometheus@pve`, and update the doc to reflect user-level inheritance.
+
 ## 2026-04-27: Use Exportarr sidecars and Blackbox probes for monitoring
 
 **Decision:** Replace the planned Scraparr LXC with three Exportarr sidecars in the docker-arr Compose stack: Radarr on `9707`, Sonarr on `9708`, and Prowlarr on `9709`. Add Blackbox exporter as a lightweight PVE3 LXC at `10.27.27.136:9115` for HTTP/TCP service probes.

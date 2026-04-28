@@ -15,11 +15,15 @@ pveum user add prometheus@pve --comment "Prometheus scraper"
 # Create a token — copy the secret shown, you cannot retrieve it again
 pveum user token add prometheus@pve prometheus --privsep 1
 
-# Grant read-only role to the token
-pveum aclmod / -user prometheus@pve!prometheus -role PVEAuditor
+# Grant read-only role to both the backing user and the separated token.
+# With --privsep 1, token permissions are the intersection of user + token ACLs.
+pveum acl modify / --users prometheus@pve --roles PVEAuditor
+pveum acl modify / --tokens 'prometheus@pve!prometheus' --roles PVEAuditor
 ```
 
 The token ID will be `prometheus@pve!prometheus`.
+Quote the token ID whenever it appears in a shell command; otherwise Bash treats
+`!prometheus` as history expansion.
 
 ## 2. Install prometheus-pve-exporter LXC
 
