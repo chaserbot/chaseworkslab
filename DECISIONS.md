@@ -12,6 +12,14 @@ Format:
 
 ---
 
+## 2026-04-30: Add ChaseWorksLab overview Grafana dashboard JSON
+
+**Decision:** Add an uploadable Grafana dashboard JSON at `monitoring/grafana/dashboards/chaseworkslab-overview.json` using the repo's planned Prometheus scrape jobs and labels.
+
+**Why:** The dashboard gives the homelab a readable first-screen command center plus collapsible deeper views for Proxmox nodes, VMs, LXCs, docker-arr containers, storage, service probes, and best-effort temperature telemetry. It avoids requiring Alertmanager by using dashboard-native PromQL checks for the bulletin board.
+
+**Rollback:** Delete `monitoring/grafana/dashboards/chaseworkslab-overview.json`, remove the matching `CURRENT_STATE.md` entry, and remove this decision log entry.
+
 ## 2026-04-27: Keep pve_exporter guide focused on working setup
 
 **Decision:** The pve_exporter setup guide now keeps only the working install, token config, ACL, restart, and verification steps.

@@ -1,6 +1,6 @@
 # Current state
 
-Last updated: 2026-04-27
+Last updated: 2026-04-30
 
 Quick snapshot of what is running, what is stable, and any known issues.
 Update this after significant changes.
@@ -36,6 +36,7 @@ Update this after significant changes.
 | Exportarr | Planned | docker-arr VM (`10.27.27.47`) | Compose sidecars for Radarr (`9707`), Sonarr (`9708`), Prowlarr (`9709`); API keys come from `arr/.env` |
 | Blackbox exporter | Planned | pve3 LXC (`10.27.27.136`) | HTTP/TCP probes configured in Prometheus; config template at `monitoring/blackbox/blackbox.yml` |
 | qbittorrent-exporter | Pending config | pve3 LXC (`10.27.27.137`) | Config template at `monitoring/qbittorrent-exporter/qbittorrent-exporter.env`; needs qBT password |
+| Grafana dashboard JSON | Config ready | `monitoring/grafana/dashboards/chaseworkslab-overview.json` | Uploadable ChaseWorksLab overview dashboard for Prometheus metrics |
 | Ollama | Not deployed | — | Planned: Proxmox LXC or VM |
 | Open WebUI | Not deployed | — | Planned: same host as Ollama |
 | n8n | Not deployed | — | Planned: pve3 LXC |
@@ -50,7 +51,7 @@ Update this after significant changes.
 - **NPM entries incomplete**: only Jellyfin proxied so far; see `lxc/pve1/dns-proxy-entries.md` for full list to build out.
 - **Homepage LXC**: config files ready but LXC not yet deployed (CT102, `10.27.27.112`).
 - **LLM stack**: not yet deployed — architecture planned, repo scaffolded.
-- **Monitoring stack**: Prometheus config built; Grafana not yet deployed; Exportarr sidecars need Arr API keys in docker-arr `.env`; Blackbox LXC not yet deployed; qbittorrent-exporter needs credentials configured in its LXC.
+- **Monitoring stack**: Prometheus config built; Grafana dashboard JSON ready for import; Grafana not yet deployed; Exportarr sidecars need Arr API keys in docker-arr `.env`; Blackbox LXC not yet deployed; qbittorrent-exporter needs credentials configured in its LXC.
 - **Homepage services.yaml**: Planned section has stale IPs for Prometheus (was `.131`, now `.130`) and Grafana/n8n — update once those LXCs are assigned IPs.
 
 ## Last stable configuration
@@ -59,6 +60,7 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 
 ## Recent changes
 
+- 2026-04-30: Added uploadable ChaseWorksLab Grafana overview dashboard JSON at `monitoring/grafana/dashboards/chaseworkslab-overview.json`, targeting the repo's Prometheus jobs and labels with command-center, bare-metal, Proxmox guest, Docker, storage/network, and collapsed deep-dive rows.
 - 2026-04-27: pve_exporter setup verified. Guide now uses the working token config and grants `PVEAuditor` to both `prometheus@pve` and `prometheus@pve!prometheus`.
 - 2026-04-27: Monitoring plan changed from Scraparr LXC to Exportarr sidecars in the docker-arr VM. Added Blackbox exporter plan at `10.27.27.136:9115` with HTTP/TCP probes for core services.
 - 2026-04-27: pve_exporter setup doc corrected to grant `PVEAuditor` to the API token with `--tokens 'prometheus@pve!prometheus'` instead of passing the token ID as a user.
