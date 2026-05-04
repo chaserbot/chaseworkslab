@@ -187,14 +187,14 @@
 # Temperature cards assume Glances exposes "Package id 0"; verify per node via http://10.27.27.10x:61208/api/4/sensors
 # CPU and memory cards use pointsLimit: 50 for a ~4-minute scrolling graph window (default is 15 points / ~75s)
 - pve1 Monitoring:
-    - pve1 Info:
+    - Info:
         href: http://10.27.27.101:61208
         widget:
           type: glances
           url: http://10.27.27.101:61208
           version: 4
           metric: info
-    - pve1 CPU:
+    - CPU:
         href: http://10.27.27.101:61208
         widget:
           type: glances
@@ -202,7 +202,7 @@
           version: 4
           metric: cpu
           pointsLimit: 50
-    - pve1 Memory:
+    - Memory:
         href: http://10.27.27.101:61208
         widget:
           type: glances
@@ -210,30 +210,32 @@
           version: 4
           metric: memory
           pointsLimit: 50
-    - pve1 Processes:
+    - Processes:
         href: http://10.27.27.101:61208
         widget:
           type: glances
           url: http://10.27.27.101:61208
           version: 4
           metric: process
-    - pve1 Temperature:
+    - Temperature:
         href: http://10.27.27.101:61208
         widget:
           type: glances
           url: http://10.27.27.101:61208
           version: 4
           metric: "sensor:Package id 0"
+          warning: 70
+          critical: 85
 
 - pve2 Monitoring:
-    - pve2 Info:
+    - Info:
         href: http://10.27.27.102:61208
         widget:
           type: glances
           url: http://10.27.27.102:61208
           version: 4
           metric: info
-    - pve2 CPU:
+    - CPU:
         href: http://10.27.27.102:61208
         widget:
           type: glances
@@ -241,7 +243,7 @@
           version: 4
           metric: cpu
           pointsLimit: 50
-    - pve2 Memory:
+    - Memory:
         href: http://10.27.27.102:61208
         widget:
           type: glances
@@ -249,14 +251,14 @@
           version: 4
           metric: memory
           pointsLimit: 50
-    - pve2 Processes:
+    - Processes:
         href: http://10.27.27.102:61208
         widget:
           type: glances
           url: http://10.27.27.102:61208
           version: 4
           metric: process
-    - pve2 Temperature:
+    - Temperature:
         href: http://10.27.27.102:61208
         widget:
           type: glances
@@ -265,14 +267,14 @@
           metric: "sensor:Package id 0"
 
 - pve3 Monitoring:
-    - pve3 Info:
+    - Info:
         href: http://10.27.27.103:61208
         widget:
           type: glances
           url: http://10.27.27.103:61208
           version: 4
           metric: info
-    - pve3 CPU:
+    - CPU:
         href: http://10.27.27.103:61208
         widget:
           type: glances
@@ -280,7 +282,7 @@
           version: 4
           metric: cpu
           pointsLimit: 50
-    - pve3 Memory:
+    - Memory:
         href: http://10.27.27.103:61208
         widget:
           type: glances
@@ -288,14 +290,14 @@
           version: 4
           metric: memory
           pointsLimit: 50
-    - pve3 Processes:
+    - Processes:
         href: http://10.27.27.103:61208
         widget:
           type: glances
           url: http://10.27.27.103:61208
           version: 4
           metric: process
-    - pve3 Temperature:
+    - Temperature:
         href: http://10.27.27.103:61208
         widget:
           type: glances
