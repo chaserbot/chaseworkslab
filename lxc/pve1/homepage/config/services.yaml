@@ -186,7 +186,7 @@
 
 # Temperature cards assume Glances exposes "Package id 0"; verify per node via http://10.27.27.10x:61208/api/4/sensors
 # CPU and memory cards use pointsLimit: 50 for a ~4-minute scrolling graph window (default is 15 points / ~75s)
-- pve1 Monitoring:
+- PVE1 Monitoring:
     - Info:
         href: http://10.27.27.101:61208
         widget:
@@ -224,10 +224,8 @@
           url: http://10.27.27.101:61208
           version: 4
           metric: "sensor:Package id 0"
-          warning: 70
-          critical: 85
 
-- pve2 Monitoring:
+- PVE2 Monitoring:
     - Info:
         href: http://10.27.27.102:61208
         widget:
@@ -266,7 +264,7 @@
           version: 4
           metric: "sensor:Package id 0"
 
-- pve3 Monitoring:
+- PVE3 Monitoring:
     - Info:
         href: http://10.27.27.103:61208
         widget:
