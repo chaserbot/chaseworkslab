@@ -12,7 +12,7 @@ Homepage config files are fully built and committed to `lxc/pve1/homepage/config
 
 ## Config files
 
-- `services.yaml` — live service widgets (Infrastructure, Media, Arr Stack, Downloads); Documents/Monitoring/Planned sections commented out pending deployment
+- `services.yaml` — live service widgets (Infrastructure, Media, Arr Stack, Downloads); Documents/Planned sections commented out pending deployment
 - `settings.yaml` — dark theme, slate color, clean header, section layout definitions
 - `widgets.yaml` — greeting, search (Google), datetime, resources (LXC self-stats)
 - `bookmarks.yaml` — personal bookmarks
@@ -28,6 +28,5 @@ Homepage config files are fully built and committed to `lxc/pve1/homepage/config
 
 ## Stale items to fix before going live
 
-- Planned section in services.yaml has placeholder IPs for Grafana and n8n (not yet assigned)
-- Prometheus IP corrected to `10.27.27.130` (was `.131`)
+- Planned section in services.yaml has a placeholder IP for n8n
 - Uptime Kuma and Paperless sections commented out — uncomment and set IPs once deployed on pve3

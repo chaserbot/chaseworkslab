@@ -65,18 +65,11 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 3. ~~**Split-DNS behavior for `chaseworkslab.com`**~~ ✓ Done 2026-04-13 — pve1 is Tailscale subnet router; `chaseworkslab.com` resolves on tailnet
 4. Keep services non-public by default
 
-### Phase 3 — monitoring and visibility on pve3
+### Phase 3 — uptime and visibility on pve3
 
-1. Deploy Uptime Kuma on pve3 (IP TBD — was `.130`, now taken by Prometheus)
-2. ~~**Build Prometheus scrape config**~~ ✓ Done 2026-04-22 — `monitoring/prometheus/prometheus.yml`; all jobs defined
-3. ~~**Deploy pve_exporter LXC**~~ ✓ Done — `10.27.27.139`, community script, scrapes pve1/2/3 API
-4. Add Exportarr sidecars to docker-arr VM (`9707` Radarr, `9708` Sonarr, `9709` Prowlarr); fill Arr API keys in `.env`
-5. ~~**Deploy qbittorrent-exporter LXC**~~ ✓ LXC at `10.27.27.137`; fill in password at `/opt/qbittorrent-exporter.env` and `systemctl restart qbittorrent-exporter`
-6. Deploy Blackbox exporter LXC on pve3 (`10.27.27.136`) — copy `monitoring/blackbox/blackbox.yml` to `/etc/blackbox_exporter/`
-7. Deploy Prometheus LXC on pve3 (`10.27.27.130`) — copy `monitoring/prometheus/prometheus.yml` to `/etc/prometheus/`
-8. Deploy Grafana on pve3 (IP TBD)
-9. Add node_exporter to pve1/2/3 bare-metal hosts and MM1, CK10
-10. Add basic alerts for service downtime and node reachability
+1. Deploy Uptime Kuma on pve3 (IP TBD)
+2. Decide whether any lightweight non-Prometheus status dashboard is still wanted
+3. Add basic uptime checks for service downtime and node reachability
 
 ### Phase 4 — application stack on pve2
 
@@ -139,16 +132,7 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 - Move Jellyfin: LXC on Proxmox with iGPU passthrough TBD (Mac Mini A1347 Intel iGPU feasibility unknown)
 - Because everything is in Docker Compose: migration = copy `docker-compose.yml`, update volume paths, spin up
 
-## Track T4 — Monitoring stack (after T1)
-
-1. Deploy Prometheus + Grafana on Proxmox cluster (LXC or VM)
-2. Add Node Exporter to each Proxmox node (via post-install script or Ansible playbook)
-3. Add cAdvisor for Docker container metrics (optional)
-4. Build dashboards: per-node system health, Docker container status, arr stack health
-5. Configure Proxmox metrics scrape (Proxmox exporter or built-in PVE metrics endpoint)
-6. Configure alerting (Grafana alerts → notification channel TBD)
-
-## Track T5 — LLM stack / FATFISH (after T1)
+## Track T4 — LLM stack / FATFISH (after T1)
 
 FATFISH is a self-hosted AI assistant for Fatfish (Chase's event production company).
 Repo: `github.com/chaserbot/ff-assistant-starter` (private, early stage)

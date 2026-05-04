@@ -38,7 +38,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | **FlareSolverr** | docker-arr VM | TBD | `8191` | <http://docker-arr:8191> | ✅ Active |
 | **qBittorrent** | docker-arr VM | TBD | `8080` | <http://docker-arr:8080> | ✅ Active (VPN via Gluetun) |
 | **Paperless-ngx** | MM1 | `10.27.27.22` | `8000` | <http://10.27.27.22:8000> | ⚠️ Verify port |
-| **Uptime Kuma** | MM1 | `10.27.27.22` | `3001` | <http://10.27.27.22:3001> | ✅ Active |
+| **Uptime Kuma** | pve1 CT119 | `10.27.27.119` | `3001` | <http://10.27.27.119:3001> | ✅ Active |
 
 > ⚠️ docker-arr VM IP is TBD — update this table once a static IP is assigned in Proxmox. Paperless-ngx port on MM1 still needs confirmation.
 
@@ -59,12 +59,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 | Service | Target IP | Port | Notes |
 | ------- | --------- | ---- | ----- |
-| **Prometheus** | `10.27.27.130` | `9090` | Config ready; deploy pending — LXC on pve3 |
-| **pve_exporter** | `10.27.27.139` | `9221` | Running — LXC on pve3; community script |
-| **Blackbox exporter** | `10.27.27.136` | `9115` | Planned — LXC on pve3 |
-| **qbittorrent-exporter** | `10.27.27.137` | `8090` | Pending config — LXC on pve3; community script |
-| **Uptime Kuma** | TBD | `3001` | Moving from MM1 — IP TBD |
-| **Grafana** | `10.27.27.132` | `3000` | New deployment |
+| **Uptime Kuma** | `10.27.27.119` | `3001` | Moved from MM1 — pve3 CT119 |
 | **n8n** | `10.27.27.133` | `5678` | New deployment |
 | **Paperless-ngx** | `10.27.27.134` | `8000` | Moving from MM1 |
 
@@ -109,28 +104,6 @@ Node hostnames (AdGuard DNS rewrites → direct to host):
 Service hostnames (AdGuard DNS rewrites → `10.27.27.111` → NPM → service):
 
 - See `lxc/pve1/dns-proxy-entries.md` for complete list
-
----
-
-## 📊 Monitoring Scrape Targets
-
-Prometheus planned at `10.27.27.130:9090` (pve3 LXC). Config at `monitoring/prometheus/prometheus.yml`.
-
-| Target | Address | Exporter | Status |
-| ------ | ------- | -------- | ------ |
-| Proxmox pve1 | `10.27.27.101:9100` | node_exporter | Pending |
-| Proxmox pve2 | `10.27.27.102:9100` | node_exporter | Pending |
-| Proxmox pve3 | `10.27.27.103:9100` | node_exporter | Pending |
-| MM1 (macOS) | `10.27.27.22:9100` | node_exporter (or Telegraf) | Pending |
-| CK10 (Jellyfin) | `10.27.27.33:9182` | windows_exporter | Pending |
-| Proxmox API (pve1/2/3) | `10.27.27.139:9221` | pve_exporter LXC | Running |
-| docker-arr VM | `10.27.27.47:9100` | node_exporter | Pending |
-| Radarr | `10.27.27.47:9707` | Exportarr | Planned; needs API key in docker-arr `.env` |
-| Sonarr | `10.27.27.47:9708` | Exportarr | Planned; needs API key in docker-arr `.env` |
-| Prowlarr | `10.27.27.47:9709` | Exportarr | Planned; needs API key in docker-arr `.env` |
-| qBittorrent | `10.27.27.137:8090` | qbittorrent-exporter | Pending credentials |
-| cAdvisor (docker-arr VM) | `10.27.27.47:8085` | cadvisor | Running |
-| Key HTTP/TCP services | `10.27.27.136:9115` | Blackbox exporter | Planned |
 
 ---
 

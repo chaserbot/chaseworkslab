@@ -33,9 +33,21 @@ layout:
     style: row
     columns: 1
     useEqualHeights: true
-  Monitoring:
+  pve1 Monitoring:
     style: row
-    columns: 2
+    columns: 5
+    useEqualHeights: true
+  pve2 Monitoring:
+    style: row
+    columns: 5
+    useEqualHeights: true
+  pve3 Monitoring:
+    style: row
+    columns: 5
+    useEqualHeights: true
+  Status:
+    style: row
+    columns: 1
     useEqualHeights: true
   Planned:
     style: row

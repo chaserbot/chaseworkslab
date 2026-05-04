@@ -13,6 +13,7 @@
 # ping uses full URLs so Homepage checks the port, not just host reachability.
 # Proxmox uses https — self-signed cert may cause a ping warning; that's expected.
 # Proxmox widget: username format is "user@realm" (e.g. root@pam).
+# Glances service widgets can be repeated per host/metric.
 # Uptime Kuma widget: slug is the status page slug from Settings > Status Pages.
 
 - Infrastructure:
@@ -183,26 +184,137 @@
 #          url: http://10.27.27.22:8000
 #          key: "{{HOMEPAGE_VAR_PAPERLESS_API_KEY}}"
 
-# - Monitoring:
-#    - Uptime Kuma:
-#        href: http://10.27.27.22:3001
-#        description: Service uptime monitoring — MM1
-#        icon: uptime-kuma.png
-#        ping: http://10.27.27.22:3001
-#        widget:
-#          type: uptimekuma
-#          url: http://10.27.27.22:3001
-#          slug: "{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}"
+# Temperature cards assume Glances exposes "Package id 0"; verify per node via http://10.27.27.10x:61208/api/4/sensors
+# CPU and memory cards use pointsLimit: 50 for a ~4-minute scrolling graph window (default is 15 points / ~75s)
+- pve1 Monitoring:
+    - pve1 Info:
+        href: http://10.27.27.101:61208
+        widget:
+          type: glances
+          url: http://10.27.27.101:61208
+          version: 4
+          metric: info
+    - pve1 CPU:
+        href: http://10.27.27.101:61208
+        widget:
+          type: glances
+          url: http://10.27.27.101:61208
+          version: 4
+          metric: cpu
+          pointsLimit: 50
+    - pve1 Memory:
+        href: http://10.27.27.101:61208
+        widget:
+          type: glances
+          url: http://10.27.27.101:61208
+          version: 4
+          metric: memory
+          pointsLimit: 50
+    - pve1 Processes:
+        href: http://10.27.27.101:61208
+        widget:
+          type: glances
+          url: http://10.27.27.101:61208
+          version: 4
+          metric: process
+    - pve1 Temperature:
+        href: http://10.27.27.101:61208
+        widget:
+          type: glances
+          url: http://10.27.27.101:61208
+          version: 4
+          metric: "sensor:Package id 0"
+
+- pve2 Monitoring:
+    - pve2 Info:
+        href: http://10.27.27.102:61208
+        widget:
+          type: glances
+          url: http://10.27.27.102:61208
+          version: 4
+          metric: info
+    - pve2 CPU:
+        href: http://10.27.27.102:61208
+        widget:
+          type: glances
+          url: http://10.27.27.102:61208
+          version: 4
+          metric: cpu
+          pointsLimit: 50
+    - pve2 Memory:
+        href: http://10.27.27.102:61208
+        widget:
+          type: glances
+          url: http://10.27.27.102:61208
+          version: 4
+          metric: memory
+          pointsLimit: 50
+    - pve2 Processes:
+        href: http://10.27.27.102:61208
+        widget:
+          type: glances
+          url: http://10.27.27.102:61208
+          version: 4
+          metric: process
+    - pve2 Temperature:
+        href: http://10.27.27.102:61208
+        widget:
+          type: glances
+          url: http://10.27.27.102:61208
+          version: 4
+          metric: "sensor:Package id 0"
+
+- pve3 Monitoring:
+    - pve3 Info:
+        href: http://10.27.27.103:61208
+        widget:
+          type: glances
+          url: http://10.27.27.103:61208
+          version: 4
+          metric: info
+    - pve3 CPU:
+        href: http://10.27.27.103:61208
+        widget:
+          type: glances
+          url: http://10.27.27.103:61208
+          version: 4
+          metric: cpu
+          pointsLimit: 50
+    - pve3 Memory:
+        href: http://10.27.27.103:61208
+        widget:
+          type: glances
+          url: http://10.27.27.103:61208
+          version: 4
+          metric: memory
+          pointsLimit: 50
+    - pve3 Processes:
+        href: http://10.27.27.103:61208
+        widget:
+          type: glances
+          url: http://10.27.27.103:61208
+          version: 4
+          metric: process
+    - pve3 Temperature:
+        href: http://10.27.27.103:61208
+        widget:
+          type: glances
+          url: http://10.27.27.103:61208
+          version: 4
+          metric: "sensor:Package id 0"
+
+- Status:
+    - Uptime Kuma:
+        href: http://10.27.27.119:3001
+        description: Service uptime monitoring
+        icon: uptime-kuma.png
+        ping: http://10.27.27.119:3001
+        widget:
+          type: uptimekuma
+          url: http://10.27.27.119:3001
+          slug: "{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}"
 
 # - Planned:
-#    - Prometheus:
-#        href: http://10.27.27.130:9090
-#        description: Metrics collection — pve3 LXC
-#        icon: prometheus.png
-#    - Grafana:
-#        href: http://10.27.27.132:3000
-#        description: Metrics dashboards — pve3 (IP TBD)
-#        icon: grafana.png
 #    - n8n:
 #        href: http://10.27.27.133:5678
 #        description: Workflow automation — pve3 (IP TBD)

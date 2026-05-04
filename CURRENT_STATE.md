@@ -1,6 +1,6 @@
 # Current state
 
-Last updated: 2026-04-30
+Last updated: 2026-05-04
 
 Quick snapshot of what is running, what is stable, and any known issues.
 Update this after significant changes.
@@ -19,7 +19,6 @@ Update this after significant changes.
 | qBittorrent | Running | docker-arr VM (`10.27.27.47`) | VPN via Gluetun (ProtonVPN kill switch) |
 | Seerr | Running | docker-arr VM (`10.27.27.47`) | Replaces Overseerr; media request UI |
 | FlareSolverr | Running | docker-arr VM (`10.27.27.47`) | Cloudflare bypass for Prowlarr |
-| cAdvisor | Running | docker-arr VM (`10.27.27.47`) | Docker container metrics; port 8085 |
 | Audiobookshelf | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
 | Jellyfin | Running | Ace Magician CK10 (`10.27.27.33`) | Not yet Dockerized; hardware transcoding unverified |
 | Uptime Kuma | Running | Mac Mini #1 (`10.27.27.22`) | Docker Compose; compose file not yet in git |
@@ -30,17 +29,10 @@ Update this after significant changes.
 | pve3 | Clustered | `10.27.27.103` | Joined to cluster; no HA |
 | AdGuard Home | Running | pve1 CT110 (`10.27.27.110`) | DNS rewrites active; individual entries per service → `10.27.27.111`; router DHCP DNS updated |
 | Nginx Proxy Manager | Running | pve1 CT101 (`10.27.27.111`) | Reverse proxy active; `jellyfin.chaseworkslab.com` live; more entries to add |
-| Homepage | Config ready; deploy pending | pve1 CT102 (`10.27.27.112`) | Config files in `lxc/pve1/homepage/config/`; full service layout built incl. widgets, Proxmox API token auth, UniFi widget |
-| Prometheus | Config ready; deploy pending | pve3 LXC (`10.27.27.130`) | Scrape config in `monitoring/prometheus/prometheus.yml`; jobs labeled for readable Grafana dashboards |
-| pve_exporter | Running | pve3 LXC (`10.27.27.139`) | Installed via community script; scrapes pve1/2/3 API; see `monitoring/prometheus/pve-exporter-setup.md` |
-| Exportarr | Planned | docker-arr VM (`10.27.27.47`) | Compose sidecars for Radarr (`9707`), Sonarr (`9708`), Prowlarr (`9709`); API keys come from `arr/.env` |
-| Blackbox exporter | Planned | pve3 LXC (`10.27.27.136`) | HTTP/TCP probes configured in Prometheus; config template at `monitoring/blackbox/blackbox.yml` |
-| qbittorrent-exporter | Pending config | pve3 LXC (`10.27.27.137`) | Config template at `monitoring/qbittorrent-exporter/qbittorrent-exporter.env`; needs qBT password |
-| Grafana dashboard JSON | Config ready | `monitoring/grafana/dashboards/chaseworkslab-overview.json` | Uploadable ChaseWorksLab overview dashboard for Prometheus metrics |
+| Homepage | Config ready; deploy pending | pve1 CT102 (`10.27.27.112`) | Config files in `lxc/pve1/homepage/config/`; full service layout built incl. widgets, Proxmox API token auth, UniFi widget, Glances service widgets, Uptime Kuma widget |
 | Ollama | Not deployed | — | Planned: Proxmox LXC or VM |
 | Open WebUI | Not deployed | — | Planned: same host as Ollama |
 | n8n | Not deployed | — | Planned: pve3 LXC |
-| Grafana | Not deployed | — | Planned: pve3 LXC |
 
 ## Known issues
 
@@ -51,7 +43,7 @@ Update this after significant changes.
 - **NPM entries incomplete**: only Jellyfin proxied so far; see `lxc/pve1/dns-proxy-entries.md` for full list to build out.
 - **Homepage LXC**: config files ready but LXC not yet deployed (CT102, `10.27.27.112`).
 - **LLM stack**: not yet deployed — architecture planned, repo scaffolded.
-- **Monitoring stack**: Prometheus config built; Grafana dashboard JSON ready for import; Grafana not yet deployed; Exportarr sidecars need Arr API keys in docker-arr `.env`; Blackbox LXC not yet deployed; qbittorrent-exporter needs credentials configured in its LXC.
+- **Metrics stack removed from repo**: The unused metrics configs, dashboards, exporter templates, and Arr metrics sidecars have been removed because they are no longer in use.
 - **Homepage services.yaml**: Planned section has stale IPs for Prometheus (was `.131`, now `.130`) and Grafana/n8n — update once those LXCs are assigned IPs.
 
 ## Last stable configuration
@@ -60,13 +52,8 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 
 ## Recent changes
 
-- 2026-04-30: Added uploadable ChaseWorksLab Grafana overview dashboard JSON at `monitoring/grafana/dashboards/chaseworkslab-overview.json`, targeting the repo's Prometheus jobs and labels with command-center, bare-metal, Proxmox guest, Docker, storage/network, and collapsed deep-dive rows.
-- 2026-04-27: pve_exporter setup verified. Guide now uses the working token config and grants `PVEAuditor` to both `prometheus@pve` and `prometheus@pve!prometheus`.
-- 2026-04-27: Monitoring plan changed from Scraparr LXC to Exportarr sidecars in the docker-arr VM. Added Blackbox exporter plan at `10.27.27.136:9115` with HTTP/TCP probes for core services.
-- 2026-04-27: pve_exporter setup doc corrected to grant `PVEAuditor` to the API token with `--tokens 'prometheus@pve!prometheus'` instead of passing the token ID as a user.
-- 2026-04-22: Prometheus scrape config reviewed and refined — CK10 uses default windows_exporter port `9182`; Proxmox node/API jobs have readable `node`/`host` labels; Arr and qBittorrent jobs are documented as credential-dependent.
-- 2026-04-22: pve_exporter setup doc updated to use the community `prometheus-pve-exporter` LXC script; config path documented as `/opt/prometheus-pve-exporter/pve.yml`.
-- 2026-04-22: Prometheus scrape config built (`monitoring/prometheus/prometheus.yml`) — jobs for node_exporter (pve1/2/3, MM1, docker-arr VM), windows_exporter (CK10), pve_exporter, Arr app metrics, qbittorrent-exporter, cAdvisor. Initial plan used Scraparr; superseded by Exportarr sidecars on 2026-04-27.
+- 2026-05-04: Purged unused metrics stack materials from the repo. Removed the config tree, Arr metrics sidecars, metrics-only `.env.example` placeholders, and stale service inventory entries.
+- 2026-05-04: Cleaned Homepage monitoring config. `services.yaml` now has Glances service widgets for pve1/pve2/pve3 info, CPU, memory, process, and temperature metrics plus an Uptime Kuma service widget for MM1; `widgets.yaml` and `bookmarks.yaml` were returned to their non-monitoring baseline.
 - 2026-04-21: Homepage config files built and committed to `lxc/pve1/homepage/config/` — services.yaml (Infrastructure, Media, Arr Stack, Downloads sections with live widgets), settings.yaml, widgets.yaml (greeting, search, datetime, resources), bookmarks.yaml. Proxmox widgets use API token auth. UniFi widget enabled with site name.
 - 2026-04-15: Arr stack migrated to docker-arr Proxmox VM (Docker Compose + Gluetun VPN). Seerr replaces Overseerr. FlareSolverr added. Compose file committed to `arr/docker-compose.yml`.
 - 2026-04-13: AdGuard Home (CT110) and NPM (CT101) deployed on pve1 and active. Jellyfin proxy entry live at `jellyfin.chaseworkslab.com`. pve1 configured as Tailscale subnet router with split DNS. Router DHCP DNS updated from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`).

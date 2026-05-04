@@ -14,7 +14,7 @@ lxc/
     nginx-proxy-manager/  CT101 — Nginx Proxy Manager (native install)
     homepage/        CT102 — Homepage dashboard (native Node.js install)
   pve2/              planned: media apps (arr stack)
-  pve3/              planned: ops (monitoring, automation, documents)
+  pve3/              planned: ops (automation, documents, admin tools)
 ```
 
 ## Container IP scheme
@@ -23,7 +23,7 @@ lxc/
 | ----- | ---- | ------- |
 | `10.27.27.110–119` | pve1 | Front door (DNS, proxy, dashboard) |
 | `10.27.27.120–129` | pve2 | Media apps |
-| `10.27.27.130–139` | pve3 | Ops / monitoring / automation |
+| `10.27.27.130–139` | pve3 | Ops / automation / documents |
 
 See `inventory/README.md` for full IP and port reference.
 

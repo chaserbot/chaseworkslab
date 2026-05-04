@@ -58,8 +58,6 @@ Access Proxmox at: `https://pve1.chaseworkslab.com:8006` etc.
 
 | Subdomain | Future forward host | Port | Notes |
 | ----------- | --------------------- | ------ | ------- |
-| `grafana.chaseworkslab.com` | `10.27.27.132` | `3000` | pve3 — not yet deployed |
-| `prometheus.chaseworkslab.com` | `10.27.27.130` | `9090` | pve3 — deploy pending |
 | `n8n.chaseworkslab.com` | `10.27.27.133` | `5678` | pve3 — not yet deployed |
 
 ---

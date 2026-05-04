@@ -14,7 +14,6 @@ Current working direction: author infrastructure locally in VS Code, keep GitHub
 | ansible/ | Ansible playbooks for provisioning and config management |
 | proxmox/ | Proxmox host configuration, docs, and post-install scripts |
 | arr/ | Arr stack configs and compose files (Sonarr, Radarr, Prowlarr, etc.) |
-| monitoring/ | Grafana and Prometheus monitoring stack |
 | lxc/ | LXC provisioning READMEs for each service on the Proxmox cluster |
 | inventory/ | Homelab network inventory — hosts, IPs, services, ports |
 

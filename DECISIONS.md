@@ -12,75 +12,23 @@ Format:
 
 ---
 
-## 2026-04-30: Add ChaseWorksLab overview Grafana dashboard JSON
+## 2026-05-04: Keep Homepage monitoring as service widgets
 
-**Decision:** Add an uploadable Grafana dashboard JSON at `monitoring/grafana/dashboards/chaseworkslab-overview.json` using the repo's planned Prometheus scrape jobs and labels.
+**Decision:** Add Homepage monitoring cards in `services.yaml` only: Glances service widgets for pve1/pve2/pve3 info, CPU, memory, process, and temperature metrics, plus the Uptime Kuma service widget pointed at MM1 (`10.27.27.22:3001`) with the status-page slug read from `HOMEPAGE_VAR_UPTIMEKUMA_SLUG`.
 
-**Why:** The dashboard gives the homelab a readable first-screen command center plus collapsible deeper views for Proxmox nodes, VMs, LXCs, docker-arr containers, storage, service probes, and best-effort temperature telemetry. It avoids requiring Alertmanager by using dashboard-native PromQL checks for the bulletin board.
+**Why:** Homepage's Glances and Uptime Kuma docs model these as service widgets. Keeping them in `services.yaml` avoids duplicate bookmark entries and avoids mixing host/service monitoring into global page widgets.
 
-**Rollback:** Delete `monitoring/grafana/dashboards/chaseworkslab-overview.json`, remove the matching `CURRENT_STATE.md` entry, and remove this decision log entry.
-
-## 2026-04-27: Keep pve_exporter guide focused on working setup
-
-**Decision:** The pve_exporter setup guide now keeps only the working install, token config, ACL, restart, and verification steps.
-
-**Why:** The setup has been verified, and the earlier troubleshooting notes were too noisy for a normal rebuild/runbook path.
-
-**Rollback:** Restore the troubleshooting notes from git history if this guide needs to double as an incident runbook again.
-
-## 2026-04-27: Grant pve_exporter permissions to user and API token
-
-**Decision:** The pve_exporter setup now grants `PVEAuditor` to both the backing user (`prometheus@pve`) and the separated API token (`prometheus@pve!prometheus`).
-
-**Why:** The token was created with `--privsep 1`, so effective token permissions are the intersection of the user ACL and token ACL. A token-only grant can still fail with `403 Forbidden: Permission check failed (/, Sys.Audit)` if the backing user has no matching read permission.
-
-**Rollback:** If token-separated permissions are not wanted, recreate or update the token with privilege separation disabled, grant `PVEAuditor` to `prometheus@pve`, and update the doc to reflect user-level inheritance.
-
-## 2026-04-27: Use Exportarr sidecars and Blackbox probes for monitoring
-
-**Decision:** Replace the planned Scraparr LXC with three Exportarr sidecars in the docker-arr Compose stack: Radarr on `9707`, Sonarr on `9708`, and Prowlarr on `9709`. Add Blackbox exporter as a lightweight PVE3 LXC at `10.27.27.136:9115` for HTTP/TCP service probes.
-
-**Why:** Exportarr keeps Arr metrics close to the Arr services and matches the user's preference. Blackbox adds simple availability checks that produce clean Grafana panels without adding a heavy logging or tracing stack.
-
-**Rollback:** Stop/remove the Exportarr sidecars from `arr/docker-compose.yml`, restore the Scraparr scrape job in `monitoring/prometheus/prometheus.yml`, and point Arr metrics back to the Scraparr LXC at `10.27.27.138:7100`. Remove or comment out the `blackbox_http` and `blackbox_tcp` Prometheus jobs if the Blackbox LXC is not wanted.
-
-## 2026-04-22: Use community script for prometheus-pve-exporter install
-
-**Decision:** The pve_exporter setup guide now uses the Proxmox VE community `prometheus-pve-exporter` LXC script instead of documenting a manual Python venv and systemd install.
-
-**Why:** This matches the established homelab pattern for exporter LXCs, reduces manual install drift, and uses the script-managed service/config layout.
-
-**Rollback:** Install `prometheus-pve-exporter` manually in a Python venv and provide a matching systemd unit, then update `monitoring/prometheus/pve-exporter-setup.md` with the manual paths.
+**Rollback:** Comment out or remove the `Monitoring` group in `lxc/pve1/homepage/config/services.yaml`, then redeploy the previous config to `/opt/homepage/config/` on CT102.
 
 ---
 
-## 2026-04-22: Standardize Prometheus labels and CK10 exporter port
+## 2026-05-04: Purge unused metrics stack materials
 
-**Decision:** Prometheus scrape jobs now use readable `node`/`host` labels for Proxmox targets, and CK10 is scraped as a Windows host via `windows_exporter` on its default port `9182`.
+**Decision:** Remove the unused metrics stack materials from this repo, including its config tree, Arr metrics sidecars, metrics-only `.env.example` placeholders, stale DNS entries, and service inventory rows.
 
-**Why:** Stable labels make Grafana dashboards easier to read than IP-only instances. Using the default windows_exporter port avoids accidentally treating CK10 like a node_exporter host on `9100`.
+**Why:** That metrics stack is no longer being used for this homelab, so keeping its configs and planned exporter references creates stale deployment guidance.
 
-**Rollback:** Revert `monitoring/prometheus/prometheus.yml` to the previous target list and change CK10 back to `10.27.27.33:9100` only if windows_exporter is intentionally configured to listen there.
-
----
-
-## 2026-04-22: Monitoring exporters deployed as individual LXCs via community scripts
-
-**Decision:** Each Prometheus exporter (pve_exporter, Scraparr, qbittorrent-exporter) gets its own dedicated LXC on pve3, installed via the [Proxmox VE community helper scripts](https://community-scripts.org), rather than running as Docker sidecars alongside the arr stack. Superseded on 2026-04-27 for Arr app metrics only; pve_exporter and qbittorrent-exporter remain LXC-based.
-
-**Why:** Community scripts handle install cleanly with no Docker overhead. Individual LXCs are independently manageable and restartable. Keeps the arr compose file clean — no monitoring concerns mixed into it. pve_exporter in particular benefits from LXC isolation since it holds PVE API credentials.
-
-**Rollback:** The Docker sidecar approach (exportarr containers in arr compose) is documented in git history. To revert, restore the sidecar services from the previous compose commit.
-
----
-
-## 2026-04-22: Scraparr instead of per-service exportarr for arr stack metrics
-
-**Decision:** Use Scraparr (single LXC, one `/metrics` endpoint at port 7100) to cover Sonarr, Radarr, and Prowlarr instead of running three separate exportarr sidecar containers (one per service). Superseded on 2026-04-27 by the Exportarr sidecar decision above.
-
-**Why:** Scraparr is available as a community script, making it trivial to deploy as an LXC. It covers all three arr services from one config file and one scrape job in Prometheus. Per-service exportarr containers would require maintaining three separate Docker images and three Prometheus jobs with no meaningful operational advantage in this setup.
-
-**Rollback:** exportarr is on ghcr.io/onedr0p/exportarr — add sidecar containers back to `arr/docker-compose.yml` with ports 9707/9708/9709 and update prometheus.yml jobs accordingly.
+**Rollback:** Restore the removed config tree and related doc entries from git history, then re-add any desired exporter sidecars and port inventory rows intentionally.
 
 ---
 
