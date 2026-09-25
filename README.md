@@ -2,6 +2,8 @@
 
 Monorepo for all chaserbot homelab infrastructure, configs, and tooling.
 
+Canonical Homepage identity: **pve1 CT112** at `10.27.27.112:3000`.
+
 Current working direction: author infrastructure locally in VS Code, keep GitHub as the source of truth, and deploy intentionally to hosts rather than building directly on them.
 
 ## Structure

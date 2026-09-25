@@ -12,21 +12,21 @@ NPM admin: <http://10.27.27.111:81>
 
 ---
 
-## Tier 1 — Media (currently running on MM1 / CK10)
+## Tier 1 — Media and applications
 
 | Subdomain | AdGuard rewrite | NPM forward host | NPM forward port | Status |
 | ----------- | ----------------- | ------------------ | ------------------ | -------- |
 | `jellyfin.chaseworkslab.com` | `10.27.27.111` | `10.27.27.33` | `8096` | ✅ Done |
-| `sonarr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `8989` | ⬜ Todo |
-| `radarr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `7878` | ⬜ Todo |
-| `prowlarr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `9696` | ⬜ Todo |
-| `overseerr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `5055` | ⬜ Todo |
-| `qbit.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `8080` ⚠️ verify | ⬜ Todo |
-| `abs.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `13378` | ⬜ Todo |
-| `paperless.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `8000` ⚠️ verify | ⬜ Todo |
-| `uptime.chaseworkslab.com` | `10.27.27.111` | `10.27.27.22` | `3001` | ⬜ Todo |
+| `sonarr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.47` | `8989` | ✅ HTTP verified |
+| `radarr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.47` | `7878` | ✅ HTTP verified |
+| `prowlarr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.47` | `9696` | ✅ HTTP verified |
+| `seerr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.47` | `5055` | ✅ HTTP verified |
+| `qbit.chaseworkslab.com` | `10.27.27.111` | `10.27.27.47` | `8080` | ✅ HTTP verified |
+| `audiobooks.chaseworkslab.com` | `10.27.27.111` | `10.27.27.112` | `13378` | ✅ Backend corrected; HTTP proxy verified |
+| `paperless.chaseworkslab.com` | `10.27.27.111` | Verify in NPM | `8000` | ⚠️ Proxy works; backend docs stale |
+| `uptime.chaseworkslab.com` | `10.27.27.111` | `10.27.27.119` | `3001` | ✅ HTTP verified |
 
-> ⚠️ qBittorrent and Paperless-ngx ports are common defaults — confirm against actual config on MM1 before adding.
+> HTTP routes above were checked on 2026-09-25. HTTPS was not working and remains a follow-up.
 
 ---
 
@@ -36,7 +36,7 @@ NPM admin: <http://10.27.27.111:81>
 | ----------- | ----------------- | ------------------ | ------------------ | -------- |
 | `npm.chaseworkslab.com` | `10.27.27.111` | `10.27.27.111` | `81` | ⬜ Todo |
 | `adguard.chaseworkslab.com` | `10.27.27.111` | `10.27.27.110` | `80` | ⬜ Todo |
-| `home.chaseworkslab.com` | `10.27.27.111` | `10.27.27.112` | `3000` | ⬜ Todo |
+| `homepage.chaseworkslab.com` | `10.27.27.111` | `10.27.27.112` | `3000` | ✅ HTTP verified — Homepage is CT112 |
 
 ---
 
@@ -66,19 +66,11 @@ Access Proxmox at: `https://pve1.chaseworkslab.com:8006` etc.
 
 - All NPM proxy hosts: enable **Websocket Support** — required for Jellyfin, Uptime Kuma, and most web UIs.
 - For qBittorrent: set `X-Frame-Options` header in NPM Advanced tab if the UI refuses to load in iframes.
-- For Overseerr: it uses its own auth — no NPM access list needed.
+- Seerr uses its own authentication; no NPM access list is required unless an additional gate is desired.
 - When services migrate from MM1 to Proxmox LXCs (pve2/pve3), update only the NPM forward host/port. The subdomain and AdGuard entry stay the same — that's the whole point of the reverse proxy.
 
 ---
 
-## Migration note (future pve2 IPs)
+## Current migration state
 
-When the arr stack moves from MM1 to pve2, update NPM to point to the new IPs:
-
-| Service | Current (MM1) | Future (pve2) |
-| -------- | -------------- | -------------- |
-| Sonarr | `10.27.27.22:8989` | `10.27.27.120:8989` |
-| Radarr | `10.27.27.22:7878` | `10.27.27.121:7878` |
-| Prowlarr | `10.27.27.22:9696` | `10.27.27.122:9696` |
-| Overseerr | `10.27.27.22:5055` | `10.27.27.123:5055` |
-| Audiobookshelf | `10.27.27.22:13378` | `10.27.27.124:13378` |
+The arr stack has moved to the docker-arr VM at `10.27.27.47`. Seerr replaced Overseerr. Audiobookshelf is served from `10.27.27.112:13378`.

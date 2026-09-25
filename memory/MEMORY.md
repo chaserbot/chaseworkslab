@@ -5,7 +5,7 @@ Keep entries under ~150 chars. Entries after line 200 are truncated.
 
 ## Project
 
-- [Homepage config](project_homepage.md) — Config files committed to repo; deploy still pending; key details
+- [Homepage config](project_homepage.md) — Running on pve1 CT112; config committed and deployed; key details
 
 ## Feedback
 

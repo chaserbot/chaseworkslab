@@ -43,9 +43,9 @@ Settings → Filters → DNS rewrites:
 | `pve2.chaseworkslab.com` | `10.27.27.102` |
 | `pve3.chaseworkslab.com` | `10.27.27.103` |
 | `adguard.chaseworkslab.com` | `10.27.27.110` |
-| `*.chaseworkslab.com` | `10.27.27.111` |
+| Each approved service name | `10.27.27.111` |
 
-The wildcard `*.chaseworkslab.com → 10.27.27.111` routes everything through NPM.
+Service names use individual AdGuard rewrites to `10.27.27.111`, which routes them through NPM. Proxmox node names resolve directly to their node IPs.
 Add each service as a proxy host in NPM pointing to its backend IP:port.
 
 ## NPM proxy hosts to add (after DNS rewrites)

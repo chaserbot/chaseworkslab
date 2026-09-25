@@ -27,18 +27,18 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 ### Confirmed node roles
 
 - **pve1** = front door / network core
-  - AdGuard Home or Pi-hole
+  - AdGuard Home
   - Nginx Proxy Manager
   - dashboard homepage (Homepage/Glance/Homarr — choose one)
 - **pve2** = media-support app node
   - Sonarr
   - Radarr
   - Prowlarr
-  - Overseerr
+  - Seerr
   - Audiobookshelf
   - Calibre-Web
 - **pve3** = ops / automation / document node
-  - Uptime Kuma
+  - Uptime Kuma (currently pve1 CT119)
   - Prometheus
   - Grafana
   - alerting
@@ -54,9 +54,9 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 4. ~~**Deploy Nginx Proxy Manager LXC on pve1**~~ ✓ Done 2026-04-13 — CT101, `10.27.27.111`, active
 5. ~~**Build Homepage config files**~~ ✓ Done 2026-04-21 — services, settings, widgets, bookmarks committed to `lxc/pve1/homepage/config/`
 6. ~~**Deploy Homepage LXC on pve1**~~ ✓ Done — CT112, `10.27.27.112`; repository config deployed
-7. ~~**Configure AdGuard Home DNS rewrites**~~ ✓ In progress — individual entries per service → `10.27.27.111`; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md` for full list
+7. ~~**Configure AdGuard Home DNS rewrites**~~ ✓ Current service names resolve through NPM; see `lxc/pve1/dns-proxy-entries.md`
 8. ~~**Update router DNS** from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`)~~ ✓ Done 2026-04-13
-9. Add proxy hosts in NPM for each service — ⚠️ In progress; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md`
+9. ~~Add HTTP proxy hosts in NPM~~ ✓ Core service routes verified 2026-09-25; HTTPS remains to fix
 
 ### Phase 2 — private DNS and Tailscale behavior
 
@@ -65,17 +65,17 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 3. ~~**Split-DNS behavior for `chaseworkslab.com`**~~ ✓ Done 2026-04-13 — pve1 is Tailscale subnet router; `chaseworkslab.com` resolves on tailnet
 4. Keep services non-public by default
 
-### Phase 3 — uptime and visibility on pve3
+### Phase 3 — uptime and visibility
 
-1. Deploy Uptime Kuma on pve3 (IP TBD)
+1. ~~Deploy Uptime Kuma~~ ✓ Running on pve1 CT119 (`10.27.27.119`)
 2. Decide whether any lightweight non-Prometheus status dashboard is still wanted
-3. Add basic uptime checks for service downtime and node reachability
+3. Add comprehensive checks and alert delivery; see `HOMELAB_PUNCH_LIST.md`
 
 ### Phase 4 — application stack on pve2
 
 1. ~~Decide grouped Docker LXC vs separate LXCs for the arr stack~~ ✓ Done 2026-04-15 — deployed as Docker Compose on docker-arr VM; Gluetun VPN, Seerr, FlareSolverr included; see `arr/docker-compose.yml`
 2. ~~Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2~~ ✓ Done 2026-04-15 — deployed on docker-arr VM (Overseerr replaced by Seerr)
-3. Deploy Audiobookshelf on pve2 (currently on MM1)
+3. ~~Correct and document Audiobookshelf backend~~ ✓ Running at `10.27.27.112:13378`
 4. Deploy Calibre-Web on pve2
 5. ~~Validate pathing to MM1 storage and qBittorrent integration~~ ✓ Done — storage via BigPeggy NFS at `/mnt/bigpeggy`
 
@@ -88,10 +88,10 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 ### Phase 6 — migrate nonessential services off MM1
 
-1. Move Pi-hole function to pve1
-2. Move Uptime Kuma to pve3
-3. Migrate arr stack off MM1 only after storage paths and qBittorrent integration are verified
-4. Keep MM1 focused on DAS/NFS/SMB + qBittorrent
+1. ~~Move Pi-hole function to pve1~~ ✓ AdGuard Home on pve1 CT110 is the active resolver; safely decommission the old VM after a client audit
+2. ~~Move Uptime Kuma off MM1~~ ✓ Running on pve1 CT119
+3. ~~Migrate arr stack off MM1~~ ✓ Running on docker-arr VM at `10.27.27.47`
+4. Keep MM1 focused on DAS/NFS/SMB
 
 ### Notes
 
@@ -119,7 +119,7 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 1. SSH into Mac Mini #1, dump existing `docker-compose.yml` for each service
 2. Sanitize (strip secrets), add `.env.example` with placeholder values, commit to repo:
    - ~~arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) → `arr/`~~ ✓ Done 2026-04-15
-   - Uptime Kuma → `docker/`
+   - Uptime Kuma → document/backup pve1 CT119 installation
    - Paperless-ngx → `docker/`
 3. Assign static IP to Ace Magician CK10; document in STACK.md
 4. Dockerize Jellyfin (if not already); commit `docker-compose.yml` to `docker/`
@@ -150,7 +150,7 @@ Repo: `github.com/chaserbot/ff-assistant-starter` (private, early stage)
 ## Network / DNS backlog
 
 - Consider VLAN segmentation: IoT vs. servers vs. personal devices (low priority — defer until Proxmox stable)
-- Configure `chaseworkslab.com` split-horizon DNS (internal via Pi-hole; external via Tailscale or reverse proxy)
+- Maintain `chaseworkslab.com` split DNS through AdGuard Home and Tailscale
 
 ---
 

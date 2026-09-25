@@ -13,8 +13,8 @@ lxc/
     adguard-home/    CT110 — AdGuard Home (native install)
     nginx-proxy-manager/  CT101 — Nginx Proxy Manager (native install)
     homepage/        CT112 — Homepage dashboard (native Node.js install)
-  pve2/              planned: media apps (arr stack)
-  pve3/              planned: ops (automation, documents, admin tools)
+  pve2/              no per-service LXC definitions currently committed
+  pve3/              no per-service LXC definitions currently committed
 ```
 
 ## Container IP scheme
@@ -26,6 +26,8 @@ lxc/
 | `10.27.27.130–139` | pve3 | Ops / automation / documents |
 
 See `inventory/README.md` for full IP and port reference.
+
+The docker-arr workload currently runs as VM210 at `10.27.27.47`; it does not follow the per-service LXC IP scheme above. Uptime Kuma currently runs on pve1 CT119.
 
 ## Deploy order on pve1
 

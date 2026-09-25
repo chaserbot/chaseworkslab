@@ -12,6 +12,26 @@ Format:
 
 ---
 
+## 2026-09-25: Make inventory/README.md the current address source of truth
+
+**Decision:** Use `inventory/README.md` as the canonical quick reference for current host, service, IP, port, and URL mappings. Treat `DECISIONS.md` as historical context and mark unknown live values explicitly rather than carrying forward an unverified address.
+
+**Why:** The same placements were duplicated across several guides and drifted after migrations. A prominent canonical table makes routine lookup safer and keeps historical architecture notes from being mistaken for present state.
+
+**Rollback:** Remove the quick-reference section and restore the previous per-file tables from git. This is documentation-only and does not affect live services.
+
+---
+
+## 2026-09-25: Treat CT112 as the canonical Homepage identity
+
+**Decision:** Standardize all repository documentation on Homepage running as pve1 CT112 at `10.27.27.112:3000`. Preserve references to `10.27.27.102` where they correctly identify the pve2 host.
+
+**Why:** CT IDs and host IP suffixes are different namespaces. A blanket `102` replacement would corrupt valid pve2 documentation; an explicit canonical identity makes future reviews safer.
+
+**Rollback:** Revert this documentation-only change. No live services or configuration were modified.
+
+---
+
 ## 2026-05-04: Keep Homepage monitoring as service widgets
 
 **Decision:** Add Homepage monitoring cards in `services.yaml` only: Glances service widgets for pve1/pve2/pve3 info, CPU, memory, process, and temperature metrics, plus the Uptime Kuma service widget pointed at MM1 (`10.27.27.22:3001`) with the status-page slug read from `HOMEPAGE_VAR_UPTIMEKUMA_SLUG`.

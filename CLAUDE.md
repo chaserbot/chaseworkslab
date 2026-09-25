@@ -14,9 +14,9 @@ Assume:
 
 **`inventory/README.md` is the canonical reference for:**
 - Host IPs and access URLs (MM1, pve1/2/3, CK10, etc.)
-- All service ports (Sonarr, Radarr, Prowlarr, Overseerr, qBittorrent, Jellyfin, etc.)
+- All service ports (Sonarr, Radarr, Prowlarr, Seerr, qBittorrent, Jellyfin, etc.)
 - Storage: LittlePeggy and BigPeggy NFS paths, Proxmox mount points (`/mnt/littlepeggy`, `/mnt/bigpeggy`), and Proxmox storage IDs (`littlepeggy`, `bigpeggy`)
-- Planned service targets and Prometheus scrape targets
+- Current service locations and explicitly marked planned targets
 
 When writing docker-compose files, Ansible playbooks, LXC configs, or any file that references IPs, ports, or storage paths — **pull values from inventory/README.md, not from memory.**
 

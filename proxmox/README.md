@@ -1,6 +1,6 @@
-# 🏠 chaseworkslab-homelab
+# Proxmox infrastructure
 
-Personal homelab infrastructure — configs, scripts, and documentation. The goal: if the house burned down and new hardware showed up, this repo is everything needed to get back to a running state.
+Proxmox host configuration and recovery documentation for chaseworkslab. For current IPs and service locations, use [`../inventory/README.md`](../inventory/README.md); this file focuses on the Proxmox hosts and bootstrap workflow.
 
 ---
 
@@ -39,29 +39,14 @@ Internal domain: `chaseworkslab.com`
 
 ---
 
-## 📁 Repo Structure
+## Repository structure
 
-```
-chaseworkslab-homelab/
-├── README.md                  ← You are here
-├── .gitignore                 ← Secrets and .env files excluded
-├── proxmox/
-│   ├── post-install.sh        ← Run on each node after fresh Proxmox install
-│   ├── cluster-setup.md       ← How to form the 3-node cluster
-│   └── storage-setup.md       ← LittlePeggy + BigPeggy NFS setup
-├── services/                  ← One folder per self-hosted service
-│   ├── jellyfin/
-│   │   ├── docker-compose.yml
-│   │   └── README.md
-│   ├── arr-stack/
-│   │   ├── docker-compose.yml
-│   │   └── README.md
-│   └── ...
-├── network/
-│   ├── dns-records.md         ← All internal DNS entries
-│   └── tailscale-setup.md     ← Remote access setup
-└── scripts/
-    └── ...
+```text
+proxmox/
+├── README.md
+├── post-install.sh
+├── cluster-setup.md
+└── storage-setup.md
 ```
 
 ---
@@ -72,8 +57,12 @@ chaseworkslab-homelab/
 2. SSH into the new node
 3. Run the post-install script:
 
+Clone the monorepo and run the checked-in script:
+
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/chaserbot/chaseworkslab-proxmox/main/proxmox/post-install.sh) <node-number>
+git clone https://github.com/chaserbot/chaseworkslab.git ~/chaseworkslab
+cd ~/chaseworkslab
+sudo bash proxmox/post-install.sh <node-number>
 ```
 
 4. Reboot
@@ -89,17 +78,18 @@ bash <(curl -fsSL https://raw.githubusercontent.com/chaserbot/chaseworkslab-prox
 | Service | Port | Host | Status |
 |---|---|---|---|
 | Jellyfin | 8096 | CK10 | ✅ Active |
-| Audiobookshelf | 13378 | MM1 | 🔄 To migrate |
-| Radarr | 7878 | MM1 | 🔄 To migrate |
-| Sonarr | 8989 | MM1 | 🔄 To migrate |
-| Prowlarr | — | MM1 | 🔄 To migrate |
-| Overseerr | 5055 | MM1 | 🔄 To migrate |
-| qBittorrent | — | MM1 | 🔄 To migrate |
-| Paperless-ngx | — | MM1 | 🔄 To migrate |
-| Uptime Kuma | 3001 | MM1 | 🔄 To migrate |
-| AdGuard Home | 53/80 | pve (planned) | ⬜ Pending |
-| Nginx Proxy Manager | 80/443 | pve (planned) | ⬜ Pending |
-| n8n | 5678 | pve (planned) | ⬜ Pending |
+| Audiobookshelf | 13378 | `10.27.27.112` | ✅ Active |
+| Radarr | 7878 | docker-arr VM (`10.27.27.47`) | ✅ Active |
+| Sonarr | 8989 | docker-arr VM (`10.27.27.47`) | ✅ Active |
+| Prowlarr | 9696 | docker-arr VM (`10.27.27.47`) | ✅ Active |
+| Seerr | 5055 | docker-arr VM (`10.27.27.47`) | ✅ Active |
+| qBittorrent | 8080 | docker-arr VM (`10.27.27.47`) | ✅ Active via Gluetun |
+| Paperless-ngx | 8000 (unconfirmed) | Unknown backend; inspect NPM | ⚠️ Investigate |
+| Uptime Kuma | 3001 | pve1 CT119 (`10.27.27.119`) | ✅ Active |
+| AdGuard Home | 53/80 | pve1 CT110 (`10.27.27.110`) | ✅ Active |
+| Nginx Proxy Manager | 80/443/81 | pve1 CT101 (`10.27.27.111`) | ✅ HTTP active; HTTPS needs repair |
+| Homepage | 3000 | pve1 CT112 (`10.27.27.112`) | ✅ Active |
+| n8n | 5678 | Planned `10.27.27.133` | ⬜ Not deployed |
 
 ---
 
@@ -114,9 +104,9 @@ Secrets are **never** committed to this repo. `.env` files, API keys, and passwo
 | Track | Description | Status |
 |---|---|---|
 | T1 | Physical & Cable Management | ✅ Done |
-| T2 | Proxmox Cluster Setup | 🔧 Active |
-| T3 | Network, DNS & Remote Access | ⬜ Pending |
-| T4 | Service Migration & Distribution | ⬜ Pending |
+| T2 | Proxmox Cluster Setup | ✅ Cluster formed; no HA |
+| T3 | Network, DNS & Remote Access | 🔧 HTTP/split DNS active; HTTPS cleanup pending |
+| T4 | Service Migration & Distribution | 🔧 Arr and Uptime migrated; Paperless unresolved |
 | T5 | n8n Automation | ⬜ Pending |
 | T6 | FATFISH AI Assistant | 🧪 Design Phase |
 | T7 | Reproducibility & GitHub | ♻️ Ongoing |

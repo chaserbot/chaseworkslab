@@ -26,7 +26,8 @@ Homepage config files are fully built and committed to `lxc/pve1/homepage/config
 - Secrets injected via `{{HOMEPAGE_VAR_*}}` from `/opt/homepage/config/.env`
 - docker-arr VM confirmed at `10.27.27.47`
 
-## Stale items to fix before going live
+## Follow-up items
 
 - Planned section in services.yaml has a placeholder IP for n8n
-- Uptime Kuma and Paperless sections commented out — uncomment and set IPs once deployed on pve3
+- Uptime Kuma is live at pve1 CT119 (`10.27.27.119`) and enabled in `services.yaml`
+- Paperless remains commented out until its actual backend is verified

@@ -102,13 +102,13 @@
           url: http://10.27.27.33:8096
           key: "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}"
     - Audiobookshelf:
-        href: http://10.27.27.22:13378
+        href: http://10.27.27.112:13378
         description: Audiobooks and podcasts — MM1
         icon: audiobookshelf.png
-        ping: http://10.27.27.22:13378
+        ping: http://10.27.27.112:13378
         widget:
           type: audiobookshelf
-          url: http://10.27.27.22:13378
+          url: http://10.27.27.112:13378
           key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}"
     - Calibre-Web:
         href: http://10.27.27.151:8083

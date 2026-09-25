@@ -35,7 +35,7 @@ The Media section is displayed as a three-column row and includes:
 | Service | URL |
 | ------- | --- |
 | Jellyfin | `http://10.27.27.33:8096` |
-| Audiobookshelf | `http://10.27.27.22:13378` |
+| Audiobookshelf | `http://10.27.27.112:13378` |
 | Calibre-Web | `http://10.27.27.151:8083` |
 
 Calibre-Web is configured as a service card with an availability check in

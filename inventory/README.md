@@ -2,6 +2,24 @@
 
 Private reference for all homelab hosts, services, and ports. Keep this updated as services move from MM1 to Proxmox. Eventually feeds into Homepage and Grafana/Prometheus scrape targets.
 
+## Quick reference
+
+| What | Address | Notes |
+| ---- | ------- | ----- |
+| Router | `10.27.27.1` | UniFi UX7 |
+| MM1 storage/NFS host | `10.27.27.22` | LittlePeggy and BigPeggy attached |
+| Jellyfin | `10.27.27.33:8096` | CK10 |
+| docker-arr VM | `10.27.27.47` | Seerr, Sonarr, Radarr, Prowlarr, qBittorrent, FlareSolverr |
+| pve1 / pve2 / pve3 | `10.27.27.101` / `.102` / `.103` | Proxmox UI on port `8006` |
+| AdGuard Home | `10.27.27.110` | pve1 CT110; DNS port `53`, UI port `80` |
+| Nginx Proxy Manager | `10.27.27.111` | pve1 CT101; admin port `81` |
+| Homepage | `10.27.27.112:3000` | pve1 CT112 |
+| Audiobookshelf | `10.27.27.112:13378` | `audiobooks.chaseworkslab.com` |
+| Uptime Kuma | `10.27.27.119:3001` | pve1 CT119 |
+| Paperless-ngx | Unknown | Proxy responds; inspect NPM for the current backend |
+
+Use this file for current addresses. `DECISIONS.md` is historical and can contain previous placements.
+
 ---
 
 ## 🖥️ Hosts
@@ -30,36 +48,36 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 | **Jellyfin** | CK10 | `10.27.27.33` | `8096` | <http://10.27.27.33:8096> · <https://jellyfin.chaseworkslab.com> | ✅ Active |
 | **AdGuard Home** | pve1 CT110 | `10.27.27.110` | `53`, `80` | <http://10.27.27.110> (web UI) | ✅ Active |
 | **Nginx Proxy Manager** | pve1 CT101 | `10.27.27.111` | `80`, `443`, `81` | <http://10.27.27.111:81> (admin) | ✅ Active |
-| **Audiobookshelf** | MM1 | `10.27.27.22` | `13378` | <http://10.27.27.22:13378> | ✅ Active |
-| **Radarr** | docker-arr VM | TBD | `7878` | <http://docker-arr:7878> | ✅ Active |
-| **Sonarr** | docker-arr VM | TBD | `8989` | <http://docker-arr:8989> | ✅ Active |
-| **Prowlarr** | docker-arr VM | TBD | `9696` | <http://docker-arr:9696> | ✅ Active |
-| **Seerr** | docker-arr VM | TBD | `5055` | <http://docker-arr:5055> | ✅ Active |
-| **FlareSolverr** | docker-arr VM | TBD | `8191` | <http://docker-arr:8191> | ✅ Active |
-| **qBittorrent** | docker-arr VM | TBD | `8080` | <http://docker-arr:8080> | ✅ Active (VPN via Gluetun) |
-| **Paperless-ngx** | MM1 | `10.27.27.22` | `8000` | <http://10.27.27.22:8000> | ⚠️ Verify port |
+| **Audiobookshelf** | `10.27.27.112` | `10.27.27.112` | `13378` | <http://10.27.27.112:13378> · <http://audiobooks.chaseworkslab.com> | ✅ Active |
+| **Homepage** | pve1 CT112 | `10.27.27.112` | `3000` | <http://10.27.27.112:3000> | ✅ Active |
+| **Radarr** | docker-arr VM | `10.27.27.47` | `7878` | <http://10.27.27.47:7878> | ✅ Active |
+| **Sonarr** | docker-arr VM | `10.27.27.47` | `8989` | <http://10.27.27.47:8989> | ✅ Active |
+| **Prowlarr** | docker-arr VM | `10.27.27.47` | `9696` | <http://10.27.27.47:9696> | ✅ Active |
+| **Seerr** | docker-arr VM | `10.27.27.47` | `5055` | <http://10.27.27.47:5055> | ✅ Active |
+| **FlareSolverr** | docker-arr VM | `10.27.27.47` | `8191` | <http://10.27.27.47:8191> | ✅ Active |
+| **qBittorrent** | docker-arr VM | `10.27.27.47` | `8080` | <http://10.27.27.47:8080> | ✅ Active (VPN via Gluetun) |
+| **Paperless-ngx** | Unknown; inspect NPM | — | `8000` (unconfirmed) | <http://paperless.chaseworkslab.com> | ⚠️ Proxy responds; former MM1 endpoint failed |
 | **Uptime Kuma** | pve1 CT119 | `10.27.27.119` | `3001` | <http://10.27.27.119:3001> | ✅ Active |
 
-> ⚠️ docker-arr VM IP is TBD — update this table once a static IP is assigned in Proxmox. Paperless-ngx port on MM1 still needs confirmation.
+> ⚠️ Paperless still needs backend verification: its documented MM1 endpoint did not respond on 2026-09-25, while its HTTP proxy name did. Audiobookshelf was corrected to `10.27.27.112:13378` after the audit.
 
-### Planned / In Progress (pve1 — front door)
+### pve1 front door
 
 | Service | CT ID | IP | Port(s) | Notes |
 | ------- | ----- | -- | ------- | ----- |
-| **Homepage** | 112 | `10.27.27.112` | `3000` | Running; native Node.js install via community script; proxy via `home.chaseworkslab.com` |
+| **Homepage** | 112 | `10.27.27.112` | `3000` | Running; native Node.js install via community script; HTTP proxy via `homepage.chaseworkslab.com` |
 
-### Planned (pve2 — media apps)
+### Media application placement
 
 | Service | Target IP | Port | Notes |
 | ------- | --------- | ---- | ----- |
 | **docker-arr VM** | `10.27.27.47` | — | Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) — running; IP confirmed static |
-| **Audiobookshelf** | `10.27.27.124` | `13378` | Moving from MM1 |
+| **Audiobookshelf** | `10.27.27.112` | `13378` | Running; no pve2 migration currently required |
 
-### Planned (pve3 — ops)
+### Planned services
 
 | Service | Target IP | Port | Notes |
 | ------- | --------- | ---- | ----- |
-| **Uptime Kuma** | `10.27.27.119` | `3001` | Moved from MM1 — pve3 CT119 |
 | **n8n** | `10.27.27.133` | `5678` | New deployment |
 | **Paperless-ngx** | `10.27.27.134` | `8000` | Moving from MM1 |
 
@@ -88,7 +106,7 @@ NFS exports from MM1:
 | USW Flex 2.5G Mini (4-port) | Desktop switch — MBP M3 Pro + 2017 MBP | — |
 | USW Lite 8-port PoE | Server switch — MM1, pve1–3, CK10 | — |
 | TP-Link EAP225 Outdoor | Outdoor access point | `10.27.27.6` |
-| Pi-hole (UTM VM) | DNS interim — to be replaced by AdGuard Home | `10.27.27.193` |
+| Pi-hole (UTM VM) | Legacy DNS — pending safe shutdown | `10.27.27.193` |
 
 Internal domain: `chaseworkslab.com`
 
@@ -112,7 +130,7 @@ Service hostnames (AdGuard DNS rewrites → `10.27.27.111` → NPM → service):
 Config files live inside the Homepage LXC at `/opt/homepage/config/`. The service table above maps directly to the `href` and `ping` fields Homepage uses.
 
 ```yaml
-# Example Homepage services.yaml snippet (not yet configured)
+# Example Homepage services.yaml snippet
 # - Jellyfin:
 #     href: http://10.27.27.33:8096
 #     ping: http://10.27.27.33:8096
@@ -123,9 +141,9 @@ Config files live inside the Homepage LXC at `/opt/homepage/config/`. The servic
 
 ## 📋 Open TODOs
 
-- [ ] Confirm qBittorrent web UI port on MM1
-- [ ] Confirm Paperless-ngx port on MM1
-- [ ] Build out remaining AdGuard DNS entries and NPM proxy hosts — see `lxc/pve1/dns-proxy-entries.md`
+- [x] Confirm qBittorrent web UI at `10.27.27.47:8080`
+- [ ] Identify and document the actual Paperless-ngx backend
+- [ ] Add HTTPS certificates/hosts for internal NPM routes — see `lxc/pve1/dns-proxy-entries.md`
 - [x] Deploy Homepage LXC (CT112, `10.27.27.112`)
 - [ ] Shut down Pi-hole UTM VM on MM1 (`10.27.27.193`) — router DNS already migrated
 - [ ] Update network backbone with correct Unifi router and switches
