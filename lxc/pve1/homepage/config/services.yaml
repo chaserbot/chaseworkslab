@@ -1,6 +1,6 @@
 ---
 # Homepage services.yaml
-# Copy to /opt/homepage/config/services.yaml on the Homepage LXC (CT102, 10.27.27.112)
+# Copy to /opt/homepage/config/services.yaml on the Homepage LXC (CT112, 10.27.27.112)
 #
 # IPs pulled from inventory/README.md — update this file if services move to their
 # planned Proxmox LXC IPs (see the "Planned" section in inventory/README.md).

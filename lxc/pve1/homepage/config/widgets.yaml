@@ -1,6 +1,6 @@
 ---
 # Homepage widgets.yaml
-# Copy to /opt/homepage/config/widgets.yaml on the Homepage LXC (CT102, 10.27.27.112)
+# Copy to /opt/homepage/config/widgets.yaml on the Homepage LXC (CT112, 10.27.27.112)
 #
 # These are global page widgets — they appear at the top of the dashboard.
 # Service-specific widgets (AdGuard, NPM, Overseerr, etc.) live in services.yaml.

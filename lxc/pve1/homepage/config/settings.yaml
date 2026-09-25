@@ -1,6 +1,6 @@
 ---
 # Homepage settings.yaml
-# Copy to /opt/homepage/config/settings.yaml on the Homepage LXC (CT102, 10.27.27.112)
+# Copy to /opt/homepage/config/settings.yaml on the Homepage LXC (CT112, 10.27.27.112)
 
 title: ChaseWorks Lab
 language: en

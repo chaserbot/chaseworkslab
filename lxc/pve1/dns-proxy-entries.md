@@ -36,7 +36,7 @@ NPM admin: <http://10.27.27.111:81>
 | ----------- | ----------------- | ------------------ | ------------------ | -------- |
 | `npm.chaseworkslab.com` | `10.27.27.111` | `10.27.27.111` | `81` | ⬜ Todo |
 | `adguard.chaseworkslab.com` | `10.27.27.111` | `10.27.27.110` | `80` | ⬜ Todo |
-| `home.chaseworkslab.com` | `10.27.27.111` | `10.27.27.112` | `3000` | ⬜ Todo (Homepage not yet deployed) |
+| `home.chaseworkslab.com` | `10.27.27.111` | `10.27.27.112` | `3000` | ⬜ Todo |
 
 ---
 

@@ -1,10 +1,10 @@
 ---
 name: Homepage config
-description: Homepage dashboard config files are committed to repo; LXC not yet deployed; key design decisions
+description: Homepage dashboard running on pve1 CT112 with config files committed to repo; key design decisions
 type: project
 ---
 
-Homepage config files are fully built and committed to `lxc/pve1/homepage/config/`. The LXC itself (CT102, `10.27.27.112`) has not yet been deployed.
+Homepage config files are fully built and committed to `lxc/pve1/homepage/config/`. The LXC is running on pve1 as CT112 (`10.27.27.112`), with repository configs deployed to `/opt/homepage/config/`.
 
 **Why:** Author configs locally in repo first, then copy to LXC on deploy — consistent with established pattern.
 

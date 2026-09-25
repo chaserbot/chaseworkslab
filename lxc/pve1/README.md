@@ -10,7 +10,7 @@ All containers are deployed using the [community helper scripts](https://github.
 | ----- | ---- | -- | ---------------- |
 | 110 | adguard-home | `10.27.27.110` | AdGuard Home — native install |
 | 101 | nginx-proxy-manager | `10.27.27.111` | Nginx Proxy Manager — native install |
-| 102 | homepage | `10.27.27.112` | Homepage dashboard — native Node.js install |
+| 112 | homepage | `10.27.27.112` | Homepage dashboard — native Node.js install |
 
 ## Deploy order
 

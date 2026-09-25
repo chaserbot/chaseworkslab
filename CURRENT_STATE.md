@@ -7,7 +7,7 @@ Update this after significant changes.
 
 ## Overall status
 
-**Yellow** — Core media services running on Mac Mini #1. Proxmox cluster operational. pve1 front-door stack live: AdGuard Home and Nginx Proxy Manager deployed and active. Jellyfin accessible at `jellyfin.chaseworkslab.com`. pve1 is Tailscale subnet router with split DNS — all `*.chaseworkslab.com` names resolve on the tailnet. Remaining services need DNS + NPM entries added (see `lxc/pve1/dns-proxy-entries.md`). Homepage LXC not yet deployed. Several MM1 Docker Compose files not yet committed to git.
+**Yellow** — Core media services running on Mac Mini #1. Proxmox cluster operational. pve1 front-door stack live: AdGuard Home, Nginx Proxy Manager, and Homepage are deployed and active. Jellyfin accessible at `jellyfin.chaseworkslab.com`. pve1 is Tailscale subnet router with split DNS — all `*.chaseworkslab.com` names resolve on the tailnet. Remaining services need DNS + NPM entries added (see `lxc/pve1/dns-proxy-entries.md`). Several MM1 Docker Compose files not yet committed to git.
 
 ## What is running
 
@@ -29,7 +29,7 @@ Update this after significant changes.
 | pve3 | Clustered | `10.27.27.103` | Joined to cluster; no HA |
 | AdGuard Home | Running | pve1 CT110 (`10.27.27.110`) | DNS rewrites active; individual entries per service → `10.27.27.111`; router DHCP DNS updated |
 | Nginx Proxy Manager | Running | pve1 CT101 (`10.27.27.111`) | Reverse proxy active; `jellyfin.chaseworkslab.com` live; more entries to add |
-| Homepage | Config ready; deploy pending | pve1 CT102 (`10.27.27.112`) | Config files in `lxc/pve1/homepage/config/`; full service layout built incl. widgets, Proxmox API token auth, UniFi widget, Glances service widgets, Uptime Kuma widget |
+| Homepage | Running | pve1 CT112 (`10.27.27.112`) | Config files in `lxc/pve1/homepage/config/`; full service layout built incl. widgets, Proxmox API token auth, UniFi widget, Glances service widgets, Uptime Kuma widget, and Calibre-Web |
 | Ollama | Not deployed | — | Planned: Proxmox LXC or VM |
 | Open WebUI | Not deployed | — | Planned: same host as Ollama |
 | n8n | Not deployed | — | Planned: pve3 LXC |
@@ -41,7 +41,7 @@ Update this after significant changes.
 - **Jellyfin**: not Dockerized, media path to Pegasus DAS not confirmed, Intel Quick Sync hardware transcoding not verified.
 - **Flat network**: all devices on `10.27.27.0/24` — no VLANs.
 - **NPM entries incomplete**: only Jellyfin proxied so far; see `lxc/pve1/dns-proxy-entries.md` for full list to build out.
-- **Homepage LXC**: config files ready but LXC not yet deployed (CT102, `10.27.27.112`).
+- **Homepage LXC**: running on CT112 (`10.27.27.112`); repository configs are deployed to `/opt/homepage/config/`.
 - **LLM stack**: not yet deployed — architecture planned, repo scaffolded.
 - **Metrics stack removed from repo**: The unused metrics configs, dashboards, exporter templates, and Arr metrics sidecars have been removed because they are no longer in use.
 - **Homepage services.yaml**: Planned section has stale IPs for Prometheus (was `.131`, now `.130`) and Grafana/n8n — update once those LXCs are assigned IPs.
@@ -57,6 +57,6 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 - 2026-04-21: Homepage config files built and committed to `lxc/pve1/homepage/config/` — services.yaml (Infrastructure, Media, Arr Stack, Downloads sections with live widgets), settings.yaml, widgets.yaml (greeting, search, datetime, resources), bookmarks.yaml. Proxmox widgets use API token auth. UniFi widget enabled with site name.
 - 2026-04-15: Arr stack migrated to docker-arr Proxmox VM (Docker Compose + Gluetun VPN). Seerr replaces Overseerr. FlareSolverr added. Compose file committed to `arr/docker-compose.yml`.
 - 2026-04-13: AdGuard Home (CT110) and NPM (CT101) deployed on pve1 and active. Jellyfin proxy entry live at `jellyfin.chaseworkslab.com`. pve1 configured as Tailscale subnet router with split DNS. Router DHCP DNS updated from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`).
-- 2026-04-10: Replaced custom create-lxc.sh scripts with per-service READMEs referencing community helper scripts; removed shared Docker LXC approach; AdGuard Home (CT110), NPM (CT101), Homepage (CT102) each get their own LXC
+- 2026-04-10: Replaced custom create-lxc.sh scripts with per-service READMEs referencing community helper scripts; removed shared Docker LXC approach; AdGuard Home (CT110), NPM (CT101), Homepage (CT112) each get their own LXC
 - 2026-04-10: Proxmox cluster formed — pve1/pve2/pve3 joined; no HA; NFS storage (LittlePeggy + BigPeggy) mounted on all nodes
 - 2026-03-30: Consolidated 10 standalone repos into monorepo; homelab-context merged into root docs

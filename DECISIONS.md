@@ -18,7 +18,7 @@ Format:
 
 **Why:** Homepage's Glances and Uptime Kuma docs model these as service widgets. Keeping them in `services.yaml` avoids duplicate bookmark entries and avoids mixing host/service monitoring into global page widgets.
 
-**Rollback:** Comment out or remove the `Monitoring` group in `lxc/pve1/homepage/config/services.yaml`, then redeploy the previous config to `/opt/homepage/config/` on CT102.
+**Rollback:** Comment out or remove the `Monitoring` group in `lxc/pve1/homepage/config/services.yaml`, then redeploy the previous config to `/opt/homepage/config/` on CT112.
 
 ---
 
@@ -84,7 +84,7 @@ Format:
 
 ## 2026-04-10: Separate LXCs for NPM and Homepage instead of shared Docker host
 
-**Decision:** Nginx Proxy Manager and Homepage each get their own dedicated LXC (CT101 at `10.27.27.111` and CT102 at `10.27.27.112` respectively), both native installs via community scripts. Dropped the earlier plan to run both inside a shared Docker host LXC.
+**Decision:** Nginx Proxy Manager and Homepage each get their own dedicated LXC (CT101 at `10.27.27.111` and CT112 at `10.27.27.112` respectively), both native installs via community scripts. Dropped the earlier plan to run both inside a shared Docker host LXC.
 
 **Why:** The community scripts for both services are native (not Docker-based), so the Docker host LXC was unnecessary overhead. Separate LXCs are simpler to reason about, easier to update independently, and avoid the "just add Docker to an LXC" complexity for services that don't need it.
 

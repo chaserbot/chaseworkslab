@@ -14,7 +14,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/Proxmo
 
 | Prompt | Value |
 | ------ | ----- |
-| CT ID | `102` |
+| CT ID | `112` |
 | Hostname | `homepage` |
 | IP Address | `10.27.27.112/24` |
 | Gateway | `10.27.27.1` |

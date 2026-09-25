@@ -53,7 +53,7 @@ Update this file whenever a service is added, removed, or its port changes.
 | Pi-hole | — | `53`, `80` | `10.27.27.193` (UTM VM on MM1) | Decommissioning | Router DNS updated to AdGuard Home; UTM VM can be shut down |
 | **AdGuard Home** | lxc/pve1/ | `53`, `80` | pve1 CT110 (`10.27.27.110`) | Running | DNS ad-blocking + rewrites; individual entry per service → `10.27.27.111` |
 | **Nginx Proxy Manager** | lxc/pve1/ | `80`, `443`, `81` (admin) | pve1 CT101 (`10.27.27.111`) | Running | Reverse proxy for `*.chaseworkslab.com`; Jellyfin live, more entries pending |
-| **Homepage** | lxc/pve1/ | `3000` | pve1 CT102 (`10.27.27.112`) | Not deployed | Native Node.js install via community script |
+| **Homepage** | lxc/pve1/ | `3000` | pve1 CT112 (`10.27.27.112`) | Running | Native Node.js install via community script |
 | Open WebUI | llm/ | TBD | TBD | Not deployed | LLM chat frontend |
 | Ollama | llm/ | TBD | TBD | Not deployed | Local LLM inference backend |
 | n8n | — | `5678` | pve3 (`10.27.27.133`) | Not deployed | Automation / agent orchestration |

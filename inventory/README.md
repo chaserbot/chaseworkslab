@@ -46,7 +46,7 @@ Private reference for all homelab hosts, services, and ports. Keep this updated 
 
 | Service | CT ID | IP | Port(s) | Notes |
 | ------- | ----- | -- | ------- | ----- |
-| **Homepage** | 102 | `10.27.27.112` | `3000` | Not yet deployed; native Node.js install via community script; proxy via `home.chaseworkslab.com` |
+| **Homepage** | 112 | `10.27.27.112` | `3000` | Running; native Node.js install via community script; proxy via `home.chaseworkslab.com` |
 
 ### Planned (pve2 — media apps)
 
@@ -126,6 +126,6 @@ Config files live inside the Homepage LXC at `/opt/homepage/config/`. The servic
 - [ ] Confirm qBittorrent web UI port on MM1
 - [ ] Confirm Paperless-ngx port on MM1
 - [ ] Build out remaining AdGuard DNS entries and NPM proxy hosts — see `lxc/pve1/dns-proxy-entries.md`
-- [ ] Deploy Homepage LXC (CT102, `10.27.27.112`)
+- [x] Deploy Homepage LXC (CT112, `10.27.27.112`)
 - [ ] Shut down Pi-hole UTM VM on MM1 (`10.27.27.193`) — router DNS already migrated
 - [ ] Update network backbone with correct Unifi router and switches

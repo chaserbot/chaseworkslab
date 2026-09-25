@@ -53,7 +53,7 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 3. ~~**Deploy AdGuard Home LXC on pve1**~~ ✓ Done 2026-04-13 — CT110, `10.27.27.110`, active
 4. ~~**Deploy Nginx Proxy Manager LXC on pve1**~~ ✓ Done 2026-04-13 — CT101, `10.27.27.111`, active
 5. ~~**Build Homepage config files**~~ ✓ Done 2026-04-21 — services, settings, widgets, bookmarks committed to `lxc/pve1/homepage/config/`
-6. Deploy Homepage LXC on pve1 — see `lxc/pve1/homepage/README.md` (CT102, `10.27.27.112`); copy config files from repo
+6. ~~**Deploy Homepage LXC on pve1**~~ ✓ Done — CT112, `10.27.27.112`; repository config deployed
 7. ~~**Configure AdGuard Home DNS rewrites**~~ ✓ In progress — individual entries per service → `10.27.27.111`; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md` for full list
 8. ~~**Update router DNS** from Pi-hole (`10.27.27.193`) to AdGuard Home (`10.27.27.110`)~~ ✓ Done 2026-04-13
 9. Add proxy hosts in NPM for each service — ⚠️ In progress; Jellyfin done; see `lxc/pve1/dns-proxy-entries.md`

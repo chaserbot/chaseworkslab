@@ -1,6 +1,6 @@
 ---
 # Homepage proxmox.yaml
-# Copy to /opt/homepage/config/proxmox.yaml on the Homepage LXC (CT102, 10.27.27.112)
+# Copy to /opt/homepage/config/proxmox.yaml on the Homepage LXC (CT112, 10.27.27.112)
 #
 # Enables per-VM/CT status badges on service cards (similar to docker.yaml).
 # Token is created once at the datacenter level and works across the whole cluster.

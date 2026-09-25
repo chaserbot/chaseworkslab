@@ -12,7 +12,7 @@ lxc/
   pve1/
     adguard-home/    CT110 — AdGuard Home (native install)
     nginx-proxy-manager/  CT101 — Nginx Proxy Manager (native install)
-    homepage/        CT102 — Homepage dashboard (native Node.js install)
+    homepage/        CT112 — Homepage dashboard (native Node.js install)
   pve2/              planned: media apps (arr stack)
   pve3/              planned: ops (automation, documents, admin tools)
 ```
