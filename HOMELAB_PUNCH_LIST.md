@@ -1,62 +1,101 @@
 # Homelab punch list
 
-Audit date: 2026-09-25
+Last reviewed: 2026-09-25
 
-This is the ordered remediation list from a repository review plus read-only LAN checks. An HTTP response confirms reachability, not application health, authentication, backups, or data integrity.
+This list is ordered by importance. You do not need to finish it all at once.
 
-## 1. Protect recoverability first
+Time estimates are approximate **hands-on time** for someone newer to homelabbing. Backups, file copies, updates, and scans may continue running after the hands-on work is finished.
 
-- [ ] Define and test backups for every stateful service: Proxmox guest configs/disks, Homepage config and `.env`, NPM data/certificates, AdGuard config, arr appdata, Uptime Kuma, Paperless, and Jellyfin metadata.
-- [ ] Keep backup copies off MM1. Both Proxmox shared storage mounts depend on MM1 and its attached DAS, so a single MM1 failure currently affects storage and any backups stored there.
-- [ ] Perform one documented restore drill and record recovery time and required secrets.
+## Suggested schedule
 
-## 2. Fix HTTPS on internal service names
+| Session | Goal | Estimated time |
+| ------- | ---- | -------------- |
+| 1 | Find Paperless and fix internal HTTPS | 1–3 hours |
+| 2 | Make a backup plan and back up the most important services | 2–4 hours, plus copy time |
+| 3 | Improve Uptime Kuma monitoring and notifications | 2–3 hours |
+| 4 | Add a health-check script and document updates | 2–4 hours |
+| Later | DNS redundancy, UPS planning, account cleanup, and VLANs | Several smaller sessions |
 
-- [ ] HTTP routing through NPM works for `homepage`, `jellyfin`, `sonarr`, `radarr`, `prowlarr`, `seerr`, `qbit`, `audiobooks`, `paperless`, and `uptime`.
-- [ ] HTTPS connections to names resolving internally to `10.27.27.111` failed during the audit. Configure certificates and SSL proxy hosts, or explicitly document an HTTP-only policy.
-- [ ] After fixing, enable Force SSL and HSTS only after confirming every route and certificate; avoid HSTS during initial testing because it is sticky in browsers.
+## 1. Make sure the lab can be recovered
 
-## 3. Resolve service-location drift
+This is the highest priority because a working service can still be one disk failure away from being lost.
 
-- [x] Correct the Audiobookshelf backend to `10.27.27.112:13378`; documentation and Homepage config updated.
-- [ ] Identify the actual Paperless backend. The documented `10.27.27.22:8000` endpoint did not respond, but `http://paperless.chaseworkslab.com` did.
-- [x] Confirm Uptime Kuma's completed move to pve1 CT119 and remove remaining MM1/pve3 migration language from current-state documentation.
-- [x] Replace old MM1 arr targets and current-state Overseerr references with the docker-arr VM (`10.27.27.47`) and Seerr.
+- [ ] **Write down what must be backed up.** Include Proxmox guests, NPM, AdGuard Home, Homepage and its `.env`, the arr applications, Uptime Kuma, Audiobookshelf, Paperless, and Jellyfin metadata. **Estimate: 45–90 minutes.**
+- [ ] **Choose a backup location that is not MM1 or either Pegasus drive.** If MM1 fails, its storage and any backups stored there could disappear together. An external drive, another computer, or cloud storage can be the second copy. **Estimate: 30–60 minutes to choose and configure; file copying may take hours.**
+- [ ] **Create the first backups and confirm the files are not empty.** Start with NPM, AdGuard, Proxmox guest backups, and application databases/config folders. **Estimate: 2–4 hours, plus transfer time.**
+- [ ] **Practice restoring one noncritical service or test copy.** Write down every step, the passwords or tokens needed, and how long it took. **Estimate: 1–3 hours.**
 
-## 4. Finish monitoring and alert delivery
+## 2. Fix HTTPS for internal service names
 
-- [ ] In Uptime Kuma, monitor all three Proxmox UIs, DNS on AdGuard (TCP/UDP 53), NPM HTTP/HTTPS, Homepage, the arr apps, Jellyfin, both NFS exports, and the MM1 host.
-- [ ] Configure at least one external notification path and test it by intentionally stopping a noncritical monitor target.
-- [ ] Add disk-capacity, SMART/DAS health, NFS mount, backup-age, certificate-expiry, and UPS/power alerts. HTTP-only checks will miss the failures most likely to lose data.
-- [ ] Verify Glances is intentionally exposed on `0.0.0.0:61208`; restrict it to the management LAN/firewall if possible.
+The service names work over HTTP, but HTTPS failed during the audit. Fixing this removes browser warnings and protects login traffic on the LAN.
 
-## 5. Remove single points of failure where practical
+- [ ] **Check NPM's SSL settings and certificate for one service first.** Homepage is a good test target. **Estimate: 30–60 minutes.**
+- [ ] **Apply the working certificate setup to the other service names.** Test Homepage, Jellyfin, Sonarr, Radarr, Prowlarr, Seerr, qBittorrent, Audiobookshelf, Paperless, and Uptime Kuma. **Estimate: 45–90 minutes.**
+- [ ] **Turn on Force SSL only after each HTTPS address works.** Leave HSTS off until everything is stable; browsers remember HSTS and it can make troubleshooting harder. **Estimate: 15–30 minutes.**
 
-- [ ] Decide whether AdGuard needs a second resolver. One DNS LXC on one node means maintenance or failure can interrupt name resolution for the whole LAN.
-- [ ] Decide whether pve1 should remain both the network front door and Tailscale subnet router; document emergency direct-IP access if it is down.
-- [ ] Add a UPS and graceful shutdown plan for MM1, both Pegasus arrays, network gear, and the Proxmox nodes if one is not already present.
+## 3. Finish locating and documenting services
 
-## 6. Make deployments reproducible
+- [x] **Audiobookshelf:** corrected to `10.27.27.112:13378` and `audiobooks.chaseworkslab.com`.
+- [ ] **Paperless:** open its proxy host in NPM and record the Forward Hostname/IP and Forward Port. The friendly address works, but the actual backend is still unknown. **Estimate: 10–20 minutes.**
+- [x] **Uptime Kuma:** confirmed on pve1 CT119 at `10.27.27.119:3001`.
+- [x] **Arr stack:** confirmed on docker-arr VM210 at `10.27.27.47`; Seerr replaced Overseerr.
+- [x] **Current documentation:** reconciled around `inventory/README.md` as the main IP and port reference.
 
-- [ ] Commit sanitized deployment definitions for Uptime Kuma, Paperless, Audiobookshelf, Jellyfin, NPM, and AdGuard, or document exact backup/restore procedures for community-script installs.
-- [ ] Add an Ansible playbook or read-only audit script for package status, disk space, mounts, temperatures, failed systemd units, guest status, and backup age.
-- [ ] Pin or record tested versions and add an update cadence with rollback notes.
-- [ ] Replace the stale standalone-repo URL and old service layout in `proxmox/README.md` before using it for disaster recovery.
+## 4. Improve monitoring and alerts
 
-## 7. Clean up network and access policy
+Uptime checks should tell you about problems before you discover them manually.
 
-- [ ] Remove the old Pi-hole VM only after verifying no DHCP/static client still uses `10.27.27.193` and after exporting its configuration.
-- [ ] Keep admin interfaces private to LAN/Tailscale; verify no router port forwards expose NPM admin, Proxmox, AdGuard, Glances, or app admin ports publicly.
-- [ ] Use individual least-privilege service accounts/API tokens and rotate any long-lived credentials that predate the current layout.
-- [ ] Defer VLAN work until backups, monitoring, and documentation are reliable; then separate infrastructure, trusted clients, IoT, and guest traffic.
+- [ ] **Add basic Uptime Kuma monitors.** Monitor the three Proxmox interfaces, AdGuard DNS, NPM, Homepage, Jellyfin, Audiobookshelf, the arr applications, Paperless, and MM1. **Estimate: 60–90 minutes.**
+- [ ] **Add one notification method and test it.** Email, Discord, Slack, or another service is enough. Temporarily pause a safe test service or use a deliberately invalid test monitor. **Estimate: 30–60 minutes.**
+- [ ] **Add storage and backup warnings.** Watch disk space, NFS mounts, backup age, and Pegasus drive health. These checks are more important for preventing data loss than simple website checks. **Estimate: 2–4 hours.**
+- [ ] **Add certificate-expiration alerts.** Warn at least 14–30 days before expiry. **Estimate: 20–40 minutes.**
+- [ ] **Limit Glances access.** Confirm port `61208` is reachable only from the trusted LAN/Tailscale network, not the public internet. **Estimate: 30–60 minutes.**
 
-## Verified during this audit
+## 5. Reduce important single points of failure
 
-- Proxmox UIs: `10.27.27.101`, `.102`, `.103` on port 8006
-- Front door: AdGuard `10.27.27.110`, NPM `10.27.27.111:81`, Homepage CT112 `10.27.27.112:3000`
-- Operations: Uptime Kuma CT119 `10.27.27.119:3001`; Glances on all three Proxmox nodes
-- Apps: docker-arr VM `10.27.27.47` (Seerr, Sonarr, Radarr, Prowlarr, qBittorrent) and Jellyfin `10.27.27.33:8096`
+A single point of failure is one device whose failure takes down an entire function.
 
-## Rollback
+- [ ] **Decide whether to run a second DNS server.** Today, AdGuard Home on pve1 is the only active resolver. A small second instance on another node would keep DNS working during maintenance. **Estimate: 1–3 hours.**
+- [ ] **Write down emergency addresses.** If DNS, NPM, or Tailscale routing fails, keep the direct IP list in `inventory/README.md` available offline. **Estimate: 15–30 minutes.**
+- [ ] **Plan power protection.** List what a UPS must power and how MM1, the Pegasus drives, networking equipment, and Proxmox nodes should shut down during a long outage. **Estimate: 1–2 hours to plan; hardware setup depends on purchase and delivery.**
 
-This audit changed documentation only. Revert the 2026-09-25 documentation commit (or restore the affected Markdown files from git) to undo it; no live homelab state was changed.
+## 6. Make services easier to rebuild
+
+The goal is to rebuild from written instructions instead of memory.
+
+- [ ] **Document how to export and restore each community-script service.** Start with NPM, AdGuard, Homepage, Uptime Kuma, and Audiobookshelf. **Estimate: 30–60 minutes per service.**
+- [ ] **Add missing deployment files or recovery instructions.** Cover Paperless and Jellyfin after their actual configuration/data locations are confirmed. **Estimate: 1–3 hours per service.**
+- [ ] **Create a read-only health-check script.** It should report node reachability, free disk space, NFS mounts, temperatures, failed services, guest status, endpoint status, and backup age. **Estimate: 2–4 hours.**
+- [ ] **Choose a monthly update routine.** Record current versions, update one layer at a time, and write down how to roll back. **Estimate: 45–90 minutes to create; 1–2 hours per monthly maintenance session.**
+- [x] **Update the Proxmox overview.** The old repository URL and obsolete service placements were corrected.
+
+## 7. Clean up network access
+
+- [ ] **Safely retire the old Pi-hole VM.** First confirm the router, DHCP settings, and manually configured devices no longer use `10.27.27.193`. Export Pi-hole's configuration before shutting it down. **Estimate: 45–90 minutes, followed by a few days powered off before deletion.**
+- [ ] **Check for public port forwards.** Proxmox, NPM admin, AdGuard, Glances, and application admin pages should normally be available only through the LAN or Tailscale. **Estimate: 30–60 minutes.**
+- [ ] **Review service accounts and API tokens.** Use separate accounts where possible, give them only the permissions they need, and rotate old credentials. **Estimate: 2–4 hours across the lab.**
+- [ ] **Consider VLANs only after the earlier work is stable.** VLANs can separate servers, trusted devices, IoT devices, and guests, but they add troubleshooting complexity. **Estimate: 4–8 hours of planning and rollout, preferably across multiple sessions.**
+
+## Verified during the audit
+
+- Proxmox: `10.27.27.101`, `.102`, and `.103` on port `8006`
+- AdGuard Home: `10.27.27.110`
+- NPM admin: `10.27.27.111:81`
+- Homepage: pve1 CT112 at `10.27.27.112:3000`
+- Audiobookshelf: `10.27.27.112:13378`
+- Uptime Kuma: pve1 CT119 at `10.27.27.119:3001`
+- docker-arr VM210: `10.27.27.47`
+- Jellyfin: `10.27.27.33:8096`
+- Glances: port `61208` on all three Proxmox nodes
+
+## How to use this list
+
+For each work session:
+
+1. Pick one small checkbox or one section.
+2. Make a backup before changing a working service.
+3. Test the direct IP first, then DNS, HTTP, and HTTPS.
+4. Update `inventory/README.md` and `CURRENT_STATE.md` before stopping.
+5. Record a rollback step for anything that changed live infrastructure.
+
+This file is documentation only. Editing it does not change the live homelab.
