@@ -6,6 +6,8 @@ Canonical Homepage identity: **pve1 CT112** at `10.27.27.112:3000`.
 
 Current working direction: author infrastructure locally in VS Code, keep GitHub as the source of truth, and deploy intentionally to hosts rather than building directly on them.
 
+Emergency/offline reference: [`EMERGENCY_REFERENCE.md`](EMERGENCY_REFERENCE.md)
+
 ## Structure
 
 | Folder | Description |
@@ -71,6 +73,7 @@ Important continuity note:
 | CURRENT_STATE.md | What is running, what is stable, last-known-good state |
 | NEXT_STEPS.md | Planned work, in-progress tasks, and ideas backlog |
 | DECISIONS.md | Architectural decision log |
+| EMERGENCY_REFERENCE.md | Printable direct-IP, recovery-order, and storage-dependency sheet |
 
 ## Migration
 

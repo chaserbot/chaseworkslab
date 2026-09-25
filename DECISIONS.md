@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-09-25: Maintain a printable emergency reference
+
+**Decision:** Keep `EMERGENCY_REFERENCE.md` as a concise offline-ready list of direct IPs, critical ports, storage dependencies, recovery order, and documentation locations. Mirror it into the Obsidian homelab hub.
+
+**Why:** DNS, the reverse proxy, Tailscale, or internet access may be unavailable during an outage. A short direct-IP reference reduces guesswork and prevents rushed destructive actions.
+
+**Rollback:** Remove the emergency-reference files and their links. No live infrastructure depends on them.
+
+---
+
 ## 2026-09-25: Keep Git and Obsidian documentation synchronized
 
 **Decision:** After meaningful homelab changes, update the relevant documentation in this repository, mirror the necessary human-reference information into the CWL Obsidian vault, and commit and push the Git changes to GitHub on the active feature branch.

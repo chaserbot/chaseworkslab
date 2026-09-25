@@ -56,7 +56,7 @@ Uptime checks should tell you about problems before you discover them manually.
 A single point of failure is one device whose failure takes down an entire function.
 
 - [ ] **Decide whether to run a second DNS server.** Today, AdGuard Home on pve1 is the only active resolver. A small second instance on another node would keep DNS working during maintenance. **Estimate: 1–3 hours.**
-- [ ] **Write down emergency addresses.** If DNS, NPM, or Tailscale routing fails, keep the direct IP list in `inventory/README.md` available offline. **Estimate: 15–30 minutes.**
+- [x] **Write down emergency addresses.** `EMERGENCY_REFERENCE.md` contains direct IPs, service ports, storage dependencies, and the recovery order. Keep a printed or offline copy.
 - [ ] **Plan power protection.** List what a UPS must power and how MM1, the Pegasus drives, networking equipment, and Proxmox nodes should shut down during a long outage. **Estimate: 1–2 hours to plan; hardware setup depends on purchase and delivery.**
 
 ## 6. Make services easier to rebuild

@@ -54,6 +54,7 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 
 ## Recent changes
 
+- 2026-09-25: Added `EMERGENCY_REFERENCE.md`, a printable/offline sheet with direct IPs, service ports, storage dependencies, diagnosis hints, and recovery order; mirrored it into the Obsidian homelab hub.
 - 2026-09-25: Made documentation synchronization part of the standard workflow: update repository docs, mirror necessary reference changes into the CWL Obsidian vault, then commit and push the Git changes.
 - 2026-09-25: Audited repository configuration and documented live endpoints. Confirmed Homepage is pve1 CT112 (`10.27.27.112`), verified the three Proxmox nodes, pve1 front-door services, arr VM, Glances, Uptime Kuma CT119, and Jellyfin; recorded prioritized remediation in `HOMELAB_PUNCH_LIST.md`.
 - 2026-09-25: Reconciled current-state documentation around `inventory/README.md`; corrected arr, Audiobookshelf, Uptime Kuma, NPM, and Proxmox overview records and marked Paperless as unknown rather than retaining an unverified address.
