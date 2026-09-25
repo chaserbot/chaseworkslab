@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-09-25: Keep Git and Obsidian documentation synchronized
+
+**Decision:** After meaningful homelab changes, update the relevant documentation in this repository, mirror the necessary human-reference information into the CWL Obsidian vault, and commit and push the Git changes to GitHub on the active feature branch.
+
+**Why:** Chase relies on the documentation when returning to the lab after time away. Keeping the operational repository and the easier-to-browse Obsidian reference aligned prevents forgotten IPs, stale service locations, and unfinished local-only documentation.
+
+**Rollback:** Revert this workflow decision and remove the matching preference from `memory/user_profile.md` and the Obsidian agent context. Existing documentation remains usable.
+
+---
+
 ## 2026-09-25: Make inventory/README.md the current address source of truth
 
 **Decision:** Use `inventory/README.md` as the canonical quick reference for current host, service, IP, port, and URL mappings. Treat `DECISIONS.md` as historical context and mark unknown live values explicitly rather than carrying forward an unverified address.

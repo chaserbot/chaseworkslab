@@ -22,6 +22,8 @@ Chase Cook — homelab owner and operator. Practical, conversational style. Pref
 - Uses `.env.example` pattern — secrets never in git
 - Wants step-by-step rollout plans for risky changes
 - Wants docs updated after meaningful changes (CURRENT_STATE, DECISIONS, STACK, NEXT_STEPS, inventory)
+- After homelab changes, always update the relevant repository documentation, mirror the necessary human-reference updates into the Obsidian vault at `/Users/ccook/Library/Mobile Documents/com~apple~CloudDocs/OBSIDIAN SYNC/CWL-Knowledge-Base`, then commit and push the Git changes to GitHub.
+- Preserve historical notes as historical, keep the current inventory easy to find, and never place secrets in Git or Obsidian.
 
 ## What to check first
 

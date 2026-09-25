@@ -8,7 +8,10 @@
 - After any meaningful change:
   1. update CURRENT_STATE.md
   2. add an entry to DECISIONS.md
-  3. suggest rollback steps
+  3. update other affected inventory/runbook files
+  4. mirror necessary human-reference changes into the CWL Obsidian vault
+  5. suggest rollback steps
+  6. commit and push the completed Git changes to GitHub on the active feature branch
 
 ## Repo structure
 
