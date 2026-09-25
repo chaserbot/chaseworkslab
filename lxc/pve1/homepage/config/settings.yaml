@@ -19,7 +19,7 @@ layout:
     useEqualHeights: true
   Media:
     style: row
-    columns: 2
+    columns: 3
     useEqualHeights: true
   Arr Stack:
     style: row

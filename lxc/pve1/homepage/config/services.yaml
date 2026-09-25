@@ -110,6 +110,11 @@
           type: audiobookshelf
           url: http://10.27.27.22:13378
           key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}"
+    - Calibre-Web:
+        href: http://10.27.27.151:8083
+        description: E-book library
+        icon: calibre-web.png
+        ping: http://10.27.27.151:8083
 
 - Arr Stack:
     - Seerr:

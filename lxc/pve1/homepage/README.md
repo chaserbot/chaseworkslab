@@ -27,3 +27,16 @@ Accept defaults for everything else (RAM, disk, OS).
 - Config files live inside the LXC at `/opt/homepage/config/`
 - Edit `services.yaml`, `bookmarks.yaml`, and `settings.yaml` to configure the dashboard
 - See `inventory/README.md` for the full list of service URLs to add
+
+## Configured media services
+
+The Media section is displayed as a three-column row and includes:
+
+| Service | URL |
+| ------- | --- |
+| Jellyfin | `http://10.27.27.33:8096` |
+| Audiobookshelf | `http://10.27.27.22:13378` |
+| Calibre-Web | `http://10.27.27.151:8083` |
+
+Calibre-Web is configured as a service card with an availability check in
+`config/services.yaml`.
