@@ -47,6 +47,7 @@ Update this file whenever a service is added, removed, or its port changes.
 | FlareSolverr | arr/ | `8191` | docker-arr VM | Running | Cloudflare bypass for Prowlarr |
 | Seerr | arr/ | `5055` | docker-arr VM | Running | Media request UI; replaces Overseerr |
 | Audiobookshelf | arr/ | `13378` | `10.27.27.112` | Running | Backend corrected and confirmed after the 2026-09-25 audit |
+| Calibre-Web | — | `8083` | `10.27.27.151` | Running | E-book library; `ebooks.chaseworkslab.com/login` |
 | Jellyfin | docker/ | `8096` | Ace Magician CK10 (`10.27.27.33`) | Running | Media server; not yet Dockerized; HW transcoding unverified |
 | Uptime Kuma | lxc/pve1/ | `3001` | pve1 CT119 (`10.27.27.119`) | Running | Direct endpoint and HTTP proxy verified 2026-09-25 |
 | Paperless-ngx | docker/ | `8000` ⚠️ | Backend needs verification | Investigate | Documented MM1 endpoint failed 2026-09-25; HTTP proxy responds |

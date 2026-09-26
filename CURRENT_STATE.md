@@ -21,6 +21,7 @@ Update this after significant changes.
 | FlareSolverr | Running | docker-arr VM (`10.27.27.47`) | Cloudflare bypass for Prowlarr |
 | Audiobookshelf | Running | `10.27.27.112:13378` | Backend corrected and confirmed after the 2026-09-25 audit |
 | Jellyfin | Running | Ace Magician CK10 (`10.27.27.33`) | Not yet Dockerized; hardware transcoding unverified |
+| Calibre-Web | Running | `10.27.27.151:8083` | E-book library; friendly login at `ebooks.chaseworkslab.com/login`, confirmed by Chase 2026-09-25 |
 | Uptime Kuma | Running | pve1 CT119 (`10.27.27.119`) | Direct endpoint and HTTP proxy verified 2026-09-25 |
 | Paperless-ngx | Needs investigation | Unknown backend | HTTP proxy responds, but the former `10.27.27.22:8000` endpoint does not; inspect NPM |
 | Pi-hole | Running | Mac Mini #1 UTM VM (`10.27.27.193`) | Interim DNS; fragile — tied to macOS host; being replaced by AdGuard Home |
@@ -50,10 +51,11 @@ Update this after significant changes.
 
 ## Last stable configuration
 
-Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running on docker-arr Proxmox VM via Docker Compose with Gluetun VPN. Storage on BigPeggy NFS. Uptime Kuma runs on pve1 CT119. Audiobookshelf is at `10.27.27.112:13378`; Paperless's backend still needs verification. Jellyfin runs bare on Ace Magician CK10. AdGuard Home on pve1 CT110 is the active DNS resolver. NPM on pve1 CT101 is the active HTTP reverse proxy. Homepage runs on pve1 CT112. pve1 is the Tailscale subnet router with split DNS for `chaseworkslab.com`.
+Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running on docker-arr Proxmox VM via Docker Compose with Gluetun VPN. Storage on BigPeggy NFS. Uptime Kuma runs on pve1 CT119. Audiobookshelf is at `10.27.27.112:13378`; Calibre-Web is at `10.27.27.151:8083`; Paperless's backend still needs verification. Jellyfin runs bare on Ace Magician CK10. AdGuard Home on pve1 CT110 is the active DNS resolver. NPM on pve1 CT101 is the active HTTP reverse proxy. Homepage runs on pve1 CT112. pve1 is the Tailscale subnet router with split DNS for `chaseworkslab.com`.
 
 ## Recent changes
 
+- 2026-09-25: Confirmed Calibre-Web running at `10.27.27.151:8083` with friendly login `ebooks.chaseworkslab.com/login`; added it to the live Google Sheet, sanitized inventories, emergency references, Homepage link, and Obsidian.
 - 2026-09-25: Updated the private IP Address Google Sheet so `HiddenData` identifies each credential by IP address and service name. Visible password formulas now match both fields, allowing services on the same IP to keep separate passwords while remaining masked by default.
 - 2026-09-25: Documented the private Cook Home IP Address Google Sheet as the editable day-to-day and emergency address reference. The repository and Obsidian remain credential-free; Git remains authoritative for sanitized infrastructure configuration and inventory.
 - 2026-09-25: Added `EMERGENCY_REFERENCE.md`, a printable/offline sheet with direct IPs, service ports, storage dependencies, diagnosis hints, and recovery order; mirrored it into the Obsidian homelab hub.

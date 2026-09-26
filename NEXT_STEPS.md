@@ -76,7 +76,7 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 1. ~~Decide grouped Docker LXC vs separate LXCs for the arr stack~~ ✓ Done 2026-04-15 — deployed as Docker Compose on docker-arr VM; Gluetun VPN, Seerr, FlareSolverr included; see `arr/docker-compose.yml`
 2. ~~Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2~~ ✓ Done 2026-04-15 — deployed on docker-arr VM (Overseerr replaced by Seerr)
 3. ~~Correct and document Audiobookshelf backend~~ ✓ Running at `10.27.27.112:13378`
-4. Deploy Calibre-Web on pve2
+4. ~~Deploy Calibre-Web on pve2~~ ✓ Running at `10.27.27.151:8083`; `ebooks.chaseworkslab.com/login`
 5. ~~Validate pathing to MM1 storage and qBittorrent integration~~ ✓ Done — storage via BigPeggy NFS at `/mnt/bigpeggy`
 
 ### Phase 5 — automation and document tools on pve3

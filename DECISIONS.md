@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-09-25: Record Calibre-Web as an active service
+
+**Decision:** Treat Calibre-Web as active at `10.27.27.151:8083` with the friendly login `ebooks.chaseworkslab.com/login`, and include it in the live address Sheet, Homepage, inventory, DNS/proxy reference, emergency documentation, and Obsidian catalog.
+
+**Why:** The Homepage configuration already contained the backend, but planning and inventory documents still described Calibre-Web as undeployed. Chase confirmed the service and friendly login are working.
+
+**Rollback:** Remove the Calibre-Web inventory and Sheet records, restore the Homepage link to the direct backend if appropriate, and mark the deployment step incomplete again. No service process is changed by the documentation update.
+
+---
+
 ## 2026-09-25: Use a private Google Sheet for the editable address reference
 
 **Decision:** Keep the private Cook Home IP Address Google Sheet as the editable day-to-day and emergency address reference, including its masked password-display helper. Identify each hidden credential by both IP address and service name so applications sharing an IP can use different credentials. Link to the Sheet from the sanitized Git and Obsidian documentation, but do not copy credential values into either location.

@@ -111,7 +111,7 @@
           url: http://10.27.27.112:13378
           key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_API_KEY}}"
     - Calibre-Web:
-        href: http://10.27.27.151:8083
+        href: http://ebooks.chaseworkslab.com/login
         description: E-book library
         icon: calibre-web.png
         ping: http://10.27.27.151:8083

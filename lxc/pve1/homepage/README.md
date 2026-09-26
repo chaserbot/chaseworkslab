@@ -36,7 +36,7 @@ The Media section is displayed as a three-column row and includes:
 | ------- | --- |
 | Jellyfin | `http://10.27.27.33:8096` |
 | Audiobookshelf | `http://10.27.27.112:13378` |
-| Calibre-Web | `http://10.27.27.151:8083` |
+| Calibre-Web | `http://ebooks.chaseworkslab.com/login` (backend: `10.27.27.151:8083`) |
 
 Calibre-Web is configured as a service card with an availability check in
 `config/services.yaml`.

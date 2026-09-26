@@ -18,6 +18,7 @@ For the private, editable address sheet—including the masked password-display 
 | Homepage | `10.27.27.112:3000` | pve1 CT112 |
 | Audiobookshelf | `10.27.27.112:13378` | `audiobooks.chaseworkslab.com` |
 | Uptime Kuma | `10.27.27.119:3001` | pve1 CT119 |
+| Calibre-Web | `10.27.27.151:8083` | `ebooks.chaseworkslab.com/login` |
 | Paperless-ngx | Unknown | Proxy responds; inspect NPM for the current backend |
 
 Use this file for current addresses. `DECISIONS.md` is historical and can contain previous placements.
@@ -51,6 +52,7 @@ Use this file for current addresses. `DECISIONS.md` is historical and can contai
 | **AdGuard Home** | pve1 CT110 | `10.27.27.110` | `53`, `80` | <http://10.27.27.110> (web UI) | ✅ Active |
 | **Nginx Proxy Manager** | pve1 CT101 | `10.27.27.111` | `80`, `443`, `81` | <http://10.27.27.111:81> (admin) | ✅ Active |
 | **Audiobookshelf** | `10.27.27.112` | `10.27.27.112` | `13378` | <http://10.27.27.112:13378> · <http://audiobooks.chaseworkslab.com> | ✅ Active |
+| **Calibre-Web** | `10.27.27.151` | `10.27.27.151` | `8083` | <http://10.27.27.151:8083> · <http://ebooks.chaseworkslab.com/login> | ✅ Active; confirmed by Chase 2026-09-25 |
 | **Homepage** | pve1 CT112 | `10.27.27.112` | `3000` | <http://10.27.27.112:3000> | ✅ Active |
 | **Radarr** | docker-arr VM | `10.27.27.47` | `7878` | <http://10.27.27.47:7878> | ✅ Active |
 | **Sonarr** | docker-arr VM | `10.27.27.47` | `8989` | <http://10.27.27.47:8989> | ✅ Active |
@@ -75,6 +77,7 @@ Use this file for current addresses. `DECISIONS.md` is historical and can contai
 | ------- | --------- | ---- | ----- |
 | **docker-arr VM** | `10.27.27.47` | — | Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) — running; IP confirmed static |
 | **Audiobookshelf** | `10.27.27.112` | `13378` | Running; no pve2 migration currently required |
+| **Calibre-Web** | `10.27.27.151` | `8083` | Running; friendly login at `ebooks.chaseworkslab.com/login` |
 
 ### Planned services
 

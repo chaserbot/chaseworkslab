@@ -23,6 +23,7 @@ NPM admin: <http://10.27.27.111:81>
 | `seerr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.47` | `5055` | ✅ HTTP verified |
 | `qbit.chaseworkslab.com` | `10.27.27.111` | `10.27.27.47` | `8080` | ✅ HTTP verified |
 | `audiobooks.chaseworkslab.com` | `10.27.27.111` | `10.27.27.112` | `13378` | ✅ Backend corrected; HTTP proxy verified |
+| `ebooks.chaseworkslab.com` | `10.27.27.111` | `10.27.27.151` | `8083` | ✅ Running; login confirmed by Chase |
 | `paperless.chaseworkslab.com` | `10.27.27.111` | Verify in NPM | `8000` | ⚠️ Proxy works; backend docs stale |
 | `uptime.chaseworkslab.com` | `10.27.27.111` | `10.27.27.119` | `3001` | ✅ HTTP verified |
 
@@ -73,4 +74,4 @@ Access Proxmox at: `https://pve1.chaseworkslab.com:8006` etc.
 
 ## Current migration state
 
-The arr stack has moved to the docker-arr VM at `10.27.27.47`. Seerr replaced Overseerr. Audiobookshelf is served from `10.27.27.112:13378`.
+The arr stack has moved to the docker-arr VM at `10.27.27.47`. Seerr replaced Overseerr. Audiobookshelf is served from `10.27.27.112:13378`. Calibre-Web is served from `10.27.27.151:8083` through `ebooks.chaseworkslab.com`.

@@ -50,6 +50,7 @@ Internal domain: `chaseworkslab.com`
 | Prowlarr | `http://10.27.27.47:9696` |
 | qBittorrent | `http://10.27.27.47:8080` |
 | FlareSolverr | `http://10.27.27.47:8191` |
+| Calibre-Web | `http://10.27.27.151:8083` · `http://ebooks.chaseworkslab.com/login` |
 | Paperless | `http://paperless.chaseworkslab.com` — backend currently unknown; inspect NPM |
 
 ## Storage dependency
