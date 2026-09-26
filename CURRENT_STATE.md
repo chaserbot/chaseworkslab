@@ -54,6 +54,7 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 
 ## Recent changes
 
+- 2026-09-25: Documented the private Cook Home IP Address Google Sheet as the editable day-to-day and emergency address reference. The repository and Obsidian remain credential-free; Git remains authoritative for sanitized infrastructure configuration and inventory.
 - 2026-09-25: Added `EMERGENCY_REFERENCE.md`, a printable/offline sheet with direct IPs, service ports, storage dependencies, diagnosis hints, and recovery order; mirrored it into the Obsidian homelab hub.
 - 2026-09-25: Made documentation synchronization part of the standard workflow: update repository docs, mirror necessary reference changes into the CWL Obsidian vault, then commit and push the Git changes.
 - 2026-09-25: Audited repository configuration and documented live endpoints. Confirmed Homepage is pve1 CT112 (`10.27.27.112`), verified the three Proxmox nodes, pve1 front-door services, arr VM, Glances, Uptime Kuma CT119, and Jellyfin; recorded prioritized remediation in `HOMELAB_PUNCH_LIST.md`.

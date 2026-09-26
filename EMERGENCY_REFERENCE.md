@@ -84,12 +84,13 @@ If MM1 or its Thunderbolt connection is down, these NFS shares are down too. Avo
 
 ## Documentation and credentials
 
+- Private live address sheet: [Cook Home IP Address Sheet](https://docs.google.com/spreadsheets/d/1wcD-f8_4jbpw__dxRGKGQTz4TdIqOjEwyOadDSXw24c/edit?usp=sharing) — editable Google Sheet with a masked password display; access is restricted to Chase's Google account.
 - GitHub: `https://github.com/chaserbot/chaseworkslab`
 - Local repo: `/Users/ccook/Documents/Projects/chaseworkslab`
 - Full inventory: `inventory/README.md`
 - Current status: `CURRENT_STATE.md`
 - Recovery guide: Obsidian → `09-Homelab-Infra/04-Recovery-Runbook`
-- Credentials: use the password manager and SSH agent; never add secrets to this file.
+- Credentials: use the password manager and SSH agent. The private Google Sheet can be used as an emergency reference, but never add secrets to Git or Obsidian.
 
 ## After recovery
 

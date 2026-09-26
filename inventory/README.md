@@ -2,6 +2,8 @@
 
 Private reference for all homelab hosts, services, and ports. Keep this updated as services move from MM1 to Proxmox. Eventually feeds into Homepage and Grafana/Prometheus scrape targets.
 
+For the private, editable address sheet—including the masked password-display helper—use the [Cook Home IP Address Google Sheet](https://docs.google.com/spreadsheets/d/1wcD-f8_4jbpw__dxRGKGQTz4TdIqOjEwyOadDSXw24c/edit?usp=sharing). Access is restricted to Chase's Google account. Keep credentials out of this repository; this file remains the sanitized infrastructure source of truth.
+
 ## Quick reference
 
 | What | Address | Notes |

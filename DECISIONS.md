@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-09-25: Use a private Google Sheet for the editable address reference
+
+**Decision:** Keep the private Cook Home IP Address Google Sheet as the editable day-to-day and emergency address reference, including its masked password-display helper. Link to it from the sanitized Git and Obsidian documentation, but do not copy credential values into either location.
+
+**Why:** The Sheet is convenient to update and can reveal passwords temporarily when needed, while the repository and Obsidian vault stay safe to browse, sync, and commit without storing secrets.
+
+**Rollback:** Remove the Google Sheet links from the repository and Obsidian notes. The existing sanitized inventory and emergency reference remain usable.
+
+---
+
 ## 2026-09-25: Maintain a printable emergency reference
 
 **Decision:** Keep `EMERGENCY_REFERENCE.md` as a concise offline-ready list of direct IPs, critical ports, storage dependencies, recovery order, and documentation locations. Mirror it into the Obsidian homelab hub.
