@@ -24,7 +24,7 @@ Format:
 
 ## 2026-09-25: Use a private Google Sheet for the editable address reference
 
-**Decision:** Keep the private Cook Home IP Address Google Sheet as the editable day-to-day and emergency address reference, including its masked password-display helper. Identify each hidden credential by both IP address and service name so applications sharing an IP can use different credentials. Link to the Sheet from the sanitized Git and Obsidian documentation, but do not copy credential values into either location.
+**Decision:** Keep the private Cook Home IP Address Google Sheet as the editable day-to-day and emergency address reference, including its masked password-display helper. Identify each hidden credential by both IP address and service name so applications sharing an IP can use different credentials. Use full-column password lookups and an automatically generated IP-plus-service key so new rows do not require lookup-range maintenance. Keep maintenance instructions inside `HiddenData`. Link to the Sheet from the sanitized Git and Obsidian documentation, but do not copy credential values into either location.
 
 **Why:** The Sheet is convenient to update and can reveal passwords temporarily when needed, while the repository and Obsidian vault stay safe to browse, sync, and commit without storing secrets.
 
