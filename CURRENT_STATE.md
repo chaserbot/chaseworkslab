@@ -54,6 +54,7 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 
 ## Recent changes
 
+- 2026-09-25: Updated the private IP Address Google Sheet so `HiddenData` identifies each credential by IP address and service name. Visible password formulas now match both fields, allowing services on the same IP to keep separate passwords while remaining masked by default.
 - 2026-09-25: Documented the private Cook Home IP Address Google Sheet as the editable day-to-day and emergency address reference. The repository and Obsidian remain credential-free; Git remains authoritative for sanitized infrastructure configuration and inventory.
 - 2026-09-25: Added `EMERGENCY_REFERENCE.md`, a printable/offline sheet with direct IPs, service ports, storage dependencies, diagnosis hints, and recovery order; mirrored it into the Obsidian homelab hub.
 - 2026-09-25: Made documentation synchronization part of the standard workflow: update repository docs, mirror necessary reference changes into the CWL Obsidian vault, then commit and push the Git changes.
