@@ -55,6 +55,7 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 
 ## Recent changes
 
+- 2026-09-26: Simplified the private IP Address Sheet by removing the obsolete legacy lookup-key column. `HiddenData` now uses columns A-C for IP, service, and password, with the automatic lookup key in column D; all 30 visible password formulas were verified and the helper sheet remains hidden.
 - 2026-09-25: Made the private IP Address Sheet's password system self-expanding: visible formulas now search full helper columns, `HiddenData` generates IP-plus-service keys automatically, and the hidden sheet contains its own maintenance instructions.
 - 2026-09-25: Confirmed Calibre-Web running at `10.27.27.151:8083` with friendly login `ebooks.chaseworkslab.com/login`; added it to the live Google Sheet, sanitized inventories, emergency references, Homepage link, and Obsidian.
 - 2026-09-25: Updated the private IP Address Google Sheet so `HiddenData` identifies each credential by IP address and service name. Visible password formulas now match both fields, allowing services on the same IP to keep separate passwords while remaining masked by default.

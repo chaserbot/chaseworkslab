@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-09-26: Remove the legacy password lookup-key column
+
+**Decision:** Remove the unused static lookup-key column from the private Cook Home IP Address Google Sheet. Keep only IP address, service name, password, and the automatically generated lookup key in `HiddenData` columns A-D. Visible password formulas use column D and continue matching both IP address and service name.
+
+**Why:** The static key duplicated the automatic key and made the password helper harder to understand and maintain.
+
+**Rollback:** Restore the deleted column from Google Sheets version history, or insert a new column D and copy the prior static keys back. If restoring manually, ensure the visible password formulas point to whichever column contains the active lookup key.
+
+---
+
 ## 2026-09-25: Record Calibre-Web as an active service
 
 **Decision:** Treat Calibre-Web as active at `10.27.27.151:8083` with the friendly login `ebooks.chaseworkslab.com/login`, and include it in the live address Sheet, Homepage, inventory, DNS/proxy reference, emergency documentation, and Obsidian catalog.
