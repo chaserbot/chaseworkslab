@@ -39,7 +39,7 @@ For the full list of proxy hosts to configure, see **`../dns-proxy-entries.md`**
 | `prowlarr.chaseworkslab.com` | `http://10.27.27.47:9696` | Enable Websocket Support |
 | `seerr.chaseworkslab.com` | `http://10.27.27.47:5055` | Enable Websocket Support |
 | `qbit.chaseworkslab.com` | `http://10.27.27.47:8080` | qBittorrent through Gluetun |
-| `audiobooks.chaseworkslab.com` | `http://10.27.27.112:13378` | Enable Websocket Support |
+| `audiobooks.chaseworkslab.com` | `http://10.27.27.121:13378` | pve2 CT211; enable Websocket Support |
 | `paperless.chaseworkslab.com` | Inspect live NPM host | Backend still unknown; do not recreate from this row |
 | `uptime.chaseworkslab.com` | `http://10.27.27.119:3001` | pve1 CT119; enable Websocket Support |
 | `npm.chaseworkslab.com` | `http://10.27.27.111:81` | — |

@@ -46,7 +46,7 @@ Update this file whenever a service is added, removed, or its port changes.
 | Gluetun | arr/ | `6881`, `6881/udp` | docker-arr VM | Running | ProtonVPN OpenVPN gateway for qBittorrent |
 | FlareSolverr | arr/ | `8191` | docker-arr VM | Running | Cloudflare bypass for Prowlarr |
 | Seerr | arr/ | `5055` | docker-arr VM | Running | Media request UI; replaces Overseerr |
-| Audiobookshelf | arr/ | `13378` | `10.27.27.112` | Running | Backend corrected and confirmed after the 2026-09-25 audit |
+| Audiobookshelf | lxc/pve2/ | `13378` | pve2 CT211 (`10.27.27.121`) | Running | Native community-script install; BigPeggy mounted at `/mnt/audiobooks` |
 | Calibre-Web | — | `8083` | `10.27.27.151` | Running | E-book library; `ebooks.chaseworkslab.com/login` |
 | Jellyfin | docker/ | `8096` | Ace Magician CK10 (`10.27.27.33`) | Running | Media server; not yet Dockerized; HW transcoding unverified |
 | Uptime Kuma | lxc/pve1/ | `3001` | pve1 CT119 (`10.27.27.119`) | Running | Direct endpoint and HTTP proxy verified 2026-09-25 |

@@ -78,7 +78,7 @@ sudo bash proxmox/post-install.sh <node-number>
 | Service | Port | Host | Status |
 |---|---|---|---|
 | Jellyfin | 8096 | CK10 | ✅ Active |
-| Audiobookshelf | 13378 | `10.27.27.112` | ✅ Active |
+| Audiobookshelf | 13378 | pve2 CT211 (`10.27.27.121`) | ✅ Active |
 | Radarr | 7878 | docker-arr VM (`10.27.27.47`) | ✅ Active |
 | Sonarr | 8989 | docker-arr VM (`10.27.27.47`) | ✅ Active |
 | Prowlarr | 9696 | docker-arr VM (`10.27.27.47`) | ✅ Active |

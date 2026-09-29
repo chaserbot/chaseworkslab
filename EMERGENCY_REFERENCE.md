@@ -1,6 +1,6 @@
 # ChaseWorksLab emergency reference
 
-Print or save an offline copy. Last verified: 2026-09-25.
+Print or save an offline copy. Last verified: 2026-09-29.
 
 ## If the lab is down
 
@@ -35,7 +35,7 @@ Internal domain: `chaseworkslab.com`
 | AdGuard Home | `http://10.27.27.110` | pve1 CT110; DNS port `53` |
 | NPM admin | `http://10.27.27.111:81` | pve1 CT101 |
 | Homepage | `http://10.27.27.112:3000` | pve1 CT112 |
-| Audiobookshelf | `http://10.27.27.112:13378` | `.112`; `audiobooks.chaseworkslab.com` |
+| Audiobookshelf | `http://10.27.27.121:13378` | pve2 CT211; `audiobooks.chaseworkslab.com` |
 | Uptime Kuma | `http://10.27.27.119:3001` | pve1 CT119 |
 | Glances | `http://10.27.27.101:61208` | Repeat with `.102` and `.103` |
 

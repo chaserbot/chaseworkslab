@@ -1,6 +1,6 @@
 # Current state
 
-Last updated: 2026-09-25
+Last updated: 2026-09-29
 
 Quick snapshot of what is running, what is stable, and any known issues.
 Update this after significant changes.
@@ -19,7 +19,7 @@ Update this after significant changes.
 | qBittorrent | Running | docker-arr VM (`10.27.27.47`) | VPN via Gluetun (ProtonVPN kill switch) |
 | Seerr | Running | docker-arr VM (`10.27.27.47`) | Replaces Overseerr; media request UI |
 | FlareSolverr | Running | docker-arr VM (`10.27.27.47`) | Cloudflare bypass for Prowlarr |
-| Audiobookshelf | Running | `10.27.27.112:13378` | Backend corrected and confirmed after the 2026-09-25 audit |
+| Audiobookshelf | Running | pve2 CT211 (`10.27.27.121:13378`) | Native community-script LXC; `audiobooks.chaseworkslab.com` verified 2026-09-29 |
 | Jellyfin | Running | Ace Magician CK10 (`10.27.27.33`) | Not yet Dockerized; hardware transcoding unverified |
 | Calibre-Web | Running | `10.27.27.151:8083` | E-book library; friendly login at `ebooks.chaseworkslab.com/login`, confirmed by Chase 2026-09-25 |
 | Uptime Kuma | Running | pve1 CT119 (`10.27.27.119`) | Direct endpoint and HTTP proxy verified 2026-09-25 |
@@ -51,10 +51,11 @@ Update this after significant changes.
 
 ## Last stable configuration
 
-Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running on docker-arr Proxmox VM via Docker Compose with Gluetun VPN. Storage on BigPeggy NFS. Uptime Kuma runs on pve1 CT119. Audiobookshelf is at `10.27.27.112:13378`; Calibre-Web is at `10.27.27.151:8083`; Paperless's backend still needs verification. Jellyfin runs bare on Ace Magician CK10. AdGuard Home on pve1 CT110 is the active DNS resolver. NPM on pve1 CT101 is the active HTTP reverse proxy. Homepage runs on pve1 CT112. pve1 is the Tailscale subnet router with split DNS for `chaseworkslab.com`.
+Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running on docker-arr Proxmox VM via Docker Compose with Gluetun VPN. Storage on BigPeggy NFS. Uptime Kuma runs on pve1 CT119. Audiobookshelf runs on pve2 CT211 at `10.27.27.121:13378`; Calibre-Web is at `10.27.27.151:8083`; Paperless's backend still needs verification. Jellyfin runs bare on Ace Magician CK10. AdGuard Home on pve1 CT110 is the active DNS resolver. NPM on pve1 CT101 is the active HTTP reverse proxy. Homepage runs on pve1 CT112. pve1 is the Tailscale subnet router with split DNS for `chaseworkslab.com`.
 
 ## Recent changes
 
+- 2026-09-29: Restored Audiobookshelf on pve2 CT211 (`10.27.27.121:13378`). The service failed after an update because `/home/audiobookshelf/.cache` did not exist; created the cache path with `audiobookshelf` ownership, restarted the service, confirmed the BigPeggy NFS mount, and verified `audiobooks.chaseworkslab.com/audiobookshelf/login`.
 - 2026-09-26: Simplified the private IP Address Sheet by removing the obsolete legacy lookup-key column. `HiddenData` now uses columns A-C for IP, service, and password, with the automatic lookup key in column D; all 30 visible password formulas were verified and the helper sheet remains hidden.
 - 2026-09-25: Made the private IP Address Sheet's password system self-expanding: visible formulas now search full helper columns, `HiddenData` generates IP-plus-service keys automatically, and the hidden sheet contains its own maintenance instructions.
 - 2026-09-25: Confirmed Calibre-Web running at `10.27.27.151:8083` with friendly login `ebooks.chaseworkslab.com/login`; added it to the live Google Sheet, sanitized inventories, emergency references, Homepage link, and Obsidian.

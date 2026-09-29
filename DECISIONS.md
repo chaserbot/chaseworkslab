@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-09-29: Record Audiobookshelf on pve2 CT211
+
+**Decision:** Treat pve2 CT211 at `10.27.27.121:13378` as the canonical Audiobookshelf placement. Keep `audiobooks.chaseworkslab.com` routed through NPM and record the community-script service's required writable cache path at `/home/audiobookshelf/.cache`.
+
+**Why:** The live CT configuration confirms CT211 and `.121`. Audiobookshelf failed after an update because its service account could not create the missing cache directory; creating it with the correct ownership restored the service without touching library data.
+
+**Rollback:** If the cache change causes a problem, stop `audiobookshelf`, remove only `/home/audiobookshelf/.cache`, and restore the prior state. Reverting the documentation does not move the live service. Do not remove `/usr/share/audiobookshelf` or `/mnt/audiobooks`.
+
+---
+
 ## 2026-09-26: Remove the legacy password lookup-key column
 
 **Decision:** Remove the unused static lookup-key column from the private Cook Home IP Address Google Sheet. Keep only IP address, service name, password, and the automatically generated lookup key in `HiddenData` columns A-D. Visible password formulas use column D and continue matching both IP address and service name.

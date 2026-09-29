@@ -35,7 +35,7 @@ The service names work over HTTP, but HTTPS failed during the audit. Fixing this
 
 ## 3. Finish locating and documenting services
 
-- [x] **Audiobookshelf:** corrected to `10.27.27.112:13378` and `audiobooks.chaseworkslab.com`.
+- [x] **Audiobookshelf:** verified on pve2 CT211 at `10.27.27.121:13378` and `audiobooks.chaseworkslab.com`.
 - [ ] **Paperless:** open its proxy host in NPM and record the Forward Hostname/IP and Forward Port. The friendly address works, but the actual backend is still unknown. **Estimate: 10–20 minutes.**
 - [x] **Uptime Kuma:** confirmed on pve1 CT119 at `10.27.27.119:3001`.
 - [x] **Arr stack:** confirmed on docker-arr VM210 at `10.27.27.47`; Seerr replaced Overseerr.
@@ -82,7 +82,7 @@ The goal is to rebuild from written instructions instead of memory.
 - AdGuard Home: `10.27.27.110`
 - NPM admin: `10.27.27.111:81`
 - Homepage: pve1 CT112 at `10.27.27.112:3000`
-- Audiobookshelf: `10.27.27.112:13378`
+- Audiobookshelf: pve2 CT211 at `10.27.27.121:13378`
 - Uptime Kuma: pve1 CT119 at `10.27.27.119:3001`
 - docker-arr VM210: `10.27.27.47`
 - Jellyfin: `10.27.27.33:8096`

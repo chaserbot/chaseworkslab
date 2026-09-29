@@ -13,7 +13,8 @@ lxc/
     adguard-home/    CT110 — AdGuard Home (native install)
     nginx-proxy-manager/  CT101 — Nginx Proxy Manager (native install)
     homepage/        CT112 — Homepage dashboard (native Node.js install)
-  pve2/              no per-service LXC definitions currently committed
+  pve2/
+    audiobookshelf/   CT211 — Audiobookshelf (native install)
   pve3/              no per-service LXC definitions currently committed
 ```
 
@@ -27,7 +28,7 @@ lxc/
 
 See `inventory/README.md` for full IP and port reference.
 
-The docker-arr workload currently runs as VM210 at `10.27.27.47`; it does not follow the per-service LXC IP scheme above. Uptime Kuma currently runs on pve1 CT119.
+The docker-arr workload currently runs as VM210 at `10.27.27.47`; it does not follow the per-service LXC IP scheme above. Audiobookshelf runs on pve2 CT211 at `10.27.27.121`. Uptime Kuma currently runs on pve1 CT119.
 
 ## Deploy order on pve1
 
