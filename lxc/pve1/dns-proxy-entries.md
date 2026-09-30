@@ -23,11 +23,11 @@ NPM admin: <http://10.27.27.111:81>
 | `seerr.chaseworkslab.com` | `10.27.27.111` | `10.27.27.47` | `5055` | ✅ HTTP verified |
 | `qbit.chaseworkslab.com` | `10.27.27.111` | `10.27.27.47` | `8080` | ✅ HTTP verified |
 | `audiobooks.chaseworkslab.com` | `10.27.27.111` | `10.27.27.121` | `13378` | ✅ pve2 CT211; HTTP proxy verified 2026-09-29 |
-| `ebooks.chaseworkslab.com` | `10.27.27.111` | `10.27.27.151` | `8083` | ✅ Running; login confirmed by Chase |
-| `paperless.chaseworkslab.com` | `10.27.27.111` | Verify in NPM | `8000` | ⚠️ Proxy works; backend docs stale |
-| `uptime.chaseworkslab.com` | `10.27.27.111` | `10.27.27.119` | `3001` | ✅ HTTP verified |
+| `ebooks.chaseworkslab.com` | `10.27.27.111` | `10.27.27.151` | `8083` | ✅ pve3 CT101; HTTP verified 2026-09-29 |
+| `paperless.chaseworkslab.com` | `10.27.27.111` | — | — | ⬜ Reserved; Paperless is not deployed and NPM shows its default site |
+| `uptime.chaseworkslab.com` | `10.27.27.111` | `10.27.27.119` | `3001` | ⚠️ DNS exists; NPM proxy host is missing, so the default site appears |
 
-> HTTP routes above were checked on 2026-09-25. HTTPS was not working and remains a follow-up.
+> Live NPM records and direct endpoints were checked on 2026-09-29. HTTPS was not working and remains a follow-up.
 
 ---
 
@@ -74,4 +74,6 @@ Access Proxmox at: `https://pve1.chaseworkslab.com:8006` etc.
 
 ## Current migration state
 
-The arr stack has moved to the docker-arr VM at `10.27.27.47`. Seerr replaced Overseerr. Audiobookshelf is served from pve2 CT211 at `10.27.27.121:13378`. Calibre-Web is served from `10.27.27.151:8083` through `ebooks.chaseworkslab.com`.
+The arr stack has moved to pve2 VM210 at `10.27.27.47`. Seerr replaced Overseerr. Audiobookshelf is served from pve2 CT211 at `10.27.27.121:13378`. Calibre-Web is served from pve3 CT101 at `10.27.27.151:8083` through `ebooks.chaseworkslab.com`.
+
+The live NPM database also contains `mini-pc.chaseworkslab.com → http://10.27.27.33:22`. That is the wrong protocol for SSH, and internal DNS does not route the name to NPM. Treat it as stale until disabled or corrected.

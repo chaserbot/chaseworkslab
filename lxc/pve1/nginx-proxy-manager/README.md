@@ -14,8 +14,8 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/Proxmo
 
 | Prompt | Value |
 | ------ | ----- |
-| CT ID | `101` |
-| Hostname | `nginx-proxy-manager` |
+| CT ID | `111` |
+| Hostname | `nginxproxymanager` |
 | IP Address | `10.27.27.111/24` |
 | Gateway | `10.27.27.1` |
 
@@ -40,8 +40,12 @@ For the full list of proxy hosts to configure, see **`../dns-proxy-entries.md`**
 | `seerr.chaseworkslab.com` | `http://10.27.27.47:5055` | Enable Websocket Support |
 | `qbit.chaseworkslab.com` | `http://10.27.27.47:8080` | qBittorrent through Gluetun |
 | `audiobooks.chaseworkslab.com` | `http://10.27.27.121:13378` | pve2 CT211; enable Websocket Support |
-| `paperless.chaseworkslab.com` | Inspect live NPM host | Backend still unknown; do not recreate from this row |
-| `uptime.chaseworkslab.com` | `http://10.27.27.119:3001` | pve1 CT119; enable Websocket Support |
-| `npm.chaseworkslab.com` | `http://10.27.27.111:81` | — |
-| `adguard.chaseworkslab.com` | `http://10.27.27.110:80` | — |
 | `homepage.chaseworkslab.com` | `http://10.27.27.112:3000` | Homepage on pve1 CT112; HTTP verified 2026-09-25 |
+
+Calibre-Web is also live: `ebooks.chaseworkslab.com` forwards to pve3 CT101 at `10.27.27.151:8083`.
+
+## Audit notes
+
+- `uptime.chaseworkslab.com`, `paperless.chaseworkslab.com`, `npm.chaseworkslab.com`, and `adguard.chaseworkslab.com` resolve to NPM but do not currently have proxy-host records; they show NPM's default site.
+- Paperless is not deployed.
+- `mini-pc.chaseworkslab.com` is an enabled but ineffective entry forwarding HTTP to `10.27.27.33:22`. Internal DNS does not direct that name to NPM. Disable it or replace it with the intended protocol/service.

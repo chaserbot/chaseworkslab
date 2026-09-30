@@ -11,11 +11,12 @@ All containers are deployed using the [Proxmox VE community helper scripts](http
 lxc/
   pve1/
     adguard-home/    CT110 — AdGuard Home (native install)
-    nginx-proxy-manager/  CT101 — Nginx Proxy Manager (native install)
+    nginx-proxy-manager/  CT111 — Nginx Proxy Manager (native install)
     homepage/        CT112 — Homepage dashboard (native Node.js install)
   pve2/
     audiobookshelf/   CT211 — Audiobookshelf (native install)
-  pve3/              no per-service LXC definitions currently committed
+  pve3/
+    calibre-web/      CT101 — Calibre-Web (native install)
 ```
 
 ## Container IP scheme
@@ -28,7 +29,7 @@ lxc/
 
 See `inventory/README.md` for full IP and port reference.
 
-The docker-arr workload currently runs as VM210 at `10.27.27.47`; it does not follow the per-service LXC IP scheme above. Audiobookshelf runs on pve2 CT211 at `10.27.27.121`. Uptime Kuma currently runs on pve1 CT119.
+The docker-arr workload currently runs as pve2 VM210 at `10.27.27.47`; it does not follow the per-service LXC IP scheme above. Audiobookshelf runs on pve2 CT211 at `10.27.27.121`, Uptime Kuma runs on pve1 CT119, and Calibre-Web runs on pve3 CT101 at `10.27.27.151`.
 
 ## Deploy order on pve1
 

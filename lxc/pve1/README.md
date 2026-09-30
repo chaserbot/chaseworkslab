@@ -9,8 +9,9 @@ All containers are deployed using the [community helper scripts](https://github.
 | CT ID | Name | IP | What runs inside |
 | ----- | ---- | -- | ---------------- |
 | 110 | adguard-home | `10.27.27.110` | AdGuard Home — native install |
-| 101 | nginx-proxy-manager | `10.27.27.111` | Nginx Proxy Manager — native install |
+| 111 | nginxproxymanager | `10.27.27.111` | Nginx Proxy Manager — native install |
 | 112 | homepage | `10.27.27.112` | Homepage dashboard — native Node.js install |
+| 119 | uptimekuma | `10.27.27.119` | Uptime Kuma — native install |
 
 ## Deploy order
 
@@ -31,7 +32,7 @@ Each service has its own README with the exact command to run and the values to 
 1. Complete the AdGuard Home setup wizard at `http://10.27.27.110:3000`
 2. Log into UniFi UX7 → change DHCP DNS from `10.27.27.193` to `10.27.27.110`
 3. Verify: `nslookup google.com 10.27.27.110` from any client
-4. Shut down Pi-hole UTM VM on MM1
+4. Confirm the legacy Pi-hole at `.193` is no longer used; it was already unreachable during the 2026-09-29 audit
 
 ## DNS rewrites to add in AdGuard Home
 

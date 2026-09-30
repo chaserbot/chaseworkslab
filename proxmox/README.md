@@ -79,15 +79,15 @@ sudo bash proxmox/post-install.sh <node-number>
 |---|---|---|---|
 | Jellyfin | 8096 | CK10 | ✅ Active |
 | Audiobookshelf | 13378 | pve2 CT211 (`10.27.27.121`) | ✅ Active |
+| Calibre-Web | 8083 | pve3 CT101 (`10.27.27.151`) | ✅ Active |
 | Radarr | 7878 | docker-arr VM (`10.27.27.47`) | ✅ Active |
 | Sonarr | 8989 | docker-arr VM (`10.27.27.47`) | ✅ Active |
 | Prowlarr | 9696 | docker-arr VM (`10.27.27.47`) | ✅ Active |
 | Seerr | 5055 | docker-arr VM (`10.27.27.47`) | ✅ Active |
 | qBittorrent | 8080 | docker-arr VM (`10.27.27.47`) | ✅ Active via Gluetun |
-| Paperless-ngx | 8000 (unconfirmed) | Unknown backend; inspect NPM | ⚠️ Investigate |
 | Uptime Kuma | 3001 | pve1 CT119 (`10.27.27.119`) | ✅ Active |
 | AdGuard Home | 53/80 | pve1 CT110 (`10.27.27.110`) | ✅ Active |
-| Nginx Proxy Manager | 80/443/81 | pve1 CT101 (`10.27.27.111`) | ✅ HTTP active; HTTPS needs repair |
+| Nginx Proxy Manager | 80/443/81 | pve1 CT111 (`10.27.27.111`) | ✅ HTTP active; HTTPS needs repair |
 | Homepage | 3000 | pve1 CT112 (`10.27.27.112`) | ✅ Active |
 | n8n | 5678 | Planned `10.27.27.133` | ⬜ Not deployed |
 
@@ -106,7 +106,7 @@ Secrets are **never** committed to this repo. `.env` files, API keys, and passwo
 | T1 | Physical & Cable Management | ✅ Done |
 | T2 | Proxmox Cluster Setup | ✅ Cluster formed; no HA |
 | T3 | Network, DNS & Remote Access | 🔧 HTTP/split DNS active; HTTPS cleanup pending |
-| T4 | Service Migration & Distribution | 🔧 Arr and Uptime migrated; Paperless unresolved |
+| T4 | Service Migration & Distribution | 🔧 Arr, Uptime, Audiobookshelf, and Calibre-Web placed; Paperless is future work |
 | T5 | n8n Automation | ⬜ Pending |
 | T6 | FATFISH AI Assistant | 🧪 Design Phase |
 | T7 | Reproducibility & GitHub | ♻️ Ongoing |

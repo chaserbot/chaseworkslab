@@ -15,10 +15,10 @@ Update this file whenever a service is added, removed, or its port changes.
 | Lutron Caseta Hub | Smart home | 10.27.27.7 | |
 | MacBook Pro (M3 Pro) | Daily driver — company-issued | 10.27.27.11 | |
 | MacBook Pro (2017) | Secondary / admin machine | — | Connected via USW Flex 2.5G Mini |
-| Mac Mini #1 (macOS, A1347) | Main server / NAS brain | 10.27.27.22 | Pegasus DAS attached via Thunderbolt; NFS server for BigPeggy/LittlePeggy; legacy Pi-hole UTM VM and documented Paperless location need cleanup/verification |
+| Mac Mini #1 (macOS, A1347) | Main server / NAS brain | 10.27.27.22 | Pegasus DAS attached via Thunderbolt; NFS server for BigPeggy/LittlePeggy; legacy Pi-hole VM record needs cleanup |
 | Ace Magician CK10 | Jellyfin media server | 10.27.27.33 | i7-1081U, 16GB RAM |
 | ChaseWorksLab NAS | TrueNAS — future build | 10.27.27.27 | Not yet built |
-| Pi-hole (UTM VM) | Legacy DNS / ad blocking | 10.27.27.193 | AdGuard Home has replaced it; pending safe shutdown after client audit |
+| Pi-hole (UTM VM) | Legacy DNS / ad blocking | 10.27.27.193 | Offline/unreachable on DNS and web ports during 2026-09-29 audit; AdGuard Home replaced it |
 | pve1 (Mac Mini #2, A1347) | Proxmox Node 1 | 10.27.27.101 | Clustered |
 | pve2 (Mac Mini #3, A1347) | Proxmox Node 2 | 10.27.27.102 | Clustered |
 | pve3 (Mac Mini #4, A1347) | Proxmox Node 3 | 10.27.27.103 | Clustered |
@@ -47,13 +47,13 @@ Update this file whenever a service is added, removed, or its port changes.
 | FlareSolverr | arr/ | `8191` | docker-arr VM | Running | Cloudflare bypass for Prowlarr |
 | Seerr | arr/ | `5055` | docker-arr VM | Running | Media request UI; replaces Overseerr |
 | Audiobookshelf | lxc/pve2/ | `13378` | pve2 CT211 (`10.27.27.121`) | Running | Native community-script install; BigPeggy mounted at `/mnt/audiobooks` |
-| Calibre-Web | — | `8083` | `10.27.27.151` | Running | E-book library; `ebooks.chaseworkslab.com/login` |
+| Calibre-Web | lxc/pve3/ | `8083` | pve3 CT101 (`10.27.27.151`) | Running | E-book library; `ebooks.chaseworkslab.com/login` |
 | Jellyfin | docker/ | `8096` | Ace Magician CK10 (`10.27.27.33`) | Running | Media server; not yet Dockerized; HW transcoding unverified |
-| Uptime Kuma | lxc/pve1/ | `3001` | pve1 CT119 (`10.27.27.119`) | Running | Direct endpoint and HTTP proxy verified 2026-09-25 |
-| Paperless-ngx | docker/ | `8000` ⚠️ | Backend needs verification | Investigate | Documented MM1 endpoint failed 2026-09-25; HTTP proxy responds |
-| Pi-hole | — | `53`, `80` | `10.27.27.193` (UTM VM on MM1) | Decommissioning | Router DNS updated to AdGuard Home; UTM VM can be shut down |
+| Uptime Kuma | lxc/pve1/ | `3001` | pve1 CT119 (`10.27.27.119`) | Running | Direct endpoint works; NPM proxy host is not configured |
+| Paperless-ngx | — | Future `8000` | Not deployed | Planned | Reserved hostname currently shows the NPM default site |
+| Pi-hole | — | `53`, `80` | `10.27.27.193` (legacy UTM VM on MM1) | Offline | Router DNS uses AdGuard Home; ports 53/80 unreachable 2026-09-29 |
 | **AdGuard Home** | lxc/pve1/ | `53`, `80` | pve1 CT110 (`10.27.27.110`) | Running | DNS ad-blocking + rewrites; individual entry per service → `10.27.27.111` |
-| **Nginx Proxy Manager** | lxc/pve1/ | `80`, `443`, `81` (admin) | pve1 CT101 (`10.27.27.111`) | Running | Core HTTP routes work; internal HTTPS needs repair |
+| **Nginx Proxy Manager** | lxc/pve1/ | `80`, `443`, `81` (admin) | pve1 CT111 (`10.27.27.111`) | Running | Configured HTTP routes work; internal HTTPS needs repair |
 | **Homepage** | lxc/pve1/ | `3000` | pve1 CT112 (`10.27.27.112`) | Running | Native Node.js install via community script |
 | Open WebUI | llm/ | TBD | TBD | Not deployed | LLM chat frontend |
 | Ollama | llm/ | TBD | TBD | Not deployed | Local LLM inference backend |
@@ -65,7 +65,7 @@ Update this file whenever a service is added, removed, or its port changes.
 | ------ | --------- | ------------- |
 | Docker + Compose | Container runtime | Mac Mini #1; planned for Proxmox LXCs |
 | Ansible | Config management | Mac Mini #1 (control node) |
-| UTM | macOS VM host | Mac Mini #1 (hosts Pi-hole VM) |
+| UTM | macOS VM host | Mac Mini #1; legacy Pi-hole VM record is offline |
 | fzf | Fuzzy finder | All machines (via dotfiles) |
 | eza | ls replacement | All machines (via dotfiles) |
 | Oh My Zsh + Powerlevel10k | Shell | macOS only (via dotfiles) |

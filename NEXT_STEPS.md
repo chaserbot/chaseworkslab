@@ -51,7 +51,7 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 1. ~~Choose DNS stack: AdGuard Home or Pi-hole~~ ✓ AdGuard Home
 2. ~~Choose dashboard: Homepage, Glance, or Homarr~~ ✓ Homepage (may revisit Homarr later)
 3. ~~**Deploy AdGuard Home LXC on pve1**~~ ✓ Done 2026-04-13 — CT110, `10.27.27.110`, active
-4. ~~**Deploy Nginx Proxy Manager LXC on pve1**~~ ✓ Done 2026-04-13 — CT101, `10.27.27.111`, active
+4. ~~**Deploy Nginx Proxy Manager LXC on pve1**~~ ✓ Done 2026-04-13 — CT111, `10.27.27.111`, active
 5. ~~**Build Homepage config files**~~ ✓ Done 2026-04-21 — services, settings, widgets, bookmarks committed to `lxc/pve1/homepage/config/`
 6. ~~**Deploy Homepage LXC on pve1**~~ ✓ Done — CT112, `10.27.27.112`; repository config deployed
 7. ~~**Configure AdGuard Home DNS rewrites**~~ ✓ Current service names resolve through NPM; see `lxc/pve1/dns-proxy-entries.md`
@@ -76,7 +76,7 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 1. ~~Decide grouped Docker LXC vs separate LXCs for the arr stack~~ ✓ Done 2026-04-15 — deployed as Docker Compose on docker-arr VM; Gluetun VPN, Seerr, FlareSolverr included; see `arr/docker-compose.yml`
 2. ~~Deploy Sonarr/Radarr/Prowlarr/Overseerr on pve2~~ ✓ Done 2026-04-15 — deployed on docker-arr VM (Overseerr replaced by Seerr)
 3. ~~Correct and document Audiobookshelf backend~~ ✓ Running on pve2 CT211 at `10.27.27.121:13378`
-4. ~~Deploy Calibre-Web on pve2~~ ✓ Running at `10.27.27.151:8083`; `ebooks.chaseworkslab.com/login`
+4. ~~Deploy Calibre-Web~~ ✓ Running on pve3 CT101 at `10.27.27.151:8083`; `ebooks.chaseworkslab.com/login`
 5. ~~Validate pathing to MM1 storage and qBittorrent integration~~ ✓ Done — storage via BigPeggy NFS at `/mnt/bigpeggy`
 
 ### Phase 5 — automation and document tools on pve3

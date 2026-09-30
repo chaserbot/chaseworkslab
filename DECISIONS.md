@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-09-29: Reconcile live guest identities and reserved service names
+
+**Decision:** Use pve1 CT111 for Nginx Proxy Manager, pve3 CT101 for Calibre-Web, pve1 CT119 for Uptime Kuma, pve2 CT211 for Audiobookshelf, and pve2 VM210 for docker-arr. Treat Paperless as not deployed, the legacy Pi-hole at `.193` as offline, and `uptime.chaseworkslab.com` as reserved but not yet configured in NPM.
+
+**Why:** A read-only audit of all three Proxmox nodes, guest network settings, NPM's live database, DNS answers, and direct endpoints exposed several documentation errors. In particular, NPM's IP ending in `.111` had been confused with CT101; its actual guest ID is CT111. Calibre-Web is the CT101 guest, on pve3.
+
+**Rollback:** Revert this documentation commit only if a later live audit proves a mapping incorrect. This audit did not change guests, DNS, proxy hosts, or application services.
+
+---
+
 ## 2026-09-29: Record Audiobookshelf on pve2 CT211
 
 **Decision:** Treat pve2 CT211 at `10.27.27.121:13378` as the canonical Audiobookshelf placement. Keep `audiobooks.chaseworkslab.com` routed through NPM and record the community-script service's required writable cache path at `/home/audiobookshelf/.cache`.
@@ -34,7 +44,7 @@ Format:
 
 ## 2026-09-25: Record Calibre-Web as an active service
 
-**Decision:** Treat Calibre-Web as active at `10.27.27.151:8083` with the friendly login `ebooks.chaseworkslab.com/login`, and include it in the live address Sheet, Homepage, inventory, DNS/proxy reference, emergency documentation, and Obsidian catalog.
+**Decision:** Treat Calibre-Web as active on pve3 CT101 at `10.27.27.151:8083` with the friendly login `ebooks.chaseworkslab.com/login`, and include it in the live address Sheet, Homepage, inventory, DNS/proxy reference, emergency documentation, and Obsidian catalog.
 
 **Why:** The Homepage configuration already contained the backend, but planning and inventory documents still described Calibre-Web as undeployed. Chase confirmed the service and friendly login are working.
 
@@ -164,7 +174,7 @@ Format:
 
 ## 2026-04-10: Separate LXCs for NPM and Homepage instead of shared Docker host
 
-**Decision:** Nginx Proxy Manager and Homepage each get their own dedicated LXC (CT101 at `10.27.27.111` and CT112 at `10.27.27.112` respectively), both native installs via community scripts. Dropped the earlier plan to run both inside a shared Docker host LXC.
+**Decision:** Nginx Proxy Manager and Homepage each get their own dedicated LXC (CT111 at `10.27.27.111` and CT112 at `10.27.27.112` respectively), both native installs via community scripts. Dropped the earlier plan to run both inside a shared Docker host LXC. The NPM container ID was corrected from an earlier documentation error on 2026-09-29.
 
 **Why:** The community scripts for both services are native (not Docker-based), so the Docker host LXC was unnecessary overhead. Separate LXCs are simpler to reason about, easier to update independently, and avoid the "just add Docker to an LXC" complexity for services that don't need it.
 

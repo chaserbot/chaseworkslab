@@ -33,7 +33,7 @@ Internal domain: `chaseworkslab.com`
 | Service | Direct address | Location |
 | ------- | -------------- | -------- |
 | AdGuard Home | `http://10.27.27.110` | pve1 CT110; DNS port `53` |
-| NPM admin | `http://10.27.27.111:81` | pve1 CT101 |
+| NPM admin | `http://10.27.27.111:81` | pve1 CT111 |
 | Homepage | `http://10.27.27.112:3000` | pve1 CT112 |
 | Audiobookshelf | `http://10.27.27.121:13378` | pve2 CT211; `audiobooks.chaseworkslab.com` |
 | Uptime Kuma | `http://10.27.27.119:3001` | pve1 CT119 |
@@ -50,8 +50,9 @@ Internal domain: `chaseworkslab.com`
 | Prowlarr | `http://10.27.27.47:9696` |
 | qBittorrent | `http://10.27.27.47:8080` |
 | FlareSolverr | `http://10.27.27.47:8191` |
-| Calibre-Web | `http://10.27.27.151:8083` · `http://ebooks.chaseworkslab.com/login` |
-| Paperless | `http://paperless.chaseworkslab.com` — backend currently unknown; inspect NPM |
+| Calibre-Web | `http://10.27.27.151:8083` · pve3 CT101 · `http://ebooks.chaseworkslab.com/login` |
+
+Paperless is not deployed. `paperless.chaseworkslab.com` currently reaches only NPM's default site.
 
 ## Storage dependency
 
@@ -79,7 +80,7 @@ If MM1 or its Thunderbolt connection is down, these NFS shares are down too. Avo
 2. MM1 and both Pegasus arrays
 3. Proxmox nodes
 4. AdGuard Home CT110
-5. NPM CT101 and pve1 Tailscale routing
+5. NPM CT111 and pve1 Tailscale routing
 6. Application VMs/containers and Jellyfin
 7. Homepage and Uptime Kuma
 

@@ -5,7 +5,7 @@
 # IPs pulled from inventory/README.md — update this file if services move to their
 # planned Proxmox LXC IPs (see the "Planned" section in inventory/README.md).
 #
-# ⚠️ Paperless-ngx port (8000) needs confirmation on MM1.
+# Paperless-ngx is not deployed. Keep its example disabled until a future deployment exists.
 #
 # Secrets are injected via {{HOMEPAGE_VAR_*}} from /opt/homepage/config/.env
 # See .env.example in this directory for required variables.
@@ -79,7 +79,7 @@
           password: "{{HOMEPAGE_VAR_ADGUARD_PASSWORD}}"
     - Nginx Proxy Manager:
         href: http://10.27.27.111:81
-        description: Reverse proxy admin — pve1 CT101
+        description: Reverse proxy admin — pve1 CT111
         icon: nginx-proxy-manager.png
         ping: http://10.27.27.111:81
         proxmoxNode: pve1
