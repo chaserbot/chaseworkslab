@@ -32,7 +32,7 @@ Each service has its own README with the exact command to run and the values to 
 1. Complete the AdGuard Home setup wizard at `http://10.27.27.110:3000`
 2. Log into UniFi UX7 → change DHCP DNS from `10.27.27.193` to `10.27.27.110`
 3. Verify: `nslookup google.com 10.27.27.110` from any client
-4. Confirm the legacy Pi-hole at `.193` is no longer used; it was already unreachable during the 2026-09-29 audit
+4. Do not use the former Pi-hole address `.193`; UniFi now leases it to a Tuya smart-home client
 
 ## DNS rewrites to add in AdGuard Home
 

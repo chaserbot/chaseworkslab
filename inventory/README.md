@@ -115,15 +115,17 @@ NFS exports from MM1:
 | Device | Role | IP |
 | ------ | ---- | -- |
 | UniFi UX7 | Router / gateway | `10.27.27.1` |
-| USW Flex 2.5G 8-port PoE | Core switch (rack) | — |
-| USW Flex 2.5G Mini (4-port) | Desktop switch — MBP M3 Pro + 2017 MBP | — |
-| USW Lite 8-port PoE | Server switch — MM1, pve1–3, CK10 | — |
+| USW Flex 2.5G 8-port PoE | Core switch (rack) | `10.27.27.2` |
+| USW Flex Mini | Desktop switch — MBP M3 Pro + 2017 MBP | `10.27.27.157` |
+| USW Lite 8-port PoE | Server switch — MM1, pve1–3, CK10 | `10.27.27.4` |
+| U7 Pro | Basement access point | `10.27.27.5` |
 | TP-Link EAP225 Outdoor | Outdoor access point | `10.27.27.6` |
-| Pi-hole (UTM VM) | Legacy DNS — offline/unreachable during audit | `10.27.27.193` |
 
 Internal domain: `chaseworkslab.com`
 
-DNS resolver: AdGuard Home at `10.27.27.110` (replaces Pi-hole at `10.27.27.193`)
+DNS resolver: AdGuard Home at `10.27.27.110`. UniFi DHCP also advertises `1.1.1.1`; replace it with a second internal resolver after one is deployed.
+
+The retired Pi-hole formerly used `.193`, but UniFi now leases `.193` to a Tuya smart-home device. Do not use `.193` as a DNS or recovery address.
 Split DNS: pve1 (`10.27.27.101`) is Tailscale subnet router; `chaseworkslab.com` resolves on tailnet
 
 Node hostnames (AdGuard DNS rewrites → direct to host):
@@ -160,5 +162,5 @@ Config files live inside the Homepage LXC at `/opt/homepage/config/`. The servic
 - [ ] Disable or correct the stale `mini-pc.chaseworkslab.com` NPM entry (HTTP forwarding to SSH port 22)
 - [ ] Add HTTPS certificates/hosts for internal NPM routes — see `lxc/pve1/dns-proxy-entries.md`
 - [x] Deploy Homepage LXC (CT112, `10.27.27.112`)
-- [ ] Confirm no clients use legacy Pi-hole `.193`, then archive/remove the old VM and reservation
-- [ ] Update network backbone with correct Unifi router and switches
+- [x] Confirm the old Pi-hole address is retired; `.193` is now a Tuya client and is not a DNS server
+- [x] Update the network backbone with the live UniFi router, switches, access point, and addresses

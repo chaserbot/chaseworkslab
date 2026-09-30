@@ -24,7 +24,6 @@ Update this after significant changes.
 | Calibre-Web | Running | pve3 CT101 (`10.27.27.151:8083`) | E-book library; `ebooks.chaseworkslab.com/login` verified 2026-09-29 |
 | Uptime Kuma | Running | pve1 CT119 (`10.27.27.119`) | Direct endpoint works; friendly name currently reaches the NPM default site |
 | Paperless-ngx | Not deployed | — | Future service; its reserved friendly name currently reaches the NPM default site |
-| Pi-hole | Offline / legacy | Mac Mini #1 UTM VM (`10.27.27.193`) | DNS and web ports were unreachable on 2026-09-29; AdGuard Home replaced it |
 | pve1 | Clustered | `10.27.27.101` | Joined to cluster; no HA |
 | pve2 | Clustered | `10.27.27.102` | Joined to cluster; no HA |
 | pve3 | Clustered | `10.27.27.103` | Joined to cluster; no HA |
@@ -38,10 +37,14 @@ Update this after significant changes.
 
 ## Known issues
 
-- **Legacy Pi-hole record**: `.193` no longer answers on ports 53 or 80. Confirm no client still references it, then archive or remove the old VM and reservation.
+- **Retired Pi-hole**: AdGuard Home replaced the old Pi-hole. Its former `.193` address is now leased to a Tuya smart-home device, so `.193` must not be used as a Pi-hole recovery address.
 - **Deployment definitions incomplete**: several stateful services lack a current, sanitized deployment definition or restore procedure in git.
 - **Jellyfin**: not Dockerized, media path to Pegasus DAS not confirmed, Intel Quick Sync hardware transcoding not verified.
 - **Flat network**: all devices on `10.27.27.0/24` — no VLANs.
+- **DNS behavior**: DHCP advertises both AdGuard Home (`10.27.27.110`) and `1.1.1.1`. Clients may bypass filtering and internal DNS when they choose the public resolver; replace `1.1.1.1` only after a second internal resolver is available.
+- **Address-management overlap**: the DHCP pool is `10.27.27.150-254`, while Calibre-Web uses `.151`. Confirm a UniFi fixed-IP reservation for every infrastructure address inside this pool or move the dynamic pool above the infrastructure range.
+- **Network containment**: all 42 online clients, including numerous smart-home devices, servers, and personal devices, share the Default network with Allow All posture.
+- **UniFi security**: UPnP is off and there are no port forwards, but intrusion prevention is off and its detection engine has an update available.
 - **NPM HTTPS incomplete**: the tested service names route over HTTP, but HTTPS failed for names resolving internally to NPM.
 - **Homepage LXC**: running on CT112 (`10.27.27.112`); repository configs are deployed to `/opt/homepage/config/`.
 - **HTTPS is not working on internal proxy names**: HTTP proxy routes responded on 2026-09-25, but HTTPS connections to the names resolving to NPM failed. Configure certificates/SSL hosts or document HTTP-only intent.
@@ -58,6 +61,7 @@ Arr stack (Sonarr, Radarr, Prowlarr, qBittorrent, Seerr, FlareSolverr) running o
 
 ## Recent changes
 
+- 2026-09-29: Completed a read-only LAN and UniFi audit. Confirmed 42 online clients, five healthy UniFi devices, no port forwards, UPnP disabled, and good Wi-Fi channel separation. Recorded the flat-network risk, AdGuard bypass through DHCP fallback DNS, infrastructure/DHCP pool overlap, disabled intrusion prevention, and the reuse of former Pi-hole address `.193` by a Tuya device.
 - 2026-09-29: Re-audited all three Proxmox nodes, guest network definitions, direct service endpoints, NPM's live proxy database, HTTP/HTTPS behavior, and the legacy Pi-hole address. Corrected NPM to pve1 CT111, Calibre-Web to pve3 CT101, Paperless to not deployed, Uptime's friendly name to not configured, and Pi-hole to offline/legacy.
 - 2026-09-29: Restored Audiobookshelf on pve2 CT211 (`10.27.27.121:13378`). The service failed after an update because `/home/audiobookshelf/.cache` did not exist; created the cache path with `audiobookshelf` ownership, restarted the service, confirmed the BigPeggy NFS mount, and verified `audiobooks.chaseworkslab.com/audiobookshelf/login`.
 - 2026-09-26: Simplified the private IP Address Sheet by removing the obsolete legacy lookup-key column. `HiddenData` now uses columns A-C for IP, service, and password, with the automatic lookup key in column D; all 30 visible password formulas were verified and the helper sheet remains hidden.

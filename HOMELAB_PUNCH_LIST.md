@@ -14,7 +14,8 @@ Time estimates are approximate **hands-on time** for someone newer to homelabbin
 | 2 | Make a backup plan and back up the most important services | 2–4 hours, plus copy time |
 | 3 | Improve Uptime Kuma monitoring and notifications | 2–3 hours |
 | 4 | Add a health-check script and document updates | 2–4 hours |
-| Later | DNS redundancy, UPS planning, account cleanup, and VLANs | Several smaller sessions |
+| 5 | Clean up DHCP, DNS, UniFi names, and security updates | 1–2 hours |
+| Later | DNS redundancy, UPS planning, account cleanup, and IoT VLANs | Several smaller sessions |
 
 ## 1. Make sure the lab can be recovered
 
@@ -73,10 +74,15 @@ The goal is to rebuild from written instructions instead of memory.
 
 ## 7. Clean up network access
 
-- [ ] **Finish retiring the old Pi-hole record.** `.193` is already unreachable. Confirm the router and manually configured devices do not use it, then archive/remove the old VM and reservation. **Estimate: 30–60 minutes.**
-- [ ] **Check for public port forwards.** Proxmox, NPM admin, AdGuard, Glances, and application admin pages should normally be available only through the LAN or Tailscale. **Estimate: 30–60 minutes.**
+- [x] **Check for public port forwards and UPnP.** UniFi showed zero port-forwarding policies and UPnP disabled on 2026-09-29.
+- [ ] **Fix DHCP DNS after adding a second internal resolver.** DHCP currently gives clients AdGuard (`10.27.27.110`) plus `1.1.1.1`; the public server can bypass filtering and internal service names. Build a second AdGuard first, then replace `1.1.1.1` with it. **Estimate: 1–3 hours including the second resolver; 15–30 minutes for DHCP and testing.**
+- [ ] **Protect server addresses from DHCP conflicts.** The DHCP pool is `.150-.254`, but Calibre-Web uses `.151`. Confirm `.151` is reserved in UniFi, name the unnamed `.119`, `.121`, and `.151` clients, and check all fixed infrastructure addresses. **Estimate: 30–60 minutes.**
+- [ ] **Remove `.193` as a Pi-hole recovery address.** UniFi now identifies `.193` as a Tuya smart-home client. The old Pi-hole is retired; do not reserve or troubleshoot `.193` as DNS. **Estimate: 10–20 minutes for remaining document/sheet cleanup.**
+- [ ] **Update and enable UniFi intrusion prevention.** First install the pending detection-engine update, then enable Standard intrusion prevention and watch performance/alerts for a week. **Estimate: 30–60 minutes.**
+- [ ] **Create an IoT network in stages.** Start with a separate IoT VLAN/SSID for lights, plugs, appliances, vacuums, Ring/Nest devices, and smart speakers. Preserve only the discovery/control traffic you actually need. Move a few devices at a time. **Estimate: 3–6 hours across several sessions.**
+- [ ] **Create a guest Wi-Fi network.** Give visitors internet access without access to Proxmox, storage, or application admin pages. **Estimate: 20–45 minutes.**
+- [ ] **Decide whether gateway SSH should remain enabled.** The LAN scan found SSH on the UX7 and other infrastructure devices. Keep it only if you use it for support or recovery. **Estimate: 15–30 minutes.**
 - [ ] **Review service accounts and API tokens.** Use separate accounts where possible, give them only the permissions they need, and rotate old credentials. **Estimate: 2–4 hours across the lab.**
-- [ ] **Consider VLANs only after the earlier work is stable.** VLANs can separate servers, trusted devices, IoT devices, and guests, but they add troubleshooting complexity. **Estimate: 4–8 hours of planning and rollout, preferably across multiple sessions.**
 
 ## Verified during the audit
 
@@ -91,6 +97,9 @@ The goal is to rebuild from written instructions instead of memory.
 - docker-arr VM210: `10.27.27.47`
 - Jellyfin: `10.27.27.33:8096`
 - Glances: port `61208` on all three Proxmox nodes
+- UniFi: UX7 `.1`, USW Flex 2.5G 8 PoE `.2`, USW Lite 8 PoE `.4`, U7 Pro `.5`, and USW Flex Mini `.157`; all online
+- UniFi policies: no port forwards; UPnP off; default WAN firewall rules present; intrusion prevention off
+- LAN: 42 online clients, all on the Default network; DHCP pool `.150-.254`; DHCP DNS `.110` plus `1.1.1.1`
 
 ## How to use this list
 

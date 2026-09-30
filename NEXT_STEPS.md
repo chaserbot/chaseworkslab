@@ -88,7 +88,7 @@ Goal: use the three Proxmox nodes as the main service platform, with clear role 
 
 ### Phase 6 — migrate nonessential services off MM1
 
-1. ~~Move Pi-hole function to pve1~~ ✓ AdGuard Home on pve1 CT110 is the active resolver; safely decommission the old VM after a client audit
+1. ~~Move Pi-hole function to pve1~~ ✓ AdGuard Home on pve1 CT110 is the active resolver; the former `.193` address is now a Tuya client and is not a recovery address
 2. ~~Move Uptime Kuma off MM1~~ ✓ Running on pve1 CT119
 3. ~~Migrate arr stack off MM1~~ ✓ Running on docker-arr VM at `10.27.27.47`
 4. Keep MM1 focused on DAS/NFS/SMB

@@ -12,6 +12,16 @@ Format:
 
 ---
 
+## 2026-09-29: Use the UniFi inventory as the current network authority
+
+**Decision:** Treat the UniFi UX7 client and policy inventory as authoritative for current LAN membership. The old Pi-hole address `.193` is retired and is now used by a Tuya smart-home client. Prioritize consistent internal DNS, protected infrastructure addresses, and gradual IoT segmentation; do not make disruptive VLAN changes during the audit.
+
+**Why:** A read-only UniFi review confirmed 42 online clients on one Allow All network, DHCP range `10.27.27.150-254`, DHCP DNS servers `10.27.27.110` and `1.1.1.1`, zero port forwards, UPnP off, intrusion prevention off, and five healthy UniFi devices. The public DNS fallback can bypass AdGuard and internal names, and Calibre-Web `.151` sits inside the dynamic pool unless explicitly reserved.
+
+**Rollback:** This entry documents observed state and priorities only. Revert the documentation commit if a later UniFi export disproves a finding. No router, firewall, DHCP, Wi-Fi, or client settings were changed.
+
+---
+
 ## 2026-09-29: Reconcile live guest identities and reserved service names
 
 **Decision:** Use pve1 CT111 for Nginx Proxy Manager, pve3 CT101 for Calibre-Web, pve1 CT119 for Uptime Kuma, pve2 CT211 for Audiobookshelf, and pve2 VM210 for docker-arr. Treat Paperless as not deployed, the legacy Pi-hole at `.193` as offline, and `uptime.chaseworkslab.com` as reserved but not yet configured in NPM.

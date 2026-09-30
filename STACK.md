@@ -8,17 +8,17 @@ Update this file whenever a service is added, removed, or its port changes.
 | Component | Role | IP | Notes |
 | ----------- | ------ | ---- | ------- |
 | UniFi UX7 | Router / gateway | 10.27.27.1 | DHCP server; DNS points clients to AdGuard Home |
-| USW Flex 2.5G 8-port PoE | Core switch (rack) | — | Uplinks to UX7; distributes to all other switches |
-| USW Flex 2.5G Mini (4-port) | Desktop switch | — | MacBook Pro M3 Pro + 2017 MacBook Pro |
-| USW Lite 8-port PoE | Server switch | — | MM1, pve1, pve2, pve3, CK10 |
+| USW Flex 2.5G 8-port PoE | Core switch (rack) | 10.27.27.2 | 10 GbE uplink to UX7; distributes to other switches |
+| USW Flex Mini | Desktop switch | 10.27.27.157 | MacBook Pro M3 Pro + 2017 MacBook Pro |
+| USW Lite 8-port PoE | Server switch | 10.27.27.4 | MM1, pve1, pve2, pve3, CK10 |
+| U7 Pro | Indoor access point | 10.27.27.5 | Named `Basement U7 Pro` in UniFi |
 | TP-Link EAP225 Outdoor | AP (outdoor) | 10.27.27.6 | |
 | Lutron Caseta Hub | Smart home | 10.27.27.7 | |
 | MacBook Pro (M3 Pro) | Daily driver — company-issued | 10.27.27.11 | |
 | MacBook Pro (2017) | Secondary / admin machine | — | Connected via USW Flex 2.5G Mini |
-| Mac Mini #1 (macOS, A1347) | Main server / NAS brain | 10.27.27.22 | Pegasus DAS attached via Thunderbolt; NFS server for BigPeggy/LittlePeggy; legacy Pi-hole VM record needs cleanup |
+| Mac Mini #1 (macOS, A1347) | Main server / NAS brain | 10.27.27.22 | Pegasus DAS attached via Thunderbolt; NFS server for BigPeggy/LittlePeggy |
 | Ace Magician CK10 | Jellyfin media server | 10.27.27.33 | i7-1081U, 16GB RAM |
 | ChaseWorksLab NAS | TrueNAS — future build | 10.27.27.27 | Not yet built |
-| Pi-hole (UTM VM) | Legacy DNS / ad blocking | 10.27.27.193 | Offline/unreachable on DNS and web ports during 2026-09-29 audit; AdGuard Home replaced it |
 | pve1 (Mac Mini #2, A1347) | Proxmox Node 1 | 10.27.27.101 | Clustered |
 | pve2 (Mac Mini #3, A1347) | Proxmox Node 2 | 10.27.27.102 | Clustered |
 | pve3 (Mac Mini #4, A1347) | Proxmox Node 3 | 10.27.27.103 | Clustered |
@@ -29,11 +29,11 @@ Update this file whenever a service is added, removed, or its port changes.
 ## Network
 
 - **Subnet**: `10.27.27.0/24`
-- **All devices**: static IPs via DHCP reservations on UniFi UX7
-- **DNS**: AdGuard Home at `10.27.27.110` (pve1 CT110) — active; Pi-hole UTM VM (`10.27.27.193`) being phased out
+- **DHCP**: UniFi UX7, dynamic pool `10.27.27.150-254`; verify fixed reservations for infrastructure addresses within that range
+- **DNS**: DHCP advertises AdGuard Home at `10.27.27.110` plus `1.1.1.1`; the public fallback can bypass filtering and private names
 - **Split DNS (Tailscale)**: pve1 acts as Tailscale subnet router for `10.27.27.0/24`; `chaseworkslab.com` resolves correctly on tailnet
 - **Domain**: `chaseworkslab.com` — internal DNS rewrites active via AdGuard Home; `*.chaseworkslab.com` → `10.27.27.111` (NPM)
-- **VLANs**: none yet — flat network; segmentation deferred until Proxmox cluster is stable
+- **VLANs**: none yet — all 42 online clients use the Default network; staged IoT and guest separation is recommended
 
 ## Services and ports
 
@@ -51,7 +51,6 @@ Update this file whenever a service is added, removed, or its port changes.
 | Jellyfin | docker/ | `8096` | Ace Magician CK10 (`10.27.27.33`) | Running | Media server; not yet Dockerized; HW transcoding unverified |
 | Uptime Kuma | lxc/pve1/ | `3001` | pve1 CT119 (`10.27.27.119`) | Running | Direct endpoint works; NPM proxy host is not configured |
 | Paperless-ngx | — | Future `8000` | Not deployed | Planned | Reserved hostname currently shows the NPM default site |
-| Pi-hole | — | `53`, `80` | `10.27.27.193` (legacy UTM VM on MM1) | Offline | Router DNS uses AdGuard Home; ports 53/80 unreachable 2026-09-29 |
 | **AdGuard Home** | lxc/pve1/ | `53`, `80` | pve1 CT110 (`10.27.27.110`) | Running | DNS ad-blocking + rewrites; individual entry per service → `10.27.27.111` |
 | **Nginx Proxy Manager** | lxc/pve1/ | `80`, `443`, `81` (admin) | pve1 CT111 (`10.27.27.111`) | Running | Configured HTTP routes work; internal HTTPS needs repair |
 | **Homepage** | lxc/pve1/ | `3000` | pve1 CT112 (`10.27.27.112`) | Running | Native Node.js install via community script |
@@ -65,7 +64,7 @@ Update this file whenever a service is added, removed, or its port changes.
 | ------ | --------- | ------------- |
 | Docker + Compose | Container runtime | Mac Mini #1; planned for Proxmox LXCs |
 | Ansible | Config management | Mac Mini #1 (control node) |
-| UTM | macOS VM host | Mac Mini #1; legacy Pi-hole VM record is offline |
+| UTM | macOS VM host | Mac Mini #1; no active Pi-hole service |
 | fzf | Fuzzy finder | All machines (via dotfiles) |
 | eza | ls replacement | All machines (via dotfiles) |
 | Oh My Zsh + Powerlevel10k | Shell | macOS only (via dotfiles) |
